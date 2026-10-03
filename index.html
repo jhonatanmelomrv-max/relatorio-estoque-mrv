@@ -100,7 +100,8 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 <section class="panel" id="p-mud"><div id="mud"></div></section>
 <section class="panel" id="p-atu">
   <label class="drop" id="drop"><b>Arraste o relatório .xlsx aqui</b> ou toque para escolher<small>Ele compara com o relatório anterior e mostra o que entrou, o que saiu e o que mudou de preço.</small><input type="file" id="file" accept=".xlsx,.xls" hidden></label>
-  <div class="up2" style="margin-bottom:16px"><button class="btn" id="dl">⬇ Baixar estoque.json</button><button class="btn" id="reset">↺ Voltar ao relatório original</button></div>
+  <div class="card" style="padding:14px 18px;margin-bottom:12px"><label for="cod" style="display:block;font-weight:600;margin-bottom:6px">Código de atualização</label><input id="cod" type="password" inputmode="numeric" autocomplete="off" placeholder="Digite o código" style="width:100%;box-sizing:border-box;padding:12px 14px;font:inherit;border:1px solid var(--bd,#d5dae3);border-radius:10px;background:transparent;color:inherit"><div style="color:var(--mut);font-size:13px;margin-top:6px">Ao anexar o arquivo, o estoque é atualizado para todo o time.</div></div>
+  <div class="up2" style="margin-bottom:16px"><button class="btn" id="dl">⬇ Baixar estoque.json</button></div>
   <div class="h2">Histórico de atualizações</div><div class="card" style="padding:14px 18px"><ul class="hist" id="his" style="margin:0;padding-left:18px"></ul></div>
 </section>
 </div>
@@ -140,25 +141,42 @@ function compare(a,b){const d={entrou:[],saiu:[],preco:[],op:[]};
   a.forEach((o,u)=>{if(o.st==='Disponível'){const n=b.get(u);if(!n||n.st!=='Disponível')d.saiu.push({n:o,para:n?n.st:'removida'})}});return d}
 
 function setData(m,mt,pv,df,pm){cur=m;meta=mt;prev=pv;prevMeta=pm||null;diff=df||{entrou:[],saiu:[],preco:[],op:[]};render()}
+const API='https://app.imobiaapp.com.br';
+async function gz(txt){const s=new Blob([txt]).stream().pipeThrough(new CompressionStream('gzip'));const b=new Uint8Array(await new Response(s).arrayBuffer());let bin='';for(let i=0;i<b.length;i+=32768)bin+=String.fromCharCode.apply(null,b.subarray(i,i+32768));return btoa(bin)}
+async function ungz(b64){const bin=atob(b64),b=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)b[i]=bin.charCodeAt(i);const s=new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'));return JSON.parse(await new Response(s).text())}
+async function loadServer(){
+  const r=await fetch(API+'/estoque-mrv-dados',{cache:'no-store'});if(!r.ok)throw new Error('http '+r.status);
+  const j=await r.json();if(!j||!j.atual||!j.atual.gz)return false;
+  const a=await ungz(j.atual.gz);const n=fromBase(a.dados);
+  let pv=null,pm=null;if(j.anterior&&j.anterior.gz){const p=await ungz(j.anterior.gz);pv=fromBase(p.dados);pm=j.anterior.meta}
+  setData(n,j.atual.meta,pv,pv?compare(pv,n):null,pm);return true;
+}
 async function boot(){
+  hist=ld('est_hist')||[];
+  try{if(await loadServer())return}catch(e){console.warn('servidor indisponível, usando arquivo publicado',e)}
   let m=fromBase(BASE),mt=BASE_META;
   try{const r=await fetch('estoque.json',{cache:'no-store'});if(r.ok){const j=await r.json();m=fromBase(j.dados);mt=j.meta}}catch(e){}
-  hist=ld('est_hist')||[];const s=ld('est_snap');
-  if(s&&s.meta&&s.meta.data>=mt.data){const pv=s.prev?fromBase(s.prev):null;const n=fromBase(s.dados);setData(n,s.meta,pv,pv?compare(pv,n):null,s.prevMeta)}
-  else setData(m,mt,null,null);
+  setData(m,mt,null,null);
 }
 async function onFile(f){
   if(!f)return;
+  const cod=($('#cod').value||'').trim();
+  if(!cod){toast('Digite o código de atualização antes de anexar o arquivo');return}
   try{const wb=XLSX.read(await f.arrayBuffer(),{type:'array'});
     const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:null});
     if(!rows.length||!('Unidade' in rows[0])||!('Status da unidade' in rows[0])){toast('Arquivo fora do padrão: faltam as colunas Unidade / Status da unidade');return}
     const nm=parseSheet(rows),df=compare(cur,nm);
     const mt={arquivo:f.name,data:new Date().toISOString(),linhas:nm.size};
+    toast('Publicando para o time…');
+    const body=JSON.stringify({codigo:cod,meta:JSON.stringify(mt),gz:await gz(JSON.stringify({dados:toBase(nm)}))});
+    let r;try{r=await fetch(API+'/estoque-mrv-publicar',{method:'POST',headers:{'Content-Type':'application/json'},body})}catch(e){toast('Sem conexão com o servidor. Nada foi atualizado.');return}
+    if(r.status===401){toast('Código incorreto. Nada foi atualizado.');return}
+    if(!r.ok){toast('Erro ao publicar ('+r.status+'). Nada foi atualizado.');return}
+    sv('est_cod',cod);
     hist.unshift({data:mt.data,arquivo:f.name,total:[...nm.values()].filter(x=>x.st==='Disponível').length,entrou:df.entrou.length,saiu:df.saiu.length,preco:df.preco.length,op:df.op.length});
     hist=hist.slice(0,50);sv('est_hist',hist);
-    const ok=sv('est_snap',{dados:toBase(nm),prev:toBase(cur),meta:mt,prevMeta:meta});
-    setData(nm,mt,cur,df,meta);
-    toast(`+${df.entrou.length} entraram · −${df.saiu.length} saíram · ${df.preco.length} com preço novo · ${df.op.length} com oportunidades alteradas`+(ok?'':' (não consegui salvar no navegador)'));
+    try{await loadServer()}catch(e){setData(nm,mt,cur,df,meta)}
+    toast(`Publicado para o time! +${df.entrou.length} entraram · −${df.saiu.length} saíram · ${df.preco.length} com preço novo · ${df.op.length} com oportunidades alteradas`);
     document.querySelector('[data-t=mud]').click();
   }catch(e){console.error(e);toast('Não consegui ler esse arquivo')}
 }
@@ -235,7 +253,7 @@ function renderMud(){
    s('Oportunidades mudaram','p-op',diff.op.length)+tabelaMud(diff.op,['Empreendimento','Unidade','Antes','Agora','Variação'],x=>{const a=x.o.op||0,b=x.n.op||0,d=b-a;return `<tr><td>${esc(nome(x.n.emp))}</td><td>${esc(apto(x.n))}</td><td>${a}</td><td><b>${b}</b></td><td class="${d>0?'up':'dn'}">${d>0?'+':''}${d}</td></tr>`});
   $('#wa').onclick=copyWA;$('#csvm').onclick=csvMud;
 }
-function renderHis(){$('#his').innerHTML=hist.length?hist.map(h=>`<li><b>${new Date(h.data).toLocaleString('pt-BR')}</b> — ${esc(h.arquivo)}: ${h.total} disponíveis · <span class="up">+${h.entrou}</span> <span class="dn">−${h.saiu}</span> · ${h.preco} preços alterados${h.op!=null?' · '+h.op+' com oportunidades alteradas':''}</li>`).join(''):'<li>Nenhuma atualização feita neste navegador ainda.</li>'}
+function renderHis(){$('#his').innerHTML=hist.length?hist.map(h=>`<li><b>${new Date(h.data).toLocaleString('pt-BR')}</b> — ${esc(h.arquivo)}: ${h.total} disponíveis · <span class="up">+${h.entrou}</span> <span class="dn">−${h.saiu}</span> · ${h.preco} preços alterados${h.op!=null?' · '+h.op+' com oportunidades alteradas':''}</li>`).join(''):'<li>Nenhuma atualização publicada por este aparelho ainda.</li>'}
 function render(){
   const dt=new Date(meta.data);
   $('#meta').textContent=`${meta.arquivo||'Relatório'} · ${dt.toLocaleDateString('pt-BR')} ${dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
@@ -267,7 +285,7 @@ dz.addEventListener('drop',ev=>onFile(ev.dataTransfer.files[0]));
 $('#file').onchange=e=>{onFile(e.target.files[0]);e.target.value=''};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#p-'+b.dataset.t).classList.add('on')});
 $('#dl').onclick=()=>download('estoque.json',JSON.stringify({meta,cols:COLS,dados:toBase(cur)}),'application/json');
-$('#reset').onclick=()=>{try{localStorage.removeItem('est_snap');localStorage.removeItem('est_hist')}catch(e){}hist=[];setData(fromBase(BASE),BASE_META,null,null);toast('Voltou ao relatório original')};
+try{const c=localStorage.getItem('est_cod');if(c)$('#cod').value=JSON.parse(c)}catch(e){}
 $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedStyle(r).getPropertyValue('--bg').trim()==='#0d1220';r.dataset.theme=d?'light':'dark'};
 boot();
 </script>
