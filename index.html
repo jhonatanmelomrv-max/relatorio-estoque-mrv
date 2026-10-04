@@ -79,7 +79,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .up2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .drop{display:block;border:2px dashed var(--line);background:var(--card);border-radius:16px;padding:26px;text-align:center;cursor:pointer;margin-bottom:14px}
 .drop.over,.drop:hover{border-color:var(--pri);background:var(--pri2)}.drop small{display:block;color:var(--mut);margin-top:4px}
-.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
+.rk-hint{font-size:13px;color:var(--mut);margin:-4px 0 12px;line-height:1.4}.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
 @media(max-width:560px){.rk-sel{grid-template-columns:1fr 1fr}.rk-sel label:first-child{grid-column:1/-1}}
 .rk{padding:18px}.rk-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rk label{display:block;font-size:12px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .rk input[type=text],.rk-g input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:650;text-transform:none;letter-spacing:0}
@@ -125,6 +125,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <label>Apto<select id="rk-a" disabled></select></label>
     </div>
     <div class="rk-info" id="rk-info" hidden></div>
+    <div class="rk-hint">Nos campos de valor: digite os reais e, para centavos, aperte a <b>vírgula</b> e digite-os (ex.: 230000,50).</div>
     <div class="rk-g">
       <label>Valor do imóvel<input id="rk-v" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00"></label>
       <label>Cupom / desconto<input id="rk-c" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00"></label>
