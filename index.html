@@ -126,9 +126,9 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
     </div>
     <div class="rk-info" id="rk-info" hidden></div>
     <div class="rk-g">
-      <label>Valor do imóvel<input id="rk-v" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
-      <label>Cupom / desconto<input id="rk-c" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
-      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
+      <label>Valor do imóvel<input id="rk-v" inputmode="decimal" autocomplete="off" placeholder="R$ 0"></label>
+      <label>Cupom / desconto<input id="rk-c" inputmode="decimal" autocomplete="off" placeholder="R$ 0"></label>
+      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" inputmode="decimal" autocomplete="off" placeholder="R$ 0"></label>
     </div>
     <div class="rk-base" id="rk-base"></div>
 
@@ -336,8 +336,9 @@ $('#file').onchange=e=>{onFile(e.target.files[0]);e.target.value=''};
 /* ---------- calculadora de risco ---------- */
 const BRL2=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const rk={v:264000,c:0,f:0,t:25,k:18,n:48};
-const rkNum=s=>Number(String(s).replace(/\D/g,''))||0;
-const rkMask=n=>n?'R$ '+new Intl.NumberFormat('pt-BR').format(n):'';
+const rkNum=s=>{const t=String(s).replace(/[^\d,]/g,'').replace(',','.');return Math.round((parseFloat(t)||0)*100)/100};
+const rkLive=s=>{s=String(s).replace(/[^\d,]/g,'');const i=s.indexOf(',');let a=i<0?s:s.slice(0,i),d=i<0?null:s.slice(i+1).replace(/,/g,'').slice(0,2);a=a.replace(/^0+(?=\d)/,'');a=a.replace(/\B(?=(\d{3})+(?!\d))/g,'.');if(!a&&d===null)return'';return 'R$ '+(a||'0')+(d===null?'':','+d)};
+const rkMask=n=>n?'R$ '+new Intl.NumberFormat('pt-BR',{minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2}).format(n):'';
 const rkPct=s=>{const x=parseFloat(String(s).replace(',','.').replace(/[^0-9.]/g,''));return isNaN(x)?null:x};
 const rkFmt=x=>String(Math.round(x*100)/100).replace('.',',');
 const rkClamp=(x,a,b)=>Math.min(b,Math.max(a,isNaN(x)?a:x));
@@ -364,9 +365,9 @@ function rkSync(skip){
 }
 function rkSetT(x,from){rk.t=rkClamp(Math.round(x*100)/100,0,30);if(rk.k>rk.t)rk.k=rk.t;rkSync(from)}
 function rkSetK(x,from){rk.k=rkClamp(Math.round(x*100)/100,0,rk.t);rkSync(from)}
-$('#rk-v').oninput=e=>{rk.v=rkNum(e.target.value);e.target.value=rkMask(rk.v);rkUpdate()};
-$('#rk-c').oninput=e=>{rk.c=rkNum(e.target.value);e.target.value=rkMask(rk.c);rkUpdate()};
-$('#rk-f').oninput=e=>{rk.f=rkNum(e.target.value);e.target.value=rkMask(rk.f);rkUpdate()};
+$('#rk-v').oninput=e=>{e.target.value=rkLive(e.target.value);rk.v=rkNum(e.target.value);rkUpdate()};
+$('#rk-c').oninput=e=>{e.target.value=rkLive(e.target.value);rk.c=rkNum(e.target.value);rkUpdate()};
+$('#rk-f').oninput=e=>{e.target.value=rkLive(e.target.value);rk.f=rkNum(e.target.value);rkUpdate()};
 $('#rk-ts').oninput=e=>rkSetT(parseFloat(e.target.value),'ts');
 $('#rk-tn').oninput=e=>{const x=rkPct(e.target.value);if(x!==null)rkSetT(x,'tn')};
 $('#rk-ks').oninput=e=>rkSetK(parseFloat(e.target.value),'ks');
