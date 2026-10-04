@@ -79,6 +79,8 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .up2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .drop{display:block;border:2px dashed var(--line);background:var(--card);border-radius:16px;padding:26px;text-align:center;cursor:pointer;margin-bottom:14px}
 .drop.over,.drop:hover{border-color:var(--pri);background:var(--pri2)}.drop small{display:block;color:var(--mut);margin-top:4px}
+.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
+@media(max-width:560px){.rk-sel{grid-template-columns:1fr 1fr}.rk-sel label:first-child{grid-column:1/-1}}
 .rk{padding:18px}.rk-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rk label{display:block;font-size:12px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .rk input[type=text],.rk-g input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:650;text-transform:none;letter-spacing:0}
 .rk-base{margin:10px 0 4px;color:var(--mut);font-size:13px}.rk-base b{color:var(--ink)}
@@ -117,6 +119,12 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 <section class="panel" id="p-risco">
   <div class="h2">Calculadora de risco</div>
   <div class="card rk">
+    <div class="rk-sel">
+      <label>Produto<select id="rk-e"></select></label>
+      <label>Bloco<select id="rk-b" disabled></select></label>
+      <label>Apto<select id="rk-a" disabled></select></label>
+    </div>
+    <div class="rk-info" id="rk-info" hidden></div>
     <div class="rk-g">
       <label>Valor do imóvel<input id="rk-v" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
       <label>Cupom / desconto<input id="rk-c" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
@@ -181,7 +189,7 @@ function compare(a,b){const d={entrou:[],saiu:[],preco:[],op:[]};
     if(o&&n.st==='Disponível'&&(o.op||0)!==(n.op||0))d.op.push({n,o})});
   a.forEach((o,u)=>{if(o.st==='Disponível'){const n=b.get(u);if(!n||n.st!=='Disponível')d.saiu.push({n:o,para:n?n.st:'removida'})}});return d}
 
-function setData(m,mt,pv,df,pm){cur=m;meta=mt;prev=pv;prevMeta=pm||null;diff=df||{entrou:[],saiu:[],preco:[],op:[]};render()}
+function setData(m,mt,pv,df,pm){cur=m;meta=mt;prev=pv;prevMeta=pm||null;diff=df||{entrou:[],saiu:[],preco:[],op:[]};render();if(typeof rkFillE==='function')rkFillE()}
 const API='https://app.imobiaapp.com.br';
 async function gz(txt){const s=new Blob([txt]).stream().pipeThrough(new CompressionStream('gzip'));const b=new Uint8Array(await new Response(s).arrayBuffer());let bin='';for(let i=0;i<b.length;i+=32768)bin+=String.fromCharCode.apply(null,b.subarray(i,i+32768));return btoa(bin)}
 async function ungz(b64){const bin=atob(b64),b=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)b[i]=bin.charCodeAt(i);const s=new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'));return JSON.parse(await new Response(s).text())}
@@ -329,7 +337,7 @@ $('#file').onchange=e=>{onFile(e.target.files[0]);e.target.value=''};
 const BRL2=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const rk={v:264000,c:0,f:0,t:25,k:18,n:48};
 const rkNum=s=>Number(String(s).replace(/\D/g,''))||0;
-const rkMask=n=>n?new Intl.NumberFormat('pt-BR').format(n):'';
+const rkMask=n=>n?'R$ '+new Intl.NumberFormat('pt-BR').format(n):'';
 const rkPct=s=>{const x=parseFloat(String(s).replace(',','.').replace(/[^0-9.]/g,''));return isNaN(x)?null:x};
 const rkFmt=x=>String(Math.round(x*100)/100).replace('.',',');
 const rkClamp=(x,a,b)=>Math.min(b,Math.max(a,isNaN(x)?a:x));
@@ -368,6 +376,33 @@ $('#rk-nn').oninput=e=>{if(e.target.value===''){return}rk.n=rkClamp(Math.round(+
 $('#rk-nn').onblur=e=>{e.target.value=rk.n};
 $('#rk-tn').onblur=()=>$('#rk-tn').value=rkFmt(rk.t);$('#rk-kn').onblur=()=>$('#rk-kn').value=rkFmt(rk.k);
 $('#rk-v').value=rkMask(rk.v);$('#rk-nn').value=rk.n;rkSync();
+let rkLock=false;
+const rkParts=o=>{const p=o.u.split(' - ');const a=(p[p.length-1]||'').replace(/^APTO\s*/i,'');const m=p.slice(1,-1).filter(x=>x!==o.tip);return{b:m.join(' · ')||'Único',a}};
+function rkOpts(sel,items,ph){sel.innerHTML=`<option value="">${ph}</option>`+items.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join('')}
+function rkAvail(){return[...cur.values()].filter(o=>o.st==='Disponível'&&o.val!=null)}
+function rkFillE(){
+  const sel=$('#rk-e'),old=sel.value;const L=rkAvail();const es=[...new Set(L.map(o=>o.emp))].sort((a,b)=>nome(a).localeCompare(nome(b)));
+  rkOpts(sel,es.map(e=>[e,nome(e)]),'Escolha o produto');if(es.includes(old))sel.value=old;rkFillB()
+}
+function rkFillB(){
+  const e=$('#rk-e').value,sb=$('#rk-b'),old=sb.value;const L=rkAvail().filter(o=>o.emp===e);
+  const bs=[...new Set(L.map(o=>rkParts(o).b))].sort((a,b)=>a.localeCompare(b,'pt',{numeric:true}));
+  rkOpts(sb,bs.map(b=>[b,b]),'Bloco');sb.disabled=!e;if(bs.includes(old))sb.value=old;rkFillA()
+}
+function rkFillA(){
+  const e=$('#rk-e').value,b=$('#rk-b').value,sa=$('#rk-a'),old=sa.value;
+  const L=rkAvail().filter(o=>o.emp===e&&rkParts(o).b===b).sort((x,y)=>aptoN(x)-aptoN(y));
+  rkOpts(sa,L.map(o=>[o.u,rkParts(o).a+' · '+fm(o.val)]),'Apto');sa.disabled=!b;if(L.some(o=>o.u===old))sa.value=old;rkPick()
+}
+function rkPick(){
+  const u=$('#rk-a').value,o=u&&cur.get(u),inf=$('#rk-info'),v=$('#rk-v');
+  if(o){rk.v=o.val;v.value=rkMask(rk.v);v.readOnly=true;rkLock=true;inf.hidden=false;inf.innerHTML=`<span>${esc(o.tip)}${o.ai?' · '+o.ai+' m²':''} · valor travado da tabela</span><a id="rk-free">digitar outro valor</a>`;$('#rk-free').onclick=()=>{$('#rk-e').value='';rkFillB()}}
+  else{if(rkLock){v.readOnly=false;rkLock=false}inf.hidden=true}
+  rkUpdate()
+}
+$('#rk-e').onchange=rkFillB;$('#rk-b').onchange=rkFillA;$('#rk-a').onchange=rkPick;
+rkFillE();
+
 
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#p-'+b.dataset.t).classList.add('on')});
 $('#dl').onclick=()=>download('estoque.json',JSON.stringify({meta,cols:COLS,dados:toBase(cur)}),'application/json');
