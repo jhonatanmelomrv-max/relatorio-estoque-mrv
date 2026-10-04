@@ -79,6 +79,15 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .up2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .drop{display:block;border:2px dashed var(--line);background:var(--card);border-radius:16px;padding:26px;text-align:center;cursor:pointer;margin-bottom:14px}
 .drop.over,.drop:hover{border-color:var(--pri);background:var(--pri2)}.drop small{display:block;color:var(--mut);margin-top:4px}
+.rk{padding:18px}.rk-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rk label{display:block;font-size:12px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.rk input[type=text],.rk-g input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:650;text-transform:none;letter-spacing:0}
+.rk-base{margin:10px 0 4px;color:var(--mut);font-size:13px}.rk-base b{color:var(--ink)}
+.rk-s{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.rk-h{display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.rk-n{width:72px;padding:7px 8px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-weight:700;font-size:16px;text-align:right;margin:0 2px}.rk-nv{width:58px;display:inline-block;text-align:center}
+.rk input[type=range]{width:100%;margin:12px 0 4px;accent-color:var(--pri);height:28px}
+.rk-r{margin-top:6px}.rk-val{font-size:26px;font-weight:780;letter-spacing:-.02em}.rk-d{color:var(--mut);font-size:13px;margin-top:2px;line-height:1.5}.rk-m{margin-top:6px;font-size:14px;font-weight:650;color:var(--pri)}
+.rk-res{margin-top:20px;border-radius:14px;padding:14px 16px;border:1px solid var(--line)}.rk-res.ok{background:var(--okbg);border-color:transparent}.rk-res.no{background:var(--badbg);border-color:transparent}.rk-res .ln{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:14px}.rk-res .ln b{white-space:nowrap}.rk-res .tt{font-weight:760;font-size:15px}
+.rk-diff{margin-top:20px;background:var(--pri2);border-radius:14px;padding:14px 16px}.rk-diff .rk-val{color:var(--pri);margin-top:4px}
 .hist li{margin:5px 0;color:var(--mut);font-size:13px}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;max-width:90vw;text-align:center}.toast.on{opacity:1}
 </style>
@@ -94,6 +103,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
   <button class="tab on" data-t="est">Estoque</button>
   <button class="tab" data-t="mud">Mudanças <span class="n" id="nmud">0</span></button>
   <button class="tab" data-t="atu">Atualizar</button>
+  <button class="tab" data-t="risco">Risco por produto</button>
 </div>
 
 <section class="panel on" id="p-est"><div id="nav"></div></section>
@@ -103,6 +113,37 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
   <div class="card" style="padding:14px 18px;margin-bottom:12px"><label for="cod" style="display:block;font-weight:600;margin-bottom:6px">Código de atualização</label><input id="cod" type="password" inputmode="numeric" autocomplete="off" placeholder="Digite o código" style="width:100%;box-sizing:border-box;padding:12px 14px;font:inherit;border:1px solid var(--bd,#d5dae3);border-radius:10px;background:transparent;color:inherit"><div style="color:var(--mut);font-size:13px;margin-top:6px">Ao anexar o arquivo, o estoque é atualizado para todo o time.</div></div>
   <div class="up2" style="margin-bottom:16px"><button class="btn" id="dl">⬇ Baixar estoque.json</button></div>
   <div class="h2">Histórico de atualizações</div><div class="card" style="padding:14px 18px"><ul class="hist" id="his" style="margin:0;padding-left:18px"></ul></div>
+</section>
+<section class="panel" id="p-risco">
+  <div class="h2">Calculadora de risco</div>
+  <div class="card rk">
+    <div class="rk-g">
+      <label>Valor do imóvel<input id="rk-v" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
+      <label>Cupom / desconto<input id="rk-c" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
+      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" inputmode="numeric" autocomplete="off" placeholder="R$ 0"></label>
+    </div>
+    <div class="rk-base" id="rk-base"></div>
+
+    <div class="rk-s">
+      <div class="rk-h"><b>Risco total</b><span><input id="rk-tn" class="rk-n" type="number" min="0" max="30" step="0.5" inputmode="decimal">%</span></div>
+      <input id="rk-ts" type="range" min="0" max="30" step="0.5">
+      <div class="rk-r"><div class="rk-val" id="rk-tv"></div><div class="rk-d">Valor máximo que a construtora seguraria.</div></div>
+    </div>
+
+    <div class="rk-s">
+      <div class="rk-h"><b>Risco carteira</b><span><input id="rk-kn" class="rk-n" type="number" min="0" max="30" step="0.5" inputmode="decimal">%</span></div>
+      <input id="rk-ks" type="range" min="0" max="30" step="0.5">
+      <div class="rk-r"><div class="rk-val" id="rk-kv"></div><div class="rk-d">Esse é o valor que a construtora parcela em até <input id="rk-nn" class="rk-n rk-nv" type="number" min="1" max="48" step="1" inputmode="numeric"> vezes (máximo 48).</div>
+      <div class="rk-m" id="rk-km"></div></div>
+    </div>
+
+    <div class="rk-diff">
+      <div class="rk-h"><b>Diferença entre carteira e total</b></div>
+      <div class="rk-val" id="rk-dv"></div>
+      <div class="rk-d">Essa é a diferença máxima que fica entre o sinal e as mensais.</div>
+    </div>
+    <div class="rk-res" id="rk-res" hidden></div>
+  </div>
 </section>
 </div>
 <div class="toast" id="toast"></div>
@@ -283,6 +324,49 @@ const dz=$('#drop');
 ['dragleave','drop'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.remove('over')}));
 dz.addEventListener('drop',ev=>onFile(ev.dataTransfer.files[0]));
 $('#file').onchange=e=>{onFile(e.target.files[0]);e.target.value=''};
+
+/* ---------- calculadora de risco ---------- */
+const BRL2=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const rk={v:264000,c:0,f:0,t:25,k:18,n:48};
+const rkNum=s=>Number(String(s).replace(/\D/g,''))||0;
+const rkMask=n=>n?new Intl.NumberFormat('pt-BR').format(n):'';
+const rkClamp=(x,a,b)=>Math.min(b,Math.max(a,isNaN(x)?a:x));
+function rkUpdate(){
+  const base=Math.max(0,rk.v-rk.c),tv=base*rk.t/100,kv=base*rk.k/100,dv=tv-kv;
+  $('#rk-base').innerHTML=base?`Valor considerado: <b>${BRL2.format(base)}</b>${rk.c?` (imóvel ${BRL2.format(rk.v)} − cupom ${BRL2.format(rk.c)})`:''}`:'Digite o valor do imóvel para calcular.';
+  $('#rk-tv').textContent=BRL2.format(tv);$('#rk-kv').textContent=BRL2.format(kv);$('#rk-dv').textContent=BRL2.format(dv);
+  $('#rk-km').textContent=kv?`${rk.n}x de ${BRL2.format(kv/rk.n)}`:'';
+  const R=$('#rk-res');
+  if(!rk.f||!base){R.hidden=true;return}
+  const ent=Math.max(0,base-rk.f),pct=ent/base*100,ok=ent<=tv+0.005;
+  const par=Math.min(ent,kv),resto=Math.max(0,ent-kv),exc=Math.max(0,ent-tv);
+  R.hidden=false;R.className='rk-res '+(ok?'ok':'no');
+  R.innerHTML=`<div class="tt">${ok?'✓ Dentro do risco total':'✗ Passa do risco total'}</div>
+   <div class="ln"><span>Entrada (valor considerado − financiamento)</span><b>${BRL2.format(ent)}</b></div>
+   <div class="ln"><span>Risco da proposta</span><b>${pct.toFixed(1).replace('.',',')}%</b></div>
+   `+(ok?`<div class="ln"><span>Parcelado pela construtora (até ${rk.n}x)</span><b>${BRL2.format(par)}${par?` · ${rk.n}x de ${BRL2.format(par/rk.n)}`:''}</b></div>
+   <div class="ln"><span>Entre o sinal e as mensais</span><b>${BRL2.format(resto)}</b></div>`:`<div class="ln"><span>Passa do risco total em</span><b>${BRL2.format(exc)}</b></div>
+   <div class="ln"><span>Para caber, o financiamento precisa ser de pelo menos</span><b>${BRL2.format(base-tv)}</b></div>`);
+}
+function rkSync(skip){
+  if(skip!=='ts')$('#rk-ts').value=rk.t;if(skip!=='tn')$('#rk-tn').value=rk.t;
+  if(skip!=='ks')$('#rk-ks').value=rk.k;if(skip!=='kn')$('#rk-kn').value=rk.k;
+  rkUpdate();
+}
+function rkSetT(x,from){rk.t=rkClamp(Math.round(x*10)/10,0,30);if(rk.k>rk.t)rk.k=rk.t;rkSync(from)}
+function rkSetK(x,from){rk.k=rkClamp(Math.round(x*10)/10,0,rk.t);rkSync(from)}
+$('#rk-v').oninput=e=>{rk.v=rkNum(e.target.value);e.target.value=rkMask(rk.v);rkUpdate()};
+$('#rk-c').oninput=e=>{rk.c=rkNum(e.target.value);e.target.value=rkMask(rk.c);rkUpdate()};
+$('#rk-f').oninput=e=>{rk.f=rkNum(e.target.value);e.target.value=rkMask(rk.f);rkUpdate()};
+$('#rk-ts').oninput=e=>rkSetT(parseFloat(e.target.value),'ts');
+$('#rk-tn').oninput=e=>{if(e.target.value!=='')rkSetT(parseFloat(e.target.value),'tn')};
+$('#rk-ks').oninput=e=>rkSetK(parseFloat(e.target.value),'ks');
+$('#rk-kn').oninput=e=>{if(e.target.value!=='')rkSetK(parseFloat(e.target.value),'kn')};
+$('#rk-nn').oninput=e=>{if(e.target.value===''){return}rk.n=rkClamp(Math.round(+e.target.value),1,48);rkUpdate()};
+$('#rk-nn').onblur=e=>{e.target.value=rk.n};
+$('#rk-tn').onblur=()=>$('#rk-tn').value=rk.t;$('#rk-kn').onblur=()=>$('#rk-kn').value=rk.k;
+$('#rk-v').value=rkMask(rk.v);$('#rk-nn').value=rk.n;rkSync();
+
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#p-'+b.dataset.t).classList.add('on')});
 $('#dl').onclick=()=>download('estoque.json',JSON.stringify({meta,cols:COLS,dados:toBase(cur)}),'application/json');
 try{const c=localStorage.getItem('est_cod');if(c)$('#cod').value=JSON.parse(c)}catch(e){}
