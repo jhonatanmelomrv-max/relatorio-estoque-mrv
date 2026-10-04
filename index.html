@@ -85,7 +85,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .rk input[type=text],.rk-g input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:650;text-transform:none;letter-spacing:0}
 .rk-base{margin:10px 0 4px;color:var(--mut);font-size:13px}.rk-base b{color:var(--ink)}
 .rk-s{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.rk-h{display:flex;justify-content:space-between;align-items:center;font-size:15px}
-.rk-n{width:72px;padding:7px 8px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-weight:700;font-size:16px;text-align:right;margin:0 2px}.rk-nv{width:58px;display:inline-block;text-align:center}
+.rk-n{width:72px;padding:7px 8px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-weight:700;font-size:16px;text-align:right;margin:0 2px}.rk-nv{width:58px;display:inline-block;text-align:center}.rk input.rk-n{display:inline-block;width:72px;margin:0 2px;padding:7px 8px;font-size:16px}.rk input.rk-nv{width:58px;text-align:center}
 .rk input[type=range]{width:100%;margin:12px 0 4px;accent-color:var(--pri);height:28px}
 .rk-r{margin-top:6px}.rk-val{font-size:26px;font-weight:780;letter-spacing:-.02em}.rk-d{color:var(--mut);font-size:13px;margin-top:2px;line-height:1.5}.rk-m{margin-top:6px;font-size:14px;font-weight:650;color:var(--pri)}
 .rk-res{margin-top:20px;border-radius:14px;padding:14px 16px;border:1px solid var(--line)}.rk-res.ok{background:var(--okbg);border-color:transparent}.rk-res.no{background:var(--badbg);border-color:transparent}.rk-res .ln{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:14px}.rk-res .ln b{white-space:nowrap}.rk-res .tt{font-weight:760;font-size:15px}
@@ -348,15 +348,14 @@ function rkUpdate(){
   $('#rk-km').textContent=kv?`${rk.n}x de ${BRL2.format(kv/rk.n)}`:'';
   const R=$('#rk-res');
   if(!rk.f||!base){R.hidden=true;return}
-  const ent=Math.max(0,base-rk.f),pct=ent/base*100,ok=ent<=tv+0.005;
-  const par=Math.min(ent,kv),resto=Math.max(0,ent-kv),exc=Math.max(0,ent-tv);
+  const ent=Math.max(0,base-rk.f),pct=ent/base*100,ato=Math.max(0,ent-tv),dentro=ent-ato,par=Math.min(dentro,kv),resto=dentro-par,ok=ato<0.005;
   R.hidden=false;R.className='rk-res '+(ok?'ok':'no');
-  R.innerHTML=`<div class="tt">${ok?'✓ Dentro do risco total':'✗ Passa do risco total'}</div>
+  R.innerHTML=`<div class="tt">${ok?'✓ Sem ato: tudo cabe no risco total':'Ato de '+BRL2.format(ato)+' para pagar na hora'}</div>
    <div class="ln"><span>Entrada (valor considerado − financiamento)</span><b>${BRL2.format(ent)}</b></div>
    <div class="ln"><span>Risco da proposta</span><b>${pct.toFixed(1).replace('.',',')}%</b></div>
-   `+(ok?`<div class="ln"><span>Parcelado pela construtora (até ${rk.n}x)</span><b>${BRL2.format(par)}${par?` · ${rk.n}x de ${BRL2.format(par/rk.n)}`:''}</b></div>
-   <div class="ln"><span>Entre o sinal e as mensais</span><b>${BRL2.format(resto)}</b></div>`:`<div class="ln"><span>Passa do risco total em</span><b>${BRL2.format(exc)}</b></div>
-   <div class="ln"><span>Para caber, o financiamento precisa ser de pelo menos</span><b>${BRL2.format(base-tv)}</b></div>`);
+   <div class="ln"><span>Ato (o que passa do risco total, na hora)</span><b>${BRL2.format(ato)}</b></div>
+   <div class="ln"><span>Parcelado pela construtora (até ${rk.n}x)</span><b>${BRL2.format(par)}${par?` · ${rk.n}x de ${BRL2.format(par/rk.n)}`:''}</b></div>
+   <div class="ln"><span>Entre o sinal e as mensais</span><b>${BRL2.format(resto)}</b></div>`;
 }
 function rkSync(skip){
   if(skip!=='ts')$('#rk-ts').value=rk.t;if(skip!=='tn')$('#rk-tn').value=rkFmt(rk.t);
@@ -401,6 +400,15 @@ function rkPick(){
   rkUpdate()
 }
 $('#rk-e').onchange=rkFillB;$('#rk-b').onchange=rkFillA;$('#rk-a').onchange=rkPick;
+
+const rkOrder=['rk-e','rk-b','rk-a','rk-v','rk-c','rk-f','rk-tn','rk-kn','rk-nn'];
+function rkNext(id){
+  const i=rkOrder.indexOf(id);
+  for(let j=i+1;j<rkOrder.length;j++){const el=document.getElementById(rkOrder[j]);if(el&&!el.disabled&&!el.readOnly){el.focus();if(el.select&&el.tagName==='INPUT')el.select();return}}
+  document.activeElement.blur()
+}
+rkOrder.forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();rkNext(id)}}));
+['rk-e','rk-b','rk-a'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{if(document.getElementById(id).value)setTimeout(()=>rkNext(id),0)}));
 rkFillE();
 
 
