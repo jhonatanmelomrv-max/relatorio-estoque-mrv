@@ -125,14 +125,14 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
     <div class="rk-base" id="rk-base"></div>
 
     <div class="rk-s">
-      <div class="rk-h"><b>Risco total</b><span><input id="rk-tn" class="rk-n" type="number" min="0" max="30" step="0.5" inputmode="decimal">%</span></div>
-      <input id="rk-ts" type="range" min="0" max="30" step="0.5">
+      <div class="rk-h"><b>Risco total</b><span><input id="rk-tn" class="rk-n" type="text" inputmode="decimal" autocomplete="off">%</span></div>
+      <input id="rk-ts" type="range" min="0" max="30" step="0.1">
       <div class="rk-r"><div class="rk-val" id="rk-tv"></div><div class="rk-d">Valor máximo que a construtora seguraria.</div></div>
     </div>
 
     <div class="rk-s">
-      <div class="rk-h"><b>Risco carteira</b><span><input id="rk-kn" class="rk-n" type="number" min="0" max="30" step="0.5" inputmode="decimal">%</span></div>
-      <input id="rk-ks" type="range" min="0" max="30" step="0.5">
+      <div class="rk-h"><b>Risco carteira</b><span><input id="rk-kn" class="rk-n" type="text" inputmode="decimal" autocomplete="off">%</span></div>
+      <input id="rk-ks" type="range" min="0" max="30" step="0.1">
       <div class="rk-r"><div class="rk-val" id="rk-kv"></div><div class="rk-d">Esse é o valor que a construtora parcela em até <input id="rk-nn" class="rk-n rk-nv" type="number" min="1" max="48" step="1" inputmode="numeric"> vezes (máximo 48).</div>
       <div class="rk-m" id="rk-km"></div></div>
     </div>
@@ -330,6 +330,8 @@ const BRL2=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const rk={v:264000,c:0,f:0,t:25,k:18,n:48};
 const rkNum=s=>Number(String(s).replace(/\D/g,''))||0;
 const rkMask=n=>n?new Intl.NumberFormat('pt-BR').format(n):'';
+const rkPct=s=>{const x=parseFloat(String(s).replace(',','.').replace(/[^0-9.]/g,''));return isNaN(x)?null:x};
+const rkFmt=x=>String(Math.round(x*100)/100).replace('.',',');
 const rkClamp=(x,a,b)=>Math.min(b,Math.max(a,isNaN(x)?a:x));
 function rkUpdate(){
   const base=Math.max(0,rk.v-rk.c),tv=base*rk.t/100,kv=base*rk.k/100,dv=tv-kv;
@@ -349,22 +351,22 @@ function rkUpdate(){
    <div class="ln"><span>Para caber, o financiamento precisa ser de pelo menos</span><b>${BRL2.format(base-tv)}</b></div>`);
 }
 function rkSync(skip){
-  if(skip!=='ts')$('#rk-ts').value=rk.t;if(skip!=='tn')$('#rk-tn').value=rk.t;
-  if(skip!=='ks')$('#rk-ks').value=rk.k;if(skip!=='kn')$('#rk-kn').value=rk.k;
+  if(skip!=='ts')$('#rk-ts').value=rk.t;if(skip!=='tn')$('#rk-tn').value=rkFmt(rk.t);
+  if(skip!=='ks')$('#rk-ks').value=rk.k;if(skip!=='kn')$('#rk-kn').value=rkFmt(rk.k);
   rkUpdate();
 }
-function rkSetT(x,from){rk.t=rkClamp(Math.round(x*10)/10,0,30);if(rk.k>rk.t)rk.k=rk.t;rkSync(from)}
-function rkSetK(x,from){rk.k=rkClamp(Math.round(x*10)/10,0,rk.t);rkSync(from)}
+function rkSetT(x,from){rk.t=rkClamp(Math.round(x*100)/100,0,30);if(rk.k>rk.t)rk.k=rk.t;rkSync(from)}
+function rkSetK(x,from){rk.k=rkClamp(Math.round(x*100)/100,0,rk.t);rkSync(from)}
 $('#rk-v').oninput=e=>{rk.v=rkNum(e.target.value);e.target.value=rkMask(rk.v);rkUpdate()};
 $('#rk-c').oninput=e=>{rk.c=rkNum(e.target.value);e.target.value=rkMask(rk.c);rkUpdate()};
 $('#rk-f').oninput=e=>{rk.f=rkNum(e.target.value);e.target.value=rkMask(rk.f);rkUpdate()};
 $('#rk-ts').oninput=e=>rkSetT(parseFloat(e.target.value),'ts');
-$('#rk-tn').oninput=e=>{if(e.target.value!=='')rkSetT(parseFloat(e.target.value),'tn')};
+$('#rk-tn').oninput=e=>{const x=rkPct(e.target.value);if(x!==null)rkSetT(x,'tn')};
 $('#rk-ks').oninput=e=>rkSetK(parseFloat(e.target.value),'ks');
-$('#rk-kn').oninput=e=>{if(e.target.value!=='')rkSetK(parseFloat(e.target.value),'kn')};
+$('#rk-kn').oninput=e=>{const x=rkPct(e.target.value);if(x!==null)rkSetK(x,'kn')};
 $('#rk-nn').oninput=e=>{if(e.target.value===''){return}rk.n=rkClamp(Math.round(+e.target.value),1,48);rkUpdate()};
 $('#rk-nn').onblur=e=>{e.target.value=rk.n};
-$('#rk-tn').onblur=()=>$('#rk-tn').value=rk.t;$('#rk-kn').onblur=()=>$('#rk-kn').value=rk.k;
+$('#rk-tn').onblur=()=>$('#rk-tn').value=rkFmt(rk.t);$('#rk-kn').onblur=()=>$('#rk-kn').value=rkFmt(rk.k);
 $('#rk-v').value=rkMask(rk.v);$('#rk-nn').value=rk.n;rkSync();
 
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#p-'+b.dataset.t).classList.add('on')});
