@@ -377,11 +377,19 @@ $('#rk-kn').oninput=e=>{const x=rkPct(e.target.value);if(x!==null)rkSetK(x,'kn')
 
 /* campo de moeda: a vírgula já fica lá; digita os reais e, se quiser, "," para ir aos centavos */
 const rkGrp=a=>a.replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+function rkMoney(str){
+  let t=String(str).replace(/R\$|\s/g,'');let i='',d='';
+  if(t.includes(',')){const a=t.split(',');i=a[0].replace(/\D/g,'');d=(a[1]||'').replace(/\D/g,'').slice(0,2)}
+  else if(/^\d{1,3}(\.\d{3})+$/.test(t)){i=t.replace(/\D/g,'')}
+  else if(/\.\d{1,2}$/.test(t)){const k=t.lastIndexOf('.');i=t.slice(0,k).replace(/\D/g,'');d=t.slice(k+1)}
+  else i=t.replace(/\D/g,'');
+  return{ip:i.replace(/^0+/,'').slice(0,6),dp:d}
+}
 function rkCur(el,key){
-  const parse=()=>{const t=el.value.replace(/[^\d,]/g,'').split(',');return{ip:(t[0]||'').replace(/^0+/,''),dp:((t[1]||'').replace(/0+$/,'')).slice(0,2)}};
+  const parse=()=>{const t=el.value.replace(/[^\d,]/g,'').split(',');return{ip:(t[0]||'').replace(/^0+/,''),dp:((t[1]||'')==='00'?'':(t[1]||'').slice(0,2))}};
   const draw=(ip,dp,mode)=>{
     el.dataset.m=mode;el.dataset.ip=ip;el.dataset.dp=dp;
-    el.value=(ip===''&&dp===''&&mode==='i')?'':'R$ '+rkGrp(ip||'0')+','+dp.padEnd(2,'0');
+    el.value=(ip===''&&dp===''&&mode==='i')?'':'R$ '+rkGrp(ip||'0')+','+(mode==='d'?dp:dp.padEnd(2,'0'));
     if(el.value){const c=el.value.indexOf(',');const pos=mode==='d'?c+1+dp.length:c;el.setSelectionRange(pos,pos)}
     rk[key]=rkNum(el.value);rkUpdate();
   };
@@ -390,9 +398,11 @@ function rkCur(el,key){
     const t=e.inputType;if(t==='historyUndo'||t==='historyRedo'){e.preventDefault();return}
     e.preventDefault();
     const all=el.value!==''&&el.selectionStart===0&&el.selectionEnd===el.value.length;
-    let p=parse(),m=el.dataset.m||'i';
+    let p=parse(),m=(el.value&&el.selectionStart>el.value.indexOf(','))?'d':'i';
+    if(el._cents&&m==='d'){p.dp='';el._cents=false}
     if(all&&t!=='insertFromPaste'){p={ip:'',dp:''};m='i'}
-    if(t==='insertText'||t==='insertCompositionText'){
+    if((t==='insertText'||t==='insertCompositionText')&&(e.data||'').length>1){p=rkMoney(e.data);m='i'}
+    else if(t==='insertText'||t==='insertCompositionText'){
       for(const ch of (e.data||'')){
         if(/\d/.test(ch)){if(m==='i'){if(p.ip.length<6)p.ip+=ch}else if(p.dp.length<2)p.dp+=ch}
         else if(ch===','||ch==='.'){m='d'}
@@ -405,10 +415,13 @@ function rkCur(el,key){
     }else return;
     draw(p.ip,p.dp,m)
   });
-  el.addEventListener('blur',()=>{el.dataset.m='i'});
+  el.addEventListener('input',()=>{const p=rkMoney(el.value);draw(p.ip,p.dp,'i')});
+  el.addEventListener('blur',()=>{el._cents=false;el.dataset.m='i';if(el.value&&!el.readOnly){const p=parse();draw(p.ip,p.dp,'i')}});
 }
 rkCur($('#rk-v'),'v');rkCur($('#rk-c'),'c');rkCur($('#rk-f'),'f');
-['rk-v','rk-c','rk-f'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('focus',()=>setTimeout(()=>el.select(),0));el.addEventListener('click',()=>el.select());el.addEventListener('blur',()=>{if(!el.readOnly)el.value=rkMask(rkNum(el.value))})});
+['rk-v','rk-c','rk-f'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('mousedown',()=>{el._md=true});el.addEventListener('focus',()=>{if(!el._md)setTimeout(()=>el.select(),0)});el.addEventListener('click',ev=>{el._md=false;const c=el.value.indexOf(',');let inside=true;
+    try{const cs=getComputedStyle(el),cv=document.createElement('canvas').getContext('2d');cv.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;const r=el.getBoundingClientRect();const end=r.left+parseFloat(cs.paddingLeft)+parseFloat(cs.borderLeftWidth)+cv.measureText(el.value).width;inside=ev.clientX<=end+6}catch(x){}
+    if(c>=0&&inside&&el.selectionStart===el.selectionEnd&&el.selectionStart>c){el._cents=true}else{el._cents=false;el.select()}});el.addEventListener('blur',()=>{if(!el.readOnly)el.value=rkMask(rkNum(el.value))})});
 $('#rk-nn').oninput=e=>{if(e.target.value===''){return}rk.n=rkClamp(Math.round(+e.target.value),1,48);rkUpdate()};
 $('#rk-nn').onblur=e=>{e.target.value=rk.n};
 $('#rk-tn').onblur=()=>$('#rk-tn').value=rkFmt(rk.t);$('#rk-kn').onblur=()=>$('#rk-kn').value=rkFmt(rk.k);
