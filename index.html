@@ -79,7 +79,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .up2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .drop{display:block;border:2px dashed var(--line);background:var(--card);border-radius:16px;padding:26px;text-align:center;cursor:pointer;margin-bottom:14px}
 .drop.over,.drop:hover{border-color:var(--pri);background:var(--pri2)}.drop small{display:block;color:var(--mut);margin-top:4px}
-.rk-hint{font-size:13px;color:var(--mut);margin:-4px 0 12px;line-height:1.4}.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
+.mny{display:flex;align-items:center;gap:2px;margin-top:6px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:17px;font-weight:650;text-transform:none;letter-spacing:0;color:var(--ink)}.mny:focus-within{border-color:var(--ink)}.mny i{font-style:normal;opacity:.8}.mny input{border:0!important;background:transparent!important;margin:0!important;padding:12px 0!important;width:auto!important;min-width:0;outline:0;box-shadow:none}.mny .mi{flex:1;text-align:left}.mny .mc{width:2.2ch!important;flex:none;text-align:left}.mny.lock{background:var(--pri2)}.rk-hint{font-size:13px;color:var(--mut);margin:-4px 0 12px;line-height:1.4}.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
 @media(max-width:560px){.rk-sel{grid-template-columns:1fr 1fr}.rk-sel label:first-child{grid-column:1/-1}}
 .rk{padding:18px}.rk-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rk label{display:block;font-size:12px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .rk input[type=text],.rk-g input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:650;text-transform:none;letter-spacing:0}
@@ -125,11 +125,11 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <label>Apto<select id="rk-a" disabled></select></label>
     </div>
     <div class="rk-info" id="rk-info" hidden></div>
-    <div class="rk-hint">Nos campos de valor: digite os reais e, para centavos, aperte a <b>vírgula</b> e digite-os (ex.: 230000,50).</div>
+    <div class="rk-hint">Nos campos de valor: digite os reais; para os centavos, aperte a <b>vírgula</b> (ou clique nos dois dígitos depois da vírgula).</div>
     <div class="rk-g">
-      <label>Valor do imóvel<input id="rk-v" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00"></label>
-      <label>Cupom / desconto<input id="rk-c" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00"></label>
-      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00"></label>
+      <label>Valor do imóvel<input id="rk-v" type="hidden"><span class="mny" data-k="v"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i>,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
+      <label>Cupom / desconto<input id="rk-c" type="hidden"><span class="mny" data-k="c"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i>,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
+      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" type="hidden"><span class="mny" data-k="f"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i>,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
     </div>
     <div class="rk-base" id="rk-base"></div>
 
@@ -418,14 +418,39 @@ function rkCur(el,key){
   el.addEventListener('input',()=>{const p=rkMoney(el.value);draw(p.ip,p.dp,'i')});
   el.addEventListener('blur',()=>{el._cents=false;el.dataset.m='i';if(el.value&&!el.readOnly){const p=parse();draw(p.ip,p.dp,'i')}});
 }
-rkCur($('#rk-v'),'v');rkCur($('#rk-c'),'c');rkCur($('#rk-f'),'f');
+
+/* campos de valor: reais e centavos em duas partes, sem depender de máscara */
+function rkEl(id){const m=document.querySelector('.mny[data-k="'+id.replace('rk-','')+'"]');return m?m.querySelector('.mi'):document.getElementById(id)}
+function rkShow(k,n){const m=document.querySelector('.mny[data-k="'+k+'"]');const r=Math.round((n||0)*100);const ip=Math.floor(r/100),cc=r%100;
+  m.querySelector('.mi').value=n?rkGrp(String(ip)):'';m.querySelector('.mc').value=n?String(cc).padStart(2,'0'):'';document.getElementById('rk-'+k).value=n?rkMask(n):''}
+function rkMny(k){
+  const m=document.querySelector('.mny[data-k="'+k+'"]'),mi=m.querySelector('.mi'),mc=m.querySelector('.mc');
+  const calc=()=>{const ip=mi.value.replace(/\D/g,''),cc=(mc.value.replace(/\D/g,'')+'00').slice(0,2);rk[k]=Number(ip||0)+Number(cc)/100;document.getElementById('rk-'+k).value=rk[k]?rkMask(rk[k]):'';rkUpdate()};
+  const toCents=()=>{mc.focus();mc.select()};
+  mi.addEventListener('focus',()=>setTimeout(()=>mi.select(),0));
+  mc.addEventListener('focus',()=>setTimeout(()=>mc.select(),0));
+  mi.addEventListener('keydown',e=>{if(e.key===','||e.key==='.'||e.key==='Decimal'){e.preventDefault();toCents()}});
+  mi.addEventListener('input',()=>{
+    const raw=mi.value;
+    if(/,/.test(raw)||/\.\d{1,2}$/.test(raw)&&raw.replace(/\D/g,'').length>=5||/R\$/.test(raw)){const p=rkMoney(raw);mi.value=p.ip?rkGrp(p.ip):'';if(p.dp!==''||/,/.test(raw))mc.value=p.dp.padEnd(2,'0')}
+    else mi.value=rkGrp(raw.replace(/\D/g,'').replace(/^0+(?=\d)/,'').slice(0,6));
+    calc()});
+  mc.addEventListener('keydown',e=>{if(/^\d$/.test(e.key)&&mc.value.length>=2&&mc.selectionStart===mc.selectionEnd)mc.value=''});
+  mc.addEventListener('input',()=>{mc.value=mc.value.replace(/\D/g,'').slice(0,2);mc.setSelectionRange(mc.value.length,mc.value.length);calc()});
+  mc.addEventListener('blur',()=>{if(mc.value.length===1){mc.value+='0';calc()}if(!mc.value&&mi.value){mc.value='00'}});
+  mi.addEventListener('blur',()=>{if(mi.value&&!mc.value)mc.value='00'});
+  [mi,mc].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();rkNext('rk-'+k)}}));
+}
+['v','c','f'].forEach(rkMny);
+function rkLockV(on){const m=document.querySelector('.mny[data-k="v"]');m.classList.toggle('lock',on);m.querySelectorAll('input').forEach(i=>i.readOnly=on)}
+
 ['rk-v','rk-c','rk-f'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('mousedown',()=>{el._md=true});el.addEventListener('focus',()=>{if(!el._md)setTimeout(()=>el.select(),0)});el.addEventListener('click',ev=>{el._md=false;const c=el.value.indexOf(',');let inside=true;
     try{const cs=getComputedStyle(el),cv=document.createElement('canvas').getContext('2d');cv.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;const r=el.getBoundingClientRect();const end=r.left+parseFloat(cs.paddingLeft)+parseFloat(cs.borderLeftWidth)+cv.measureText(el.value).width;inside=ev.clientX<=end+6}catch(x){}
     if(c>=0&&inside&&el.selectionStart===el.selectionEnd&&el.selectionStart>c){el._cents=true}else{el._cents=false;el.select()}});el.addEventListener('blur',()=>{if(!el.readOnly)el.value=rkMask(rkNum(el.value))})});
 $('#rk-nn').oninput=e=>{if(e.target.value===''){return}rk.n=rkClamp(Math.round(+e.target.value),1,48);rkUpdate()};
 $('#rk-nn').onblur=e=>{e.target.value=rk.n};
 $('#rk-tn').onblur=()=>$('#rk-tn').value=rkFmt(rk.t);$('#rk-kn').onblur=()=>$('#rk-kn').value=rkFmt(rk.k);
-$('#rk-v').value=rkMask(rk.v);$('#rk-nn').value=rk.n;rkSync();
+$('#rk-nn').value=rk.n;rkShow('v',rk.v);rkShow('c',rk.c);rkShow('f',rk.f);rkSync();
 let rkLock=false;
 const rkParts=o=>{const p=o.u.split(' - ');const a=(p[p.length-1]||'').replace(/^APTO\s*/i,'');const m=p.slice(1,-1).filter(x=>x!==o.tip);return{b:m.join(' · ')||'Único',a}};
 function rkOpts(sel,items,ph){sel.innerHTML=`<option value="">${ph}</option>`+items.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join('')}
@@ -446,8 +471,8 @@ function rkFillA(){
 }
 function rkPick(){
   const u=$('#rk-a').value,o=u&&cur.get(u),inf=$('#rk-info'),v=$('#rk-v');
-  if(o){rk.v=o.val;v.value=rkMask(rk.v);v.readOnly=true;rkLock=true;inf.hidden=false;inf.innerHTML=`<span>${esc(o.tip)}${o.ai?' · '+o.ai+' m²':''} · valor travado da tabela</span><a id="rk-free">digitar outro valor</a>`;$('#rk-free').onclick=()=>{$('#rk-e').value='';rkFillB()}}
-  else{if(rkLock){v.readOnly=false;rkLock=false}inf.hidden=true}
+  if(o){rk.v=o.val;rkShow('v',rk.v);rkLockV(true);rkLock=true;inf.hidden=false;inf.innerHTML=`<span>${esc(o.tip)}${o.ai?' · '+o.ai+' m²':''} · valor travado da tabela</span><a id="rk-free">digitar outro valor</a>`;$('#rk-free').onclick=()=>{$('#rk-e').value='';rkFillB()}}
+  else{if(rkLock){rkLockV(false);rkLock=false}inf.hidden=true}
   rkUpdate()
 }
 $('#rk-e').onchange=rkFillB;$('#rk-b').onchange=rkFillA;$('#rk-a').onchange=rkPick;
@@ -455,10 +480,10 @@ $('#rk-e').onchange=rkFillB;$('#rk-b').onchange=rkFillA;$('#rk-a').onchange=rkPi
 const rkOrder=['rk-e','rk-b','rk-a','rk-v','rk-c','rk-f','rk-tn','rk-kn','rk-nn'];
 function rkNext(id){
   const i=rkOrder.indexOf(id);
-  for(let j=i+1;j<rkOrder.length;j++){const el=document.getElementById(rkOrder[j]);if(el&&!el.disabled&&!el.readOnly){el.focus();if(el.select&&el.tagName==='INPUT')el.select();return}}
+  for(let j=i+1;j<rkOrder.length;j++){const el=rkEl(rkOrder[j]);if(el&&!el.disabled&&!el.readOnly){el.focus();return}}
   document.activeElement.blur()
 }
-rkOrder.forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();rkNext(id)}}));
+['rk-e','rk-b','rk-a','rk-tn','rk-kn','rk-nn'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();rkNext(id)}}));
 ['rk-e','rk-b','rk-a'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{if(document.getElementById(id).value)setTimeout(()=>rkNext(id),0)}));
 rkFillE();
 
