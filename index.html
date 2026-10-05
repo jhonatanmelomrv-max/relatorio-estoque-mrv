@@ -337,7 +337,7 @@ $('#file').onchange=e=>{onFile(e.target.files[0]);e.target.value=''};
 
 /* ---------- calculadora de risco ---------- */
 const BRL2=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
-const rk={v:264000,c:0,f:0,t:25,k:18,n:48};
+const rk={v:0,c:0,f:0,t:0,k:0,n:48};
 const rkNum=s=>{const t=String(s).replace(/[^\d,]/g,'').replace(',','.');return Math.round((parseFloat(t)||0)*100)/100};
 const rkLive=s=>{s=String(s);if(!s.includes(',')){const m=s.match(/\.(\d{0,2})$/);if(m&&s.slice(0,m.index).replace(/\D/g,'').length>=5)s=s.slice(0,m.index)+','+m[1]}s=s.replace(/[^\d,]/g,'');const i=s.indexOf(',');let a=i<0?s:s.slice(0,i),d=i<0?null:s.slice(i+1).replace(/,/g,'').slice(0,2);a=a.replace(/^0+(?=\d)/,'').slice(0,6);a=a.replace(/\B(?=(\d{3})+(?!\d))/g,'.');if(!a&&d===null)return'';return 'R$ '+(a||'0')+(d===null?'':','+d)};
 const rkMask=n=>n?'R$ '+new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n):'';
