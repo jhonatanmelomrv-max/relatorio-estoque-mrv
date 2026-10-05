@@ -79,7 +79,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .up2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .drop{display:block;border:2px dashed var(--line);background:var(--card);border-radius:16px;padding:26px;text-align:center;cursor:pointer;margin-bottom:14px}
 .drop.over,.drop:hover{border-color:var(--pri);background:var(--pri2)}.drop small{display:block;color:var(--mut);margin-top:4px}
-.mny{display:flex;align-items:center;gap:2px;margin-top:6px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:17px;font-weight:650;text-transform:none;letter-spacing:0;color:var(--ink)}.mny:focus-within{border-color:var(--ink)}.mny i{font-style:normal;opacity:.8}.mny input{border:0!important;background:transparent!important;margin:0!important;padding:12px 0!important;width:auto!important;min-width:0;outline:0;box-shadow:none}.mny .mi{flex:1;text-align:left}.mny .mc{width:2.2ch!important;flex:none;text-align:left}.mny.lock{background:var(--pri2)}.rk-hint{font-size:13px;color:var(--mut);margin:-4px 0 12px;line-height:1.4}.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
+.mny{display:flex;align-items:center;gap:2px;margin-top:6px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:17px;font-weight:650;text-transform:none;letter-spacing:0;color:var(--ink)}.mny:focus-within{border-color:var(--ink)}.mny i{font-style:normal;opacity:.8}.mny input{border:0!important;background:transparent!important;margin:0!important;padding:12px 0!important;width:auto!important;min-width:0;outline:0;box-shadow:none}.mny .mi{flex:1;text-align:left}.mny .mc,.mny i.cm{display:none!important}.mny{cursor:text}.mny .mc{width:2.2ch!important;flex:none;text-align:left}.mny.lock{background:var(--pri2)}.rk-hint{font-size:13px;color:var(--mut);margin:-4px 0 12px;line-height:1.4}.rk-sel{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px}.rk-sel select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-transform:none;letter-spacing:0}.rk-info{font-size:13px;color:var(--mut);margin:-4px 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rk-info a{color:var(--pri);font-weight:650;cursor:pointer}.rk input[readonly]{opacity:.85;background:var(--pri2)}
 @media(max-width:560px){.rk-sel{grid-template-columns:1fr 1fr}.rk-sel label:first-child{grid-column:1/-1}}
 .rk{padding:18px}.rk-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rk label{display:block;font-size:12px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .rk input[type=text],.rk-g input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:650;text-transform:none;letter-spacing:0}
@@ -125,11 +125,11 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <label>Apto<select id="rk-a" disabled></select></label>
     </div>
     <div class="rk-info" id="rk-info" hidden></div>
-    <div class="rk-hint">Nos campos de valor: digite os reais; para os centavos, aperte a <b>vírgula</b> (ou clique nos dois dígitos depois da vírgula).</div>
+    <div class="rk-hint">Nos campos de valor, comece a digitar: começa em 0,00 e os números vão entrando da direita (ex.: 25456366 vira 254.563,66).</div>
     <div class="rk-g">
-      <label>Valor do imóvel<input id="rk-v" type="hidden"><span class="mny" data-k="v"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i>,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
-      <label>Cupom / desconto<input id="rk-c" type="hidden"><span class="mny" data-k="c"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i>,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
-      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" type="hidden"><span class="mny" data-k="f"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i>,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
+      <label>Valor do imóvel<input id="rk-v" type="hidden"><span class="mny" data-k="v"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i class="cm">,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
+      <label>Cupom / desconto<input id="rk-c" type="hidden"><span class="mny" data-k="c"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i class="cm">,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
+      <label style="grid-column:1/-1">Valor do financiamento (opcional)<input id="rk-f" type="hidden"><span class="mny" data-k="f"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i class="cm">,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos"></span></label>
     </div>
     <div class="rk-base" id="rk-base"></div>
 
@@ -421,25 +421,37 @@ function rkCur(el,key){
 
 /* campos de valor: reais e centavos em duas partes, sem depender de máscara */
 function rkEl(id){const m=document.querySelector('.mny[data-k="'+id.replace('rk-','')+'"]');return m?m.querySelector('.mi'):document.getElementById(id)}
-function rkShow(k,n){const m=document.querySelector('.mny[data-k="'+k+'"]');const r=Math.round((n||0)*100);const ip=Math.floor(r/100),cc=r%100;
-  m.querySelector('.mi').value=n?rkGrp(String(ip)):'';m.querySelector('.mc').value=n?String(cc).padStart(2,'0'):'';document.getElementById('rk-'+k).value=n?rkMask(n):''}
+function rkFmtC(c){return rkGrp(String(Math.floor(c/100)))+','+String(c%100).padStart(2,'0')}
+function rkShow(k,n){const m=document.querySelector('.mny[data-k="'+k+'"]');const c=Math.round((n||0)*100);const mi=m.querySelector('.mi');mi._c=c;mi.value=rkFmtC(c);document.getElementById('rk-'+k).value=n?rkMask(n):''}
 function rkMny(k){
-  const m=document.querySelector('.mny[data-k="'+k+'"]'),mi=m.querySelector('.mi'),mc=m.querySelector('.mc');
-  const calc=()=>{const ip=mi.value.replace(/\D/g,''),cc=(mc.value.replace(/\D/g,'')+'00').slice(0,2);rk[k]=Number(ip||0)+Number(cc)/100;document.getElementById('rk-'+k).value=rk[k]?rkMask(rk[k]):'';rkUpdate()};
-  const toCents=()=>{mc.focus();mc.select()};
+  const m=document.querySelector('.mny[data-k="'+k+'"]'),mi=m.querySelector('.mi');
+  mi._c=0;mi.value='0,00';
+  const MAX=99999999;
+  const draw=()=>{mi.value=rkFmtC(mi._c);rk[k]=mi._c/100;document.getElementById('rk-'+k).value=rk[k]?rkMask(rk[k]):'';const e=mi.value.length;try{mi.setSelectionRange(e,e)}catch(x){}rkUpdate()};
+  const all=()=>mi.selectionStart===0&&mi.selectionEnd===mi.value.length&&mi.value.length>0;
+  const push=d=>{if(all())mi._c=0;const n=mi._c*10+d;if(n<=MAX)mi._c=n;draw()};
+  m.addEventListener('mousedown',e=>{if(e.target===m){e.preventDefault();mi.focus()}});
   mi.addEventListener('focus',()=>setTimeout(()=>mi.select(),0));
-  mc.addEventListener('focus',()=>setTimeout(()=>mc.select(),0));
-  mi.addEventListener('keydown',e=>{if(e.key===','||e.key==='.'||e.key==='Decimal'){e.preventDefault();toCents()}});
-  mi.addEventListener('input',()=>{
+  mi.addEventListener('keydown',e=>{
+    if(mi.readOnly){if(e.key==='Enter'){e.preventDefault();rkNext('rk-'+k)}return}
+    if(e.ctrlKey||e.metaKey||e.altKey)return;
+    if(/^\d$/.test(e.key)){e.preventDefault();push(+e.key)}
+    else if(e.key==='Backspace'){e.preventDefault();mi._c=all()?0:Math.floor(mi._c/10);draw()}
+    else if(e.key==='Delete'){e.preventDefault();mi._c=0;draw()}
+    else if(e.key==='Enter'){e.preventDefault();rkNext('rk-'+k)}
+    else if(e.key.length===1&&e.key!==','&&e.key!=='.'){e.preventDefault()}
+    else if(e.key===','||e.key==='.'){e.preventDefault()}
+  });
+  /* teclado de celular, colar e ditado: chegam pelo evento input */
+  mi.addEventListener('input',e=>{
+    if(mi.readOnly){mi.value=rkFmtC(mi._c);return}
+    const t=e.inputType||'',d=e.data;
+    if(t==='deleteContentBackward'){mi._c=Math.floor(mi._c/10);draw();return}
+    if(t==='insertText'&&d&&/^\d$/.test(d)){push(+d);return}
     const raw=mi.value;
-    if(/,/.test(raw)||/\.\d{1,2}$/.test(raw)&&raw.replace(/\D/g,'').length>=5||/R\$/.test(raw)){const p=rkMoney(raw);mi.value=p.ip?rkGrp(p.ip):'';if(p.dp!==''||/,/.test(raw))mc.value=p.dp.padEnd(2,'0')}
-    else mi.value=rkGrp(raw.replace(/\D/g,'').replace(/^0+(?=\d)/,'').slice(0,6));
-    calc()});
-  mc.addEventListener('keydown',e=>{if(/^\d$/.test(e.key)&&mc.value.length>=2&&mc.selectionStart===mc.selectionEnd)mc.value=''});
-  mc.addEventListener('input',()=>{mc.value=mc.value.replace(/\D/g,'').slice(0,2);mc.setSelectionRange(mc.value.length,mc.value.length);calc()});
-  mc.addEventListener('blur',()=>{if(mc.value.length===1){mc.value+='0';calc()}if(!mc.value&&mi.value){mc.value='00'}});
-  mi.addEventListener('blur',()=>{if(mi.value&&!mc.value)mc.value='00'});
-  [mi,mc].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();rkNext('rk-'+k)}}));
+    if(/\d/.test(raw)){const p=rkMoney(raw);const c=Number(p.ip||0)*100+Number((p.dp+'00').slice(0,2));if(/,/.test(raw)||/\.\d{1,2}$/.test(raw)){mi._c=Math.min(c,MAX)}else{mi._c=Math.min(Number(p.ip||0)*100,MAX)}}
+    else mi._c=0;
+    draw()});
 }
 ['v','c','f'].forEach(rkMny);
 function rkLockV(on){const m=document.querySelector('.mny[data-k="v"]');m.classList.toggle('lock',on);m.querySelectorAll('input').forEach(i=>i.readOnly=on)}
