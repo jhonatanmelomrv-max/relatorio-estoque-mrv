@@ -115,7 +115,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 #p-sim .clientbar .bd{padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:11px}
 #p-sim .f{display:grid;gap:4px;min-width:0}
 #p-sim .f>label,#p-sim .tg>label{font-size:11px;font-weight:600;color:var(--mut)}
-#p-sim input[type=number],#p-sim input[type=date],#p-sim select{font-size:14px;width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums}
+#p-sim input[type=number],#p-sim input[data-mny],#p-sim input[type=date],#p-sim select{font-size:14px;width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums}
 #p-sim .tg{display:grid;gap:4px;min-width:0}
 #p-sim .tg .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 #p-sim .tg .seg button{flex:1;font:inherit;font-size:12.5px;padding:8px 4px;cursor:pointer;background:var(--card);color:var(--mut);border:0}
@@ -251,10 +251,10 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <span class="lbl" id="pv-resumo">—</span>
     </div>
     <div class="bd">
-      <div class="f"><label for="pv-renda">Renda bruta (R$)</label><input type="number" id="pv-renda" value="4000" min="0" step="100"></div>
+      <div class="f"><label for="pv-renda">Renda bruta (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-renda" value="4.000,00"></div>
       <div class="f"><label for="pv-nasc">Nascimento</label><input type="date" id="pv-nasc" value="1990-10-25"></div>
-      <div class="f"><label for="pv-cheque">Cheque Paulista</label><input type="number" id="pv-cheque" value="13000" min="0" step="500"></div>
-      <div class="f"><label for="pv-fgts">FGTS do cliente</label><input type="number" id="pv-fgts" value="0" min="0" step="500"></div>
+      <div class="f"><label for="pv-cheque">Cheque Paulista</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cheque" value="13.000,00"></div>
+      <div class="f"><label for="pv-fgts">FGTS do cliente</label><input type="text" inputmode="numeric" data-mny="1" id="pv-fgts" value="0,00"></div>
       <div class="tg"><label id="pv-l-cot">Cotista FGTS</label><div class="seg" role="group" aria-labelledby="pv-l-cot">
         <button type="button" data-pvcot="1" aria-pressed="true">Sim</button><button type="button" data-pvcot="0" aria-pressed="false">Não</button></div></div>
       <div class="tg"><label id="pv-l-dep">Dependente</label><div class="seg" role="group" aria-labelledby="pv-l-dep">
@@ -273,7 +273,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
           <option value="bp">A de maior Bom Pagador</option>
           <option value="area">A maior em área</option>
         </select></div>
-      <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="number" id="pv-limF12" value="264000" step="1000"></div>
+      <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-limF12" value="264.000,00"></div>
       <div class="f"><label for="pv-taxa">Taxa da faixa do cliente (% a.a.)</label><input type="number" id="pv-taxa" step="0.05" placeholder="auto"></div>
       <div class="f"><label for="pv-ordem">Ordem dos cards</label>
         <select id="pv-ordem">
@@ -291,9 +291,9 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <p>Rode um caso no simulador da MRV e cole os três números. Eu inverto a conta e descubro a taxa exata daquela faixa — aí a página inteira passa a bater.</p>
     </div>
     <div class="cf">
-      <div class="f"><label for="pv-cRenda">Renda</label><input type="number" id="pv-cRenda" step="100" placeholder="4000"></div>
-      <div class="f"><label for="pv-cValor">Valor da unidade</label><input type="number" id="pv-cValor" step="1000" placeholder="263990"></div>
-      <div class="f"><label for="pv-cCap">Capacidade que ele deu</label><input type="number" id="pv-cCap" step="1000" placeholder="208024"></div>
+      <div class="f"><label for="pv-cRenda">Renda</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cRenda" value="0,00"></div>
+      <div class="f"><label for="pv-cValor">Valor da unidade</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cValor" value="0,00"></div>
+      <div class="f"><label for="pv-cCap">Capacidade que ele deu</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cCap" value="0,00"></div>
       <button type="button" class="btn2" id="pv-cBtn">Achar a taxa</button>
     </div>
     <p class="cout" id="pv-cOut"></p>
@@ -674,12 +674,12 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var N1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   var FN=['Faixa 1','Faixa 2','Faixa 3','Faixa 4'];
   function g(id){ return document.getElementById(id); }
-  function num(id){ var v=parseFloat(g(id).value); return isFinite(v)?v:0; }
+  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor','pv-cCap']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); })();
 
   function fatorPrice(i,n){ if(i<=0) return 1/n; var f=Math.pow(1+i,n); return i*f/(f-1); }
   function faixaPorRenda(r){ for(var k=0;k<4;k++){ if(r<=P.f[k]) return k; } return -1; }
   function faixaPorValor(v){
-    var t12=parseFloat(g('pv-limF12').value); if(!isFinite(t12)) t12=P.limF12;
+    var t12=mv('pv-limF12'); if(!isFinite(t12)) t12=P.limF12;
     if(v<=t12) return 0;
     if(v<=P.limF3) return 2;
     if(v<=P.limF4) return 3;
@@ -766,7 +766,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   }
 
   function nota(r,u,idade,idMax){
-    if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(parseFloat(g('pv-limF12').value)||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
+    if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(mv('pv-limF12')||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
     if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo continua '+r.n+' meses.';
     if(r.faixa<0) return 'Renda acima do teto de '+BRL0.format(P.f[3])+' do programa.';
     if(r.status==='bad') return 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(P.r26*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
@@ -917,7 +917,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     });
   });
   g('pv-cBtn').addEventListener('click', function(){
-    var renda=parseFloat(g('pv-cRenda').value), valor=parseFloat(g('pv-cValor').value), alvo=parseFloat(g('pv-cCap').value);
+    var renda=mv('pv-cRenda'), valor=mv('pv-cValor'), alvo=mv('pv-cCap');
     var out=g('pv-cOut'); out.className='cout';
     if(!(renda>0 && valor>0 && alvo>0)){ out.textContent='Preencha renda, valor da unidade e a capacidade que o simulador devolveu.'; return; }
     var res=acharTaxa(renda, valor, alvo);
