@@ -730,6 +730,29 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   function cli(){ return {renda:num('pv-renda'), cheque:num('pv-cheque'), fgts:num('pv-fgts'), nasc:g('pv-nasc').value}; }
   function simUnit(u,c){ return simulate({renda:c.renda, cheque:c.cheque, fgts:c.fgts, valor:u.v, bompag:u.b}); }
 
+  /* quantas unidades do bloco fechariam mudando UMA coisa */
+  function contaFecha(units,c,over){
+    var sv={planta:st.planta,emc:st.emc};
+    if(over.planta!==undefined) st.planta=over.planta;
+    if(over.emc!==undefined) st.emc=over.emc;
+    var renda=(over.renda!==undefined)?over.renda:c.renda, n=0;
+    units.forEach(function(x){
+      var r=simulate({renda:renda,cheque:c.cheque,fgts:c.fgts,valor:x.u.v,bompag:x.u.b});
+      if(r.status!=='bad') n++;
+    });
+    st.planta=sv.planta; st.emc=sv.emc;
+    return n;
+  }
+  /* o corretor nao pode ficar num beco sem saida: se nada fecha, mostro o caminho */
+  function saidas(b,c){
+    var op=[];
+    if(st.planta){ var n1=contaFecha(b.sims,c,{planta:0}); if(n1>0) op.push('no <b>pronto</b> em vez da planta, '+n1+(n1>1?' unidades fecham':' unidade fecha')); }
+    if(c.renda>P.chqTeto && c.cheque>0){ var n2=contaFecha(b.sims,c,{renda:P.chqTeto}); if(n2>0) op.push('com renda de até '+BRL0.format(P.chqTeto)+' o cheque paulista volta e '+n2+(n2>1?' fecham':' fecha')); }
+    if(!st.emc){ var n3=contaFecha(b.sims,c,{emc:1}); if(n3>0) op.push('ligando a <b>Emcash</b>, '+n3+(n3>1?' fecham':' fecha')); }
+    if(!op.length) return ' Nenhum ajuste simples resolve aqui: nem no pronto, nem com Emcash, nem segurando a renda no teto do cheque. Essa renda não alcança este produto.';
+    return ' <b>Saída:</b> '+op.join('; ')+'.';
+  }
+
   function nota(r,u,idade,idMax){
     if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(parseFloat(g('pv-limF12').value)||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
     if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo continua '+r.n+' meses.';
@@ -847,7 +870,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
           '<div class="row"><span class="k">Ato à vista, na assinatura</span><span class="v">'+(r.atoTotal>0?BRLc.format(r.atoTotal):'—')+'</span></div>'+
           '<div class="row strong"><span class="k">Soma = entrada do cliente</span><span class="v">'+BRLc.format(r.carteira+r.sinal+r.atoTotal)+'</span></div>'+
         '</div>'+
-        '<p class="cardnote">'+nota(r,u,idade,idMax)+'</p>'+
+        '<p class="cardnote">'+nota(r,u,idade,idMax)+((b.ok+b.warn)===0?saidas(b,c):'')+'</p>'+
       '</article>';
     }).join('');
 
@@ -875,7 +898,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   [['data-pvplanta','planta'],['data-pvpag','pag'],['data-pvdep','dep'],['data-pvcot','cot'],['data-pvemc','emc']].forEach(function(pr){
     document.querySelectorAll('['+pr[0]+']').forEach(function(b){
       b.addEventListener('click',function(){
-        st[pr[1]]=parseInt(b.getAttribute(pr[0]),10);
+        st[pr[1]]=parseInt(b.getAttribute(pr[0]),10); st.pick={};
         document.querySelectorAll('['+pr[0]+']').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
         render();
       });
@@ -893,7 +916,10 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     out.textContent='Taxa encontrada: '+PCT.format(res.taxa)+'% a.a. ('+FN[res.faixa]+', renda de '+BRL0.format(renda)+'). Aplicada na página toda — apague o campo "Taxa da faixa do cliente" pra voltar ao padrão.';
     render();
   });
-  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12'].forEach(function(id){ g(id).addEventListener('input',render); });
+  /* mudou o cliente? a unidade escolhida a mao perde a validade, senao o card
+     continua preso numa unidade ruim enquanto diz "a que melhor fecha" */
+  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12'].forEach(function(id){
+    g(id).addEventListener('input',function(){ st.pick={}; render(); }); });
   g('pv-cidade').addEventListener('change',function(){ st.pick={}; render(); });
   ['pv-escolha','pv-ordem'].forEach(function(id){ g(id).addEventListener('change',function(){ st.pick={}; render(); }); });
   addEventListener('hashchange',function(){ st.pick={}; render(); });
