@@ -92,66 +92,86 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 .rk-diff{margin-top:20px;background:var(--pri2);border-radius:14px;padding:14px 16px}.rk-diff .rk-val{color:var(--pri);margin-top:4px}
 .hist li{margin:5px 0;color:var(--mut);font-size:13px}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;max-width:90vw;text-align:center}.toast.on{opacity:1}
-#sm-bar[hidden]{display:none}
-.sm-top{padding:16px 18px;margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
-.sm-renda{display:block;font-size:12px;color:var(--mut);font-weight:650;text-transform:uppercase;letter-spacing:.05em;flex:0 0 210px}
-.sm-renda .mny{font-size:20px}
-.sm-ops{display:flex;gap:14px;flex-wrap:wrap}
-.sm-op{display:grid;gap:5px}
-.sm-tg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.sm-tg button{border:0;background:var(--card);color:var(--mut);font:inherit;font-size:13px;font-weight:600;padding:8px 13px;cursor:pointer}
-.sm-tg button.on{background:var(--pri);color:#fff}
-.sm-sum{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:14px;padding:14px 18px;margin-bottom:14px;box-shadow:var(--sh);font-size:14.5px}
-.sm-sum b{font-size:19px;font-weight:780;letter-spacing:-.02em}
-.sm-sum.vaz{border-left-color:var(--line);color:var(--mut)}
-.sm-sum.nao{border-left-color:var(--bad)}
-.sm-l{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);overflow:hidden}
-.sm-u{padding:12px 18px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:14px;justify-content:space-between;align-items:center}
-.sm-u:last-of-type{border-bottom:0}.sm-u:hover{background:var(--pri2)}
-.sm-u .t{font-weight:700;font-size:14.5px}
-.sm-u .m{color:var(--mut);font-size:12.5px;margin-top:2px}
-.sm-u .d{text-align:right;flex:none}
-.sm-u .d .v{font-weight:750;font-size:15px;letter-spacing:-.01em}
-.sm-u .d .s{color:var(--mut);font-size:11.5px}
-.sm-tag{display:inline-block;border-radius:99px;font-size:11px;font-weight:700;padding:2px 9px;margin-top:3px}
-.sm-tag.ok{background:var(--okbg);color:var(--ok)}
-.sm-tag.at{background:var(--warnbg);color:var(--warn)}
-.sm-tag.no{background:var(--badbg);color:var(--bad)}
-.sm-p{background:var(--bg);border-bottom:1px solid var(--line);padding:4px 18px 16px}
-.sm-p h4{font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 4px;font-weight:650}
-.sm-p .li{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px dotted var(--line);font-size:13.5px}
-.sm-p .li:last-child{border-bottom:0}
-.sm-p .li .v{font-weight:650;white-space:nowrap}
-.sm-p .li.tot{border-top:2px solid var(--line);border-bottom:0;margin-top:3px;padding-top:9px}
-.sm-p .li.ruim .v{color:var(--bad)}
-.sm-fx{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);margin-top:14px;overflow:hidden}
-.sm-fx>summary{padding:14px 18px;cursor:pointer;font-weight:700;font-size:14px;list-style:none}
-.sm-fx>summary::-webkit-details-marker{display:none}
-.sm-fx>summary::before{content:'\25B8';color:var(--mut);margin-right:8px;display:inline-block}
-.sm-fx[open]>summary::before{content:'\25BE'}
-.sm-fx[open]>summary{border-bottom:1px solid var(--line)}
-.sm-fxc{padding:0}
-.sm-fxv{padding:18px;color:var(--mut);font-size:13px}
-.sm-fxw{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.sm-fxt{width:100%;min-width:520px;border-collapse:collapse;font-size:13px}
-.sm-fxt th,.sm-fxt td{padding:8px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
-.sm-fxt th:first-child,.sm-fxt td:first-child{text-align:left}
-.sm-fxt th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);font-weight:700}
-.sm-fxt tbody tr:last-child td{border-bottom:0}
-.sm-fxt .num{font-variant-numeric:tabular-nums;font-weight:650}
-.sm-fxt .pior{color:var(--bad);font-weight:700}
-.sm-fxt .melhor{color:var(--ok);font-weight:700}
-.sm-fxt tr.lim td{background:var(--pri2)}
-.sm-fxn{padding:12px 18px;font-size:12.5px;color:var(--mut);line-height:1.5;border-top:1px solid var(--line)}
-.sm-p .li.tot span:first-child{font-weight:700}.sm-p .li.tot .v{font-size:16.5px;font-weight:780}
-.sm-bar2{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--line);margin:10px 0 2px}
-.sm-bar2 span{display:block}
-.sm-nota{font-size:12.5px;color:var(--mut);line-height:1.5;margin:10px 0 0;border-left:3px solid var(--line);padding-left:10px}
-.sm-pe{color:var(--mut);font-size:12px;line-height:1.55;margin-top:14px}
-@media(max-width:560px){.sm-top{gap:12px}.sm-renda{flex:1 1 100%}.sm-ops{gap:10px}}
-/* no celular as abas escorriam pra fora da tela: Simulador e Risco ficavam
-   escondidos atrás de um scroll lateral que ninguém percebe. Agora quebram linha. */
-@media(max-width:620px){.tabs{flex-wrap:wrap;overflow-x:visible;gap:2px}.tab{padding:9px 11px;font-size:14px}}
+/* ===== Panorama do Vale, portado pra dentro do painel =====
+   Os tokens do Panorama ficam escopados em #p-sim e apontam pros tokens
+   do relatório, pra ficar na mesma cara do resto. */
+#p-sim{--surface:var(--card);--surface-2:var(--pri2);--surface-3:var(--line);
+  --ink-2:var(--mut);--ink-3:var(--mut);--line-strong:var(--line);
+  --accent:var(--pri);--accent-soft:var(--pri2);--on-accent:#fff;
+  --seg-fin:var(--pri);--seg-sub:var(--warn);--seg-rp:var(--bad);
+  --ok-bg:var(--okbg);--warn-bg:var(--warnbg);--bad-bg:var(--badbg)}
+#p-sim .clientbar{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);margin-bottom:14px}
+#p-sim .clientbar .hd{padding:11px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+#p-sim .clientbar .hd h2{font-size:15px;font-weight:700;margin:0}
+#p-sim .clientbar .bd{padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:11px}
+#p-sim .f{display:grid;gap:4px;min-width:0}
+#p-sim .f>label,#p-sim .tg>label{font-size:11px;font-weight:600;color:var(--mut)}
+#p-sim input[type=number],#p-sim input[type=date],#p-sim select{font-size:14px;width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums}
+#p-sim .tg{display:grid;gap:4px;min-width:0}
+#p-sim .tg .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+#p-sim .tg .seg button{flex:1;font:inherit;font-size:12.5px;padding:8px 4px;cursor:pointer;background:var(--card);color:var(--mut);border:0}
+#p-sim .tg .seg button[aria-pressed="true"]{background:var(--pri);color:#fff;font-weight:600}
+#p-sim .calib{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:14px;padding:13px 16px;margin-bottom:14px;display:grid;gap:11px}
+#p-sim .calib .ct p{margin:4px 0 0;font-size:12.5px;color:var(--mut);max-width:70ch;line-height:1.5}
+#p-sim .calib .cf{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+#p-sim .calib .cf .f{min-width:130px;flex:0 1 160px}
+#p-sim .calib .cout{margin:0;font-size:12.5px;line-height:1.5;color:var(--mut)}
+#p-sim .calib .cout.ok{color:var(--ok)}#p-sim .calib .cout.bad{color:var(--bad)}
+#p-sim .btn2{font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:9px 15px;background:var(--pri);color:#fff;border:0;border-radius:8px}
+#p-sim .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-bottom:16px}
+#p-sim .tt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;display:grid;gap:2px;min-width:0}
+#p-sim .tt .n{font-size:23px;font-weight:780;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+#p-sim .tt .k{font-size:11.5px;color:var(--mut)}
+#p-sim .tt .s{font-size:11px;color:var(--mut)}
+#p-sim .tt.ok{border-left:3px solid var(--ok)}#p-sim .tt.ok .n{color:var(--ok)}
+#p-sim .tt.warn{border-left:3px solid var(--warn)}#p-sim .tt.warn .n{color:var(--warn)}
+#p-sim .tt.bad{border-left:3px solid var(--bad)}#p-sim .tt.bad .n{color:var(--bad)}
+#p-sim .tt.neutral{border-left:3px solid var(--line)}
+#p-sim .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(370px,1fr));gap:14px}
+@media(max-width:460px){#p-sim .cards{grid-template-columns:1fr}}
+#p-sim .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+#p-sim .pcard.ok{border-top:3px solid var(--ok)}#p-sim .pcard.warn{border-top:3px solid var(--warn)}#p-sim .pcard.bad{border-top:3px solid var(--bad)}
+#p-sim .pcard .hd{padding:13px 16px 11px;display:grid;gap:6px;border-bottom:1px solid var(--line)}
+#p-sim .pcard .hd .titlerow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+#p-sim .pcard .hd h3{font-size:16px;font-weight:780;letter-spacing:-.015em;line-height:1.2;margin:0}
+#p-sim .pcard .hd .sub{font-size:11.5px;color:var(--mut)}
+#p-sim .ppill{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:none}
+#p-sim .ppill.ok{background:var(--okbg);color:var(--ok)}
+#p-sim .ppill.warn{background:var(--warnbg);color:var(--warn)}
+#p-sim .ppill.bad{background:var(--badbg);color:var(--bad)}
+#p-sim .unitpick{padding:10px 16px;border-bottom:1px solid var(--line);background:var(--pri2);display:grid;gap:5px}
+#p-sim .unitpick .meta{font-size:11.5px;color:var(--mut)}
+#p-sim .ledger{padding:12px 16px;display:grid;gap:0}
+#p-sim .ledger .li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:5px 0;font-size:13.5px}
+#p-sim .ledger .li+.li{border-top:1px dotted var(--line)}
+#p-sim .ledger .li .lb{color:var(--mut);display:flex;align-items:center;gap:7px;min-width:0}
+#p-sim .ledger .li .lb i{width:8px;height:8px;border-radius:2px;display:block;flex:none}
+#p-sim .ledger .li .vl{font-variant-numeric:tabular-nums;font-weight:650;white-space:nowrap}
+#p-sim .ledger .li.total{margin-top:4px;border-top:1.5px solid var(--line);padding-top:9px;font-size:15px}
+#p-sim .ledger .li.total .lb{color:var(--ink);font-weight:700}
+#p-sim .ledger .li.total .vl{font-size:17px;font-weight:780}
+#p-sim .ledger .li .vl.neg{color:var(--warn)}
+#p-sim .ledger .li .vl.fin{color:var(--pri)}
+#p-sim .ledger .li .vl.rp{color:var(--bad)}
+#p-sim .ledger .li .sm{font-size:11px;color:var(--mut);font-weight:400}
+#p-sim .pstack{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--line);margin:10px 16px 0}
+#p-sim .pstack>span{display:block;min-width:0}
+#p-sim .terms{padding:12px 16px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#p-sim .terms>div{display:grid;gap:1px;min-width:0}
+#p-sim .terms .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);font-weight:700}
+#p-sim .terms .v{font-size:13px;font-weight:650;font-variant-numeric:tabular-nums}
+#p-sim .closing{margin:12px 16px 16px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+#p-sim .closing .row{display:flex;justify-content:space-between;gap:10px;padding:8px 11px;font-size:12.5px}
+#p-sim .closing .row+.row{border-top:1px solid var(--line)}
+#p-sim .closing .row .k{color:var(--mut)}
+#p-sim .closing .row .v{font-variant-numeric:tabular-nums;font-weight:650}
+#p-sim .closing .row.head{background:var(--pri2);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);font-weight:700}
+#p-sim .closing .row.strong{background:var(--pri2)}
+#p-sim .closing .row.strong .k,#p-sim .closing .row.strong .v{color:var(--pri);font-weight:700}
+#p-sim .cardnote{margin:0 16px 14px;font-size:11.5px;line-height:1.5;color:var(--mut);border-left:2px solid var(--line);padding-left:9px}
+#p-sim .pcard.bad .cardnote{color:var(--bad);border-left-color:var(--bad)}
+#p-sim .pempty{padding:26px 16px;text-align:center;color:var(--mut);font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+#p-sim .pfoot{margin-top:16px;font-size:12px;color:var(--mut);line-height:1.55}
 </style>
 </head>
 <body>
@@ -216,31 +236,63 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
   </div>
 </section>
 <section class="panel" id="p-sim">
-  <div class="h2">Simulação para o cliente</div>
-  <div class="card sm-top">
-    <label class="sm-renda">Renda bruta do cliente
-      <span class="mny" data-k="renda"><i>R$</i><input class="mi" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="reais"><i class="cm">,</i><input class="mc" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="00" aria-label="centavos" readonly></span>
-    </label>
-    <div class="sm-ops">
-      <div class="sm-op"><span class="lbl">Cotista FGTS</span><div class="sm-tg" data-k="cot"><button class="on" data-v="1">Sim</button><button data-v="0">Não</button></div></div>
-      <div class="sm-op"><span class="lbl">Entrega</span><div class="sm-tg" data-k="planta"><button class="on" data-v="0">Pronto</button><button data-v="1">Planta</button></div></div>
-      <div class="sm-op"><span class="lbl">Pagadoria</span><div class="sm-tg" data-k="pag"><button class="on" data-v="1">Sim</button><button data-v="0">Não</button></div></div>
-      <div class="sm-op"><span class="lbl">Emcash</span><div class="sm-tg" data-k="emc"><button class="on" data-v="0">Sem</button><button data-v="1">Com</button></div></div>
+  <div class="clientbar">
+    <div class="hd">
+      <h2>Cliente</h2>
+      <span class="lbl" id="pv-resumo">—</span>
+    </div>
+    <div class="bd">
+      <div class="f"><label for="pv-renda">Renda bruta (R$)</label><input type="number" id="pv-renda" value="4000" min="0" step="100"></div>
+      <div class="f"><label for="pv-nasc">Nascimento</label><input type="date" id="pv-nasc" value="1990-10-25"></div>
+      <div class="f"><label for="pv-cheque">Cheque Paulista</label><input type="number" id="pv-cheque" value="13000" min="0" step="500"></div>
+      <div class="f"><label for="pv-fgts">FGTS do cliente</label><input type="number" id="pv-fgts" value="0" min="0" step="500"></div>
+      <div class="tg"><label id="pv-l-cot">Cotista FGTS</label><div class="seg" role="group" aria-labelledby="pv-l-cot">
+        <button type="button" data-pvcot="1" aria-pressed="true">Sim</button><button type="button" data-pvcot="0" aria-pressed="false">Não</button></div></div>
+      <div class="tg"><label id="pv-l-dep">Dependente</label><div class="seg" role="group" aria-labelledby="pv-l-dep">
+        <button type="button" data-pvdep="1" aria-pressed="true">Sim</button><button type="button" data-pvdep="0" aria-pressed="false">Não</button></div></div>
+      <div class="tg"><label id="pv-l-ent">Entrega</label><div class="seg" role="group" aria-labelledby="pv-l-ent">
+        <button type="button" data-pvplanta="0" aria-pressed="true">Pronto</button><button type="button" data-pvplanta="1" aria-pressed="false">Planta</button></div></div>
+      <div class="tg"><label id="pv-l-pag">Pagadoria</label><div class="seg" role="group" aria-labelledby="pv-l-pag">
+        <button type="button" data-pvpag="1" aria-pressed="true">Sim</button><button type="button" data-pvpag="0" aria-pressed="false">Não</button></div></div>
+      <div class="tg"><label id="pv-l-emc">Emcash</label><div class="seg" role="group" aria-labelledby="pv-l-emc">
+        <button type="button" data-pvemc="0" aria-pressed="true">Sem</button><button type="button" data-pvemc="1" aria-pressed="false">Com</button></div></div>
+      <div class="f"><label for="pv-cidade">Cidade</label><select id="pv-cidade"></select></div>
+      <div class="f"><label for="pv-escolha">Unidade mostrada</label>
+        <select id="pv-escolha">
+          <option value="melhor" selected>A que melhor fecha</option>
+          <option value="barata">A mais barata</option>
+          <option value="bp">A de maior Bom Pagador</option>
+          <option value="area">A maior em área</option>
+        </select></div>
+      <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="number" id="pv-limF12" value="264000" step="1000"></div>
+      <div class="f"><label for="pv-taxa">Taxa da faixa do cliente (% a.a.)</label><input type="number" id="pv-taxa" step="0.05" placeholder="auto"></div>
+      <div class="f"><label for="pv-ordem">Ordem dos cards</label>
+        <select id="pv-ordem">
+          <option value="risco" selected>Menor risco primeiro</option>
+          <option value="parcela">Menor parcela</option>
+          <option value="valor">Menor valor</option>
+          <option value="nome">Nome</option>
+        </select></div>
     </div>
   </div>
-  <div id="sm-res"></div>
-  <div class="bar" id="sm-bar" hidden>
-    <span class="fchip on" data-f="fecha">Só o que fecha</span>
-    <span class="fchip" data-f="todas">Todas</span>
-    <span style="flex:1"></span>
-    <span class="lbl" id="sm-escopo"></span>
+
+  <div class="calib">
+    <div class="ct">
+      <b style="font-size:13px">Calibrar pela leitura real</b>
+      <p>Rode um caso no simulador da MRV e cole os três números. Eu inverto a conta e descubro a taxa exata daquela faixa — aí a página inteira passa a bater.</p>
+    </div>
+    <div class="cf">
+      <div class="f"><label for="pv-cRenda">Renda</label><input type="number" id="pv-cRenda" step="100" placeholder="4000"></div>
+      <div class="f"><label for="pv-cValor">Valor da unidade</label><input type="number" id="pv-cValor" step="1000" placeholder="263990"></div>
+      <div class="f"><label for="pv-cCap">Capacidade que ele deu</label><input type="number" id="pv-cCap" step="1000" placeholder="208024"></div>
+      <button type="button" class="btn2" id="pv-cBtn">Achar a taxa</button>
+    </div>
+    <p class="cout" id="pv-cOut"></p>
   </div>
-  <div id="sm-lista"></div>
-  <details class="sm-fx" id="sm-fx">
-    <summary>Como a renda muda o jogo neste escopo</summary>
-    <div id="sm-fxc"><div class="sm-fxv">Abrindo…</div></div>
-  </details>
-  <div class="sm-pe" id="sm-pe"></div>
+
+  <div class="totals" id="pv-totals"></div>
+  <div class="cards" id="pv-cards"></div>
+  <p class="pfoot" id="pv-foot"></p>
 </section>
 </div>
 <div class="toast" id="toast"></div>
@@ -593,256 +645,262 @@ $('#dl').onclick=()=>download('estoque.json',JSON.stringify({meta,cols:COLS,dado
 try{const c=localStorage.getItem('est_cod');if(c)$('#cod').value=JSON.parse(c)}catch(e){}
 $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedStyle(r).getPropertyValue('--bg').trim()==='#0d1220';r.dataset.theme=d?'light':'dark'};
 
-/* ===================== SIMULADOR MCMV =====================
-   Roda em cima do Map `cur` do próprio relatório, então acompanha
-   automaticamente toda atualização de estoque. Parâmetros em SIMP. */
-const SIMP={
-  dfi:0.000078990, mip:0.00016003, adm:25,
-  comp:.30, ltv:.80, pag:.015, prazo:420, obra:36,
-  fr:[3200,5000,9600,13000],
-  txC:[4.50,4.75,7.66,10.00], txN:[4.75,5.25,8.16,10.50],
-  limF2:264000, limF3:350000, limF4:600000,
-  r20:.20, r24:.24, r26:.26, sinalMin:300, sinalX:5, ato:.016,
-  cheque:13000, chequeTeto:4660, emcash:.50, emcN:48
-};
-let simCli={renda:0,cot:true,planta:false,pag:true,emc:false}, simFiltro='fecha', simAberta=null;
+/* ===================== PANORAMA DO VALE =====================
+   Mesmo codigo do Panorama, so que lendo o Map `cur` do relatorio em vez de
+   um JSON embutido. Entao toda planilha nova que voce sobe ja cai aqui. */
+(function(){
+  "use strict";
+  var P={ dfi:0.000078990, mip:0.00016003, adm:25, comp:0.30, ltv:0.80, pag:0.015,
+    f:[3200,5000,9600,13000], rc:[4.50,4.75,7.66,10.00], rn:[4.75,5.25,8.16,10.50],
+    r20:0.20, r24:0.24, r26:0.26, sinalMin:300, sinalX:5, ato:0.016,
+    prazo:420, obra:36, idPronto:45, idPlanta:42, chqTeto:4660, emcash:0.50,
+    limF12:264000, limF3:400000, limF4:600000 };
+  var st={planta:0,pag:1,dep:1,cot:1,emc:0,pick:{}};
+  var BRLc=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2});
+  var BRL0=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  var PCT=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  var N1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  var FN=['Faixa 1','Faixa 2','Faixa 3','Faixa 4'];
+  function g(id){ return document.getElementById(id); }
+  function num(id){ var v=parseFloat(g(id).value); return isFinite(v)?v:0; }
 
-const simFx=r=>{for(let k=0;k<4;k++) if(r<=SIMP.fr[k]) return k; return -1};
-const simFv=v=>v<=SIMP.limF2?1:(v<=SIMP.limF3?2:(v<=SIMP.limF4?3:99));
-const simFator=(i,n)=>{const f=Math.pow(1+i,n);return i*f/(f-1)};
-
-function simula(o){
-  const val=o.val||0, fr=simFx(simCli.renda), fv=simFv(val);
-  if(simCli.renda<=0) return null;
-  if(fr<0||fv>3) return {st:'no',lb:fv>3?'Unidade fora do programa':'Renda fora do programa',
-    fx:-1,cap:0,ent:val,risco:1,parc:0,ben:0,chq:0,sinal:0,ato:0,cart:val,mandaV:false,folga:0};
-  const fx=Math.max(fr,fv), tx=simCli.cot?SIMP.txC[fx]:SIMP.txN[fx];
-  const i=tx/100/12, n=simCli.planta?SIMP.prazo-SIMP.obra:SIMP.prazo;
-  const fator=simFator(i,n), adm=fx===0?0:SIMP.adm, dfi=val*SIMP.dfi;
-  const chq=simCli.renda<=SIMP.chequeTeto?SIMP.cheque:0, ben=chq+(o.bp||0);
-  const capR=Math.max(0,(SIMP.comp*simCli.renda-dfi-adm)/(fator+SIMP.mip));
-  const capC=val*(simCli.pag?1-SIMP.pag:1)*SIMP.ltv;
-  const prec=Math.max(0,val-ben);
-  const cap=Math.max(0,Math.min(capR,capC,prec));
-  const trava=Math.abs(cap-prec)<1?'prec':(capR<=capC?'renda':'cota');
-  const parc=cap*(fator+SIMP.mip)+dfi+adm;
-  const ent=Math.max(0,val-cap-ben), risco=val>0?ent/val:1;
-  let sinal=0,ato=0,st='ok',lb='Fecha sem sinal';
-  if(risco<=SIMP.r20) sinal=SIMP.sinalMin;
-  else if(risco<=SIMP.r24){sinal=(risco-SIMP.r20)*val;st='at';lb='Sinal em até '+SIMP.sinalX+'x'}
-  else if(risco<=SIMP.r26){sinal=(SIMP.r24-SIMP.r20)*val;ato=(risco-SIMP.r24)*val;st='at';lb='Sinal + ato'}
-  else {sinal=(SIMP.r24-SIMP.r20)*val;ato=(risco-SIMP.r24)*val;st='no';lb='Estoura o teto'}
-  const atoMin=(simCli.pag||simCli.emc)?val*SIMP.ato:0;
-  let atoT=Math.max(ato,atoMin);
-  /* folga = o que ainda cabe na renda depois da parcela da Caixa, no limite
-     de 50% de comprometimento. Em 48x sem juros isso dá o teto da Emcash:
-     referência de ordem de grandeza, não a conta oficial deles. */
-  const folga=Math.max(0,simCli.renda*SIMP.emcash-parc);
-  const tetoEmc=folga*SIMP.emcN;
-  const precisaEmc=Math.max(0,ent-atoMin);
-  let viaEmc=false;
-  if(simCli.emc){
-    viaEmc = folga>0 && precisaEmc<=tetoEmc;
-    if(viaEmc){
-      /* a entrada sai da carteira da construtora: some o sinal 5x e o teto
-         de 26% de risco deixa de valer. */
-      sinal=0; atoT=atoMin; st=(st==='no'?'at':st); lb='Entrada pela Emcash';
-    } else if(risco>SIMP.r26){
-      /* só a Emcash salvaria, e ela não alcança */
-      st='no'; lb=folga<=0?'Sem folga na renda':'Entrada não cabe na Emcash';
-    } else {
-      /* fecha pela construtora do mesmo jeito; a Emcash só não dá conta */
-      lb=lb+' · sem Emcash';
-    }
+  function fatorPrice(i,n){ if(i<=0) return 1/n; var f=Math.pow(1+i,n); return i*f/(f-1); }
+  function faixaPorRenda(r){ for(var k=0;k<4;k++){ if(r<=P.f[k]) return k; } return -1; }
+  function faixaPorValor(v){
+    var t12=parseFloat(g('pv-limF12').value); if(!isFinite(t12)) t12=P.limF12;
+    if(v<=t12) return 0;
+    if(v<=P.limF3) return 2;
+    if(v<=P.limF4) return 3;
+    return 99;
   }
-  const cart=Math.max(0,ent-sinal-atoT);
-  return {st,lb,fx,tx,n,cap,capR,capC,trava,parc,ent,risco,chq,ben,sinal,ato:atoT,cart,
-          mandaV:fv>fr, folga, tetoEmc, viaEmc, precisaEmc};
-}
-
-function simEscopo(){
-  const r=route();
-  return disp().filter(o=>(!r.cid||o.cid===r.cid)&&(!r.emp||o.emp===r.emp));
-}
-
-function simProposta(o,s){
-  const li=(k,v,c)=>`<div class="li ${c||''}"><span>${k}</span><span class="v">${v}</span></div>`;
-  const val=o.val||0;
-  let h='<div class="sm-p"><h4>Como o valor se fecha</h4>';
-  h+=li('Valor da unidade',BRL.format(val));
-  h+=li('Financiamento Caixa','− '+BRL.format(s.cap));
-  if(o.bp) h+=li('Desconto Bom Pagador','− '+BRL.format(o.bp));
-  h+=li('Cheque Paulista', s.chq?'− '+BRL.format(s.chq):'—');
-  h+=li('Entrada do cliente',BRL.format(s.ent),'tot');
-  h+=`<div class="sm-bar2"><span style="background:var(--pri);width:${(s.cap/val*100).toFixed(2)}%"></span><span style="background:var(--ok);width:${(s.ben/val*100).toFixed(2)}%"></span><span style="background:var(--bad);width:${(s.ent/val*100).toFixed(2)}%"></span></div>`;
-  h+='<h4>Condições</h4>';
-  h+=li('Parcela',fm(s.parc));
-  h+=li('Faixa e taxa', s.fx<0?'—':'Faixa '+(s.fx+1)+' · '+s.tx.toFixed(2).replace('.',',')+'% a.a.'+(s.mandaV?' (pelo imóvel)':''));
-  h+=li('Prazo',s.n+' meses');
-  h+=li('Risco da proposta',(s.risco*100).toFixed(2).replace('.',',')+'%');
-  h+='<h4>Como a entrada se divide</h4>';
-  h+=li(s.viaEmc?'Vai para a Emcash':'Fica na carteira', s.cart>0?fm(s.cart):'—');
-  if(!s.viaEmc) h+=li('Sinal'+(s.sinal>SIMP.sinalMin?' (até '+SIMP.sinalX+'x)':''), s.sinal>0?fm(s.sinal):'—');
-  h+=li('Ato à vista, na assinatura', s.ato>0?fm(s.ato):'—');
-  if(simCli.emc){
-    h+=li('Folga mensal na renda',fm(s.folga));
-    h+=li('Entrada que a folga sustenta em '+SIMP.emcN+'x',fm(s.tetoEmc),s.viaEmc?'':'ruim');
+  function faixaOf(r,v){
+    var fr=faixaPorRenda(r); if(fr<0) return -1;
+    if(v===undefined) return fr;
+    var fv=faixaPorValor(v); if(fv>3) return -1;
+    return Math.max(fr,fv);
   }
-  h+=`<p class="sm-nota">${simNota(o,s)}</p></div>`;
-  return h;
-}
-function simNota(o,s){
-  if(s.fx<0) return 'Renda acima do teto de '+BRL.format(SIMP.fr[3])+' do programa.';
-  const ref=' Conta sem juros, só para dar ordem de grandeza — quem aprova é a Emcash.';
-  if(s.st==='no'&&simCli.emc&&s.folga<=0) return 'A parcela da Caixa de '+fm(s.parc)+' já come os '+(SIMP.emcash*100)+'% de comprometimento da renda ('+fm(simCli.renda*SIMP.emcash)+'), então não sobra folga para a Emcash. E o risco de '+(s.risco*100).toFixed(1).replace('.',',')+'% passa do teto de 26% da construtora.';
-  if(s.st==='no'&&simCli.emc) return 'Só a Emcash salvaria (risco de '+(s.risco*100).toFixed(1).replace('.',',')+'%, acima dos 26%), mas a entrada de '+BRL.format(s.precisaEmc)+' passa do que a folga de '+fm(s.folga)+' por mês sustenta em '+SIMP.emcN+'x ('+BRL.format(s.tetoEmc)+').'+ref;
-  if(s.st==='no') return 'A entrada de '+BRL.format(s.ent)+' dá '+(s.risco*100).toFixed(1).replace('.',',')+'% de risco, acima do teto de 26%. Ligue a Emcash para ver se a entrada cabe na folga da renda.';
-  if(s.viaEmc) return 'Entrada de '+BRL.format(s.cart)+' pela Emcash, sem sinal. Sobram '+fm(s.folga)+' por mês depois da parcela da Caixa, o que sustenta até '+BRL.format(s.tetoEmc)+' em '+SIMP.emcN+'x.'+ref;
-  if(simCli.emc) return 'Fecha pela construtora do mesmo jeito: risco de '+(s.risco*100).toFixed(1).replace('.',',')+'%, dentro do teto. A Emcash é que não alcança — a entrada de '+BRL.format(s.precisaEmc)+' passa dos '+BRL.format(s.tetoEmc)+' que a folga de '+fm(s.folga)+' por mês sustenta em '+SIMP.emcN+'x.'+ref;
-  if(s.mandaV) return 'A unidade custa '+BRL.format(o.val)+', acima do teto de '+BRL.format(SIMP.limF2)+' da Faixa 2 — então entra como Faixa '+(s.fx+1)+' a '+s.tx.toFixed(2).replace('.',',')+'%. É o imóvel que manda, não a renda.';
-  if(s.trava==='cota') return 'A cota de 80% trava o financiamento em '+BRL.format(s.capC)+'; a renda sozinha comportaria '+BRL.format(s.capR)+'.';
-  if(s.trava==='prec') return 'O financiamento cobre tudo que faltava.';
-  return 'Travada pela renda: 30% de '+BRL.format(simCli.renda)+' comporta parcela de '+fm(simCli.renda*SIMP.comp)+'.';
-}
+  function ageYears(b,ref){ if(!b) return null; var d=new Date(b+'T00:00:00'); if(isNaN(d.getTime())) return null;
+    var m=(ref.getFullYear()-d.getFullYear())*12+(ref.getMonth()-d.getMonth()); if(ref.getDate()<d.getDate()) m-=1; return m/12; }
 
-function simRender(){
-  if(!$('#p-sim')) return;
-  const r=route(), esc0=simEscopo();
-  $('#sm-escopo').textContent = r.emp?nome(r.emp):(r.cid||'Todo o estoque');
-  if(simCli.renda<=0){
-    $('#sm-res').innerHTML='<div class="sm-sum vaz">Digite a renda do cliente acima. Eu mostro quais unidades fecham, com entrada, parcela e o que cobrar na assinatura.</div>';
-    $('#sm-bar').hidden=true; $('#sm-lista').innerHTML=''; $('#sm-pe').textContent='';
-    $('#sm-fx').hidden=true; return;
+  function simulate(o){
+    var fRenda=faixaPorRenda(o.renda), fValor=faixaPorValor(o.valor);
+    var faixa=faixaOf(o.renda,o.valor);
+    var mandaValor = faixa>=0 && fValor>fRenda;
+    var taxaAA=faixa<0?0:(st.cot?P.rc[faixa]:P.rn[faixa]);
+    var manual=parseFloat(g('pv-taxa').value);
+    if(isFinite(manual) && manual>0) taxaAA=manual;
+    var i=taxaAA/100/12;
+    var n=st.planta?P.prazo-P.obra:P.prazo;
+    var fator=fatorPrice(i,n);
+    var dfiMes=o.valor*P.dfi, adm=(faixa===0)?0:P.adm;
+    var cheque=(o.renda<=P.chqTeto)?o.cheque:0;
+    var beneficios=cheque+o.bompag+o.fgts;
+    var capLtv=o.valor*(st.pag?(1-P.pag):1)*P.ltv;
+    var capRenda=Math.max(0,(o.renda*P.comp-dfiMes-adm)/(fator+P.mip));
+    var necessidade=Math.max(0,o.valor-beneficios);
+    var cap=faixa<0?0:Math.max(0,Math.min(capRenda,capLtv,necessidade));
+    var trava=cap===0?'nenhuma':(Math.abs(cap-necessidade)<1?'necessidade':(capRenda<=capLtv?'renda':'cota'));
+    var parcela=cap*(fator+P.mip)+dfiMes+adm;
+    var rp=Math.max(0,o.valor-cap-beneficios);
+    var risco=o.valor>0?rp/o.valor:0;
+    var sinal=0,ato=0,status='ok',label='Fecha sem sinal';
+    if(faixa<0){ status='bad'; label=(fValor>3?'Unidade fora do programa':'Renda fora do programa'); }
+    else if(risco<=P.r20){ sinal=P.sinalMin; }
+    else if(risco<=P.r24){ sinal=(risco-P.r20)*o.valor; status='warn'; label='Sinal em até '+P.sinalX+'x'; }
+    else if(risco<=P.r26){ sinal=(P.r24-P.r20)*o.valor; ato=(risco-P.r24)*o.valor; status='warn'; label='Sinal + ato'; }
+    else { sinal=(P.r24-P.r20)*o.valor; ato=(risco-P.r24)*o.valor; status='bad'; label='Estoura o teto'; }
+    var atoMin=(st.pag||st.emc)?o.valor*P.ato:0;
+    if(st.emc){ sinal=0; ato=Math.max(ato,atoMin); if(risco<=P.r26) label='Emcash cobre a entrada'; }
+    var atoTotal=Math.max(ato,atoMin);
+    var carteira=Math.max(0, rp - sinal - atoTotal);
+    return {faixa:faixa,taxaAA:taxaAA,n:n,cap:cap,capRenda:capRenda,capLtv:capLtv,
+      trava:trava,parcela:parcela,rp:rp,risco:risco,cheque:cheque,beneficios:beneficios,
+      sinal:sinal,ato:ato,atoMin:atoMin,atoTotal:atoTotal,carteira:carteira,
+      status:status,label:label,folga:Math.max(0,o.renda*P.emcash-parcela),
+      fRenda:fRenda,fValor:fValor,mandaValor:mandaValor};
   }
-  $('#sm-fx').hidden=false;
-  const todas=esc0.map(o=>({o,s:simula(o)})).filter(x=>x.s);
-  const fecham=todas.filter(x=>x.s.st!=='no');
-  const menor=fecham.length?Math.min(...fecham.map(x=>x.s.ent)):null;
-  $('#sm-res').innerHTML = fecham.length
-    ? `<div class="sm-sum"><b>${fecham.length} de ${todas.length}</b> unidades fecham com renda de ${BRL.format(simCli.renda)} · entrada a partir de <b>${BRL.format(menor)}</b></div>`
-    : `<div class="sm-sum nao"><b>Nenhuma</b> das ${todas.length} unidades fecha com renda de ${BRL.format(simCli.renda)}${simCli.emc?'.':' — experimente ligar o Emcash.'}</div>`;
-  $('#sm-bar').hidden=false;
-  let ver = simFiltro==='fecha'?fecham:todas;
-  ver=ver.slice().sort((a,b)=>a.s.ent-b.s.ent);
-  $('#sm-lista').innerHTML = ver.length
-    ? '<div class="sm-l">'+ver.slice(0,200).map((x,ix)=>{
-        const o=x.o,s=x.s;
-        const meta=[nome(o.emp),o.tip,(o.ai||0)+(o.aq||0)?((o.ai||0)+(o.aq||0)).toFixed(2).replace('.',',')+' m²':'',BRL.format(o.val)].filter(Boolean).join(' · ');
-        return `<div class="sm-u" data-i="${ix}"><div><div class="t">${esc(apto(o))}</div><div class="m">${esc(meta)}</div></div>`+
-          `<div class="d"><div class="v">${BRL.format(s.ent)}</div><div class="s">de entrada</div><span class="sm-tag ${s.st}">${esc(s.lb)}</span></div></div>`+
-          (simAberta===ix?simProposta(o,s):'');
-      }).join('')+'</div>'
-    : '<div class="card" style="padding:26px;text-align:center;color:var(--mut)">Nenhuma unidade neste filtro.</div>';
-  $('#sm-pe').textContent='Estimativa de apoio calculada sobre o valor de tabela e o Bom Pagador da unidade. Imóvel até '+BRL.format(SIMP.limF2)+' é Faixa 2, até '+BRL.format(SIMP.limF3)+' é Faixa 3; vale o maior entre a faixa da renda e a do imóvel. Com Emcash, a entrada sai da carteira e o que trava passa a ser a folga da renda, estimada em '+SIMP.emcN+'x sem juros. Não é proposta nem simulação oficial — para fechar, vale o simulador da MRV.';
-  document.querySelectorAll('#sm-lista .sm-u').forEach(n=>n.onclick=()=>{
-    const i=+n.dataset.i; simAberta=simAberta===i?null:i; simRender();
+
+  /* o estoque vem do painel: mesma lista que a aba Estoque mostra */
+  function estoque(){
+    var r=route();
+    return disp().filter(function(o){ return (!r.cid||o.cid===r.cid)&&(!r.emp||o.emp===r.emp); })
+      .map(function(o){ return {id:o.u, o:o, v:o.val||0, b:o.bp||0, i:(o.ai||0), q:(o.aq||0),
+        t:o.tip||'', pcd:/sim/i.test(String(o.pcd||'')), emp:o.emp, cid:o.cid, ver:o.ver||''}; });
+  }
+  function cli(){ return {renda:num('pv-renda'), cheque:num('pv-cheque'), fgts:num('pv-fgts'), nasc:g('pv-nasc').value}; }
+  function simUnit(u,c){ return simulate({renda:c.renda, cheque:c.cheque, fgts:c.fgts, valor:u.v, bompag:u.b}); }
+
+  function nota(r,u,idade,idMax){
+    if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(parseFloat(g('pv-limF12').value)||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
+    if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo continua '+r.n+' meses.';
+    if(r.faixa<0) return 'Renda acima do teto de '+BRL0.format(P.f[3])+' do programa.';
+    if(r.status==='bad') return 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(P.r26*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
+    if(r.trava==='cota') return 'A cota de '+Math.round(P.ltv*100)+'% trava em '+BRL0.format(r.capLtv)+'; a renda sozinha comportaria '+BRL0.format(r.capRenda)+'. Sobra de renda: '+BRLc.format(Math.max(0,num('pv-renda')*P.comp-r.parcela))+' por mês.';
+    if(r.trava==='necessidade') return 'O financiamento cobre tudo que faltava — os benefícios já dão conta do resto.';
+    return 'Travada pela renda: '+Math.round(P.comp*100)+'% de '+BRL0.format(num('pv-renda'))+' dá parcela de '+BRLc.format(num('pv-renda')*P.comp)+', o que financia '+BRL0.format(r.capRenda)+'. A cota permitiria '+BRL0.format(r.capLtv)+'.';
+  }
+
+  function pvCidades(){
+    var sel=g('pv-cidade'); if(!sel) return;
+    var atual=sel.value;
+    var cs=[]; disp().forEach(function(o){ if(cs.indexOf(o.cid)<0) cs.push(o.cid); });
+    cs.sort(function(a,b){return String(a).localeCompare(String(b),'pt-BR')});
+    sel.innerHTML='<option value="*">Todas</option>'+cs.map(function(c){return '<option value="'+esc(c)+'">'+esc(c)+'</option>';}).join('');
+    if(atual && (atual==='*'||cs.indexOf(atual)>=0)) sel.value=atual;
+    else if(cs.indexOf('São José dos Campos')>=0) sel.value='São José dos Campos';
+  }
+
+  function render(){
+    if(!g('pv-cards')) return;
+    var c=cli();
+    var rota=route();
+    var cid=g('pv-cidade').value, escolha=g('pv-escolha').value, ordem=g('pv-ordem').value;
+    var idade=ageYears(c.nasc,new Date()), idMax=st.planta?P.idPlanta:P.idPronto;
+
+    g('pv-resumo').textContent = BRL0.format(c.renda)+' · '+(idade!==null?N1.format(idade)+' anos':'—')+' · '+
+      (st.planta?'planta · 384 meses':'pronto · 420 meses')+(rota.emp?' · '+nome(rota.emp):'');
+
+    var todas=estoque().filter(function(u){ return cid==='*'||rota.cid||u.cid===cid; });
+    var porEmp={};
+    todas.forEach(function(u){ (porEmp[u.emp]=porEmp[u.emp]||[]).push(u); });
+
+    var blocos=Object.keys(porEmp).map(function(k){
+      var units=porEmp[k];
+      var sims=units.map(function(u){ return {u:u, r:simUnit(u,c)}; });
+      var ok=sims.filter(function(x){return x.r.status==='ok';}).length;
+      var warn=sims.filter(function(x){return x.r.status==='warn';}).length;
+      var chosen;
+      if(st.pick[k]!==undefined) chosen=sims.filter(function(x){return x.u.id===st.pick[k];})[0];
+      if(!chosen){
+        var pool=sims.slice();
+        if(escolha==='melhor') pool.sort(function(a,b){return a.r.risco-b.r.risco;});
+        else if(escolha==='barata') pool.sort(function(a,b){return a.u.v-b.u.v;});
+        else if(escolha==='bp') pool.sort(function(a,b){return b.u.b-a.u.b;});
+        else pool.sort(function(a,b){return (b.u.i+b.u.q)-(a.u.i+a.u.q);});
+        chosen=pool[0];
+      }
+      return {k:k, sims:sims, ok:ok, warn:warn, sel:chosen};
+    });
+
+    var totUn=blocos.reduce(function(s,b){return s+b.sims.length;},0);
+    var totOk=blocos.reduce(function(s,b){return s+b.ok;},0);
+    var totWarn=blocos.reduce(function(s,b){return s+b.warn;},0);
+    var empsOk=blocos.filter(function(b){return b.ok+b.warn>0;}).length;
+    var melhores=blocos.filter(function(b){return b.sel.r.status!=='bad';}).sort(function(a,b){return a.sel.r.risco-b.sel.r.risco;});
+    var parcelas=blocos.filter(function(b){return b.sel.r.status!=='bad';}).map(function(b){return b.sel.r.parcela;});
+
+    g('pv-totals').innerHTML =
+      '<div class="tt ok"><span class="n">'+totOk+'</span><span class="k">unidades sem sinal</span><span class="s">de '+totUn+' no recorte</span></div>'+
+      '<div class="tt warn"><span class="n">'+totWarn+'</span><span class="k">com sinal ou ato</span><span class="s">risco entre 20% e 26%</span></div>'+
+      '<div class="tt bad"><span class="n">'+(totUn-totOk-totWarn)+'</span><span class="k">fora do teto</span><span class="s">não fecham</span></div>'+
+      '<div class="tt neutral"><span class="n">'+empsOk+'<span style="font-size:14px;color:var(--mut)">/'+blocos.length+'</span></span><span class="k">empreendimentos com opção</span><span class="s">'+
+        (melhores.length?'melhor: '+esc(nome(melhores[0].k)):'nenhum fecha')+'</span></div>'+
+      '<div class="tt neutral"><span class="n">'+(parcelas.length?BRL0.format(Math.min.apply(null,parcelas)):'—')+'</span><span class="k">menor parcela que fecha</span><span class="s">'+
+        (idade!==null && idade>idMax ? 'idade acima do limite' : 'comprometimento de 30%')+'</span></div>';
+
+    var rank={ok:0,warn:1,bad:2};
+    blocos.sort(function(a,b){
+      var d=rank[a.sel.r.status]-rank[b.sel.r.status]; if(d) return d;
+      if(ordem==='risco') return a.sel.r.risco-b.sel.r.risco;
+      if(ordem==='parcela') return a.sel.r.parcela-b.sel.r.parcela;
+      if(ordem==='valor') return a.sel.u.v-b.sel.u.v;
+      return String(a.k).localeCompare(String(b.k),'pt-BR');
+    });
+
+    if(!blocos.length){ g('pv-cards').innerHTML='<div class="pempty">Nenhuma unidade disponível neste recorte.</div>'; g('pv-foot').textContent=''; return; }
+
+    g('pv-cards').innerHTML = blocos.map(function(b){
+      var u=b.sel.u, r=b.sel.r, total=Math.max(1,u.v);
+      var segs=[['var(--pri)',r.cap],['var(--warn)',r.beneficios],['var(--bad)',r.rp]];
+      var linhas='';
+      linhas+='<div class="li"><span class="lb">Valor da unidade</span><span class="vl">'+BRL0.format(u.v)+'</span></div>';
+      linhas+='<div class="li"><span class="lb"><i style="background:var(--pri)"></i>Financiamento Caixa</span><span class="vl fin">− '+BRL0.format(r.cap)+'</span></div>';
+      if(u.b>0) linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>Desconto Bom Pagador</span><span class="vl neg">− '+BRL0.format(u.b)+'</span></div>';
+      linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>Cheque Paulista'+(r.cheque<=0&&num('pv-cheque')>0?' <span class="sm">(renda acima de '+BRL0.format(P.chqTeto)+')</span>':'')+'</span><span class="vl '+(r.cheque>0?'neg':'')+'">'+(r.cheque>0?'− '+BRL0.format(r.cheque):'—')+'</span></div>';
+      if(num('pv-fgts')>0) linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>FGTS do cliente</span><span class="vl neg">− '+BRL0.format(num('pv-fgts'))+'</span></div>';
+      linhas+='<div class="li total"><span class="lb">Entrada do cliente</span><span class="vl rp">'+BRL0.format(r.rp)+'</span></div>';
+
+      return '<article class="pcard '+r.status+'">'+
+        '<div class="hd"><div class="titlerow"><h3>'+esc(nome(b.k))+'</h3><span class="ppill '+r.status+'">'+esc(r.label)+'</span></div>'+
+          '<span class="sub">'+esc(u.cid)+(u.ver?' · tabela '+esc(u.ver):'')+' · '+b.sims.length+' disponíveis · '+(b.ok+b.warn)+' fecham'+(b.ok?' ('+b.ok+' sem sinal)':'')+'</span></div>'+
+        '<div class="unitpick">'+
+          '<select data-pvemp="'+esc(b.k)+'" aria-label="Unidade de '+esc(nome(b.k))+'">'+
+            b.sims.slice(0,300).map(function(x){
+              return '<option value="'+esc(x.u.id)+'"'+(x.u.id===u.id?' selected':'')+'>'+esc(apto(x.u.o))+' — '+BRL0.format(x.u.v)+(x.u.b>1000?' · BP '+BRL0.format(x.u.b):'')+'</option>';
+            }).join('')+
+          '</select>'+
+          '<span class="meta">'+esc(u.t)+(u.i?' · '+N1.format(u.i)+' m²':'')+(u.q>0?' + '+N1.format(u.q)+' m² quintal':'')+(u.pcd?' · PCD':'')+'</span>'+
+        '</div>'+
+        '<div class="ledger">'+linhas+'</div>'+
+        '<div class="pstack">'+
+          segs.map(function(s){ var pc=s[1]/total*100; return pc>0.01?'<span style="background:'+s[0]+'; width:'+pc.toFixed(3)+'%"></span>':''; }).join('')+
+        '</div>'+
+        '<div class="terms">'+
+          '<div><span class="k">Parcela</span><span class="v">'+BRLc.format(r.parcela)+'</span></div>'+
+          '<div><span class="k">'+(r.faixa<0?'Faixa':FN[r.faixa]+(r.mandaValor?' · pelo valor':''))+'</span><span class="v">'+(r.faixa<0?'—':PCT.format(r.taxaAA)+'% a.a.')+'</span></div>'+
+          '<div><span class="k">Prazo</span><span class="v">'+r.n+' meses</span></div>'+
+        '</div>'+
+        '<div class="closing">'+
+          '<div class="row head"><span>Como a entrada se divide</span><span>risco '+PCT.format(r.risco*100)+'%</span></div>'+
+          '<div class="row"><span class="k">Fica na carteira MRV</span><span class="v">'+(r.carteira>0?BRLc.format(r.carteira):'—')+'</span></div>'+
+          '<div class="row"><span class="k">Sinal'+(r.sinal>P.sinalMin?' (até '+P.sinalX+'x)':'')+'</span><span class="v">'+(r.sinal>0?BRLc.format(r.sinal):'—')+'</span></div>'+
+          '<div class="row"><span class="k">Ato à vista, na assinatura</span><span class="v">'+(r.atoTotal>0?BRLc.format(r.atoTotal):'—')+'</span></div>'+
+          '<div class="row strong"><span class="k">Soma = entrada do cliente</span><span class="v">'+BRLc.format(r.carteira+r.sinal+r.atoTotal)+'</span></div>'+
+        '</div>'+
+        '<p class="cardnote">'+nota(r,u,idade,idMax)+'</p>'+
+      '</article>';
+    }).join('');
+
+    g('pv-foot').innerHTML='Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (384 na planta) e teto de renda de R$ 4.660 do Cheque Paulista: suas notas de operação. <b>As taxas por faixa são estimativa</b> — use a caixa de calibração acima com uma leitura do simulador real pra fixar a taxa certa. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
+
+    document.querySelectorAll('#pv-cards .unitpick select').forEach(function(sel){
+      sel.onchange=function(){ st.pick[sel.getAttribute('data-pvemp')]=sel.value; render(); };
+    });
+  }
+
+  function acharTaxa(renda, valor, alvo){
+    var faixa=faixaOf(renda,valor);
+    var adm=(faixa===0)?0:P.adm;
+    var cota=valor*(st.pag?(1-P.pag):1)*P.ltv;
+    if(alvo >= cota-1) return {erro:'cota', cota:cota};
+    function capAt(t){ var i=t/100/12, f=Math.pow(1+i,P.prazo), fator=i*f/(f-1);
+      return (0.30*renda - valor*P.dfi - adm)/(fator+P.mip); }
+    if(capAt(0.5) < alvo) return {erro:'baixa'};
+    if(capAt(25) > alvo) return {erro:'alta'};
+    var lo=0.5, hi=25, mid;
+    for(var k=0;k<80;k++){ mid=(lo+hi)/2; if(capAt(mid)>alvo) lo=mid; else hi=mid; }
+    return {taxa:mid, faixa:faixa};
+  }
+
+  [['data-pvplanta','planta'],['data-pvpag','pag'],['data-pvdep','dep'],['data-pvcot','cot'],['data-pvemc','emc']].forEach(function(pr){
+    document.querySelectorAll('['+pr[0]+']').forEach(function(b){
+      b.addEventListener('click',function(){
+        st[pr[1]]=parseInt(b.getAttribute(pr[0]),10);
+        document.querySelectorAll('['+pr[0]+']').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
+        render();
+      });
+    });
   });
-  if(typeof simFxPinta==='function') simFxPinta();
-}
-
-
-/* varredura de renda: mostra onde cada faixa começa, onde o cheque paulista
-   corta e onde ganhar mais piora a proposta. Calculada só quando a pessoa abre. */
-function simFaixas(){
-  const esc0=simEscopo(); if(!esc0.length) return '<div class="sm-fxv">Nenhuma unidade disponível neste escopo.</div>';
-  const marcos=[SIMP.fr[0],SIMP.chequeTeto,SIMP.fr[1],SIMP.fr[2],SIMP.fr[3]];
-  const rs=new Set();
-  for(let r=1500;r<=SIMP.fr[3];r+=500) rs.add(r);
-  marcos.forEach(m=>{rs.add(m);rs.add(m+10)});
-  const lista=[...rs].filter(r=>r>0&&r<=SIMP.fr[3]+10).sort((a,b)=>a-b);
-  const guarda=simCli.renda, linhas=[];
-  for(const r of lista){
-    simCli.renda=r;
-    let ok=0,at=0,no=0,menor=null,pMenor=null,uMenor=null,chq=0;
-    for(const o of esc0){
-      const x=simula(o); if(!x) continue;
-      if(x.st==='ok')ok++; else if(x.st==='at')at++; else {no++;continue}
-      if(menor===null||x.ent<menor){menor=x.ent;pMenor=x.parc;uMenor=o;chq=x.chq}
-    }
-    linhas.push({r,fx:simFx(r),ok,at,no,menor,pMenor,uMenor,chq});
-  }
-  simCli.renda=guarda;
-  const BR=v=>v==null?'—':BRL.format(v);
-  let h='<div class="sm-fxw"><table class="sm-fxt"><thead><tr>'+
-    '<th>Renda</th><th>Faixa</th><th>Fecham</th><th>Menor entrada</th><th>Parcela</th><th>Cheque</th><th>Variação</th>'+
-    '</tr></thead><tbody>';
-  linhas.forEach((l,i)=>{
-    const a=i?linhas[i-1]:null;
-    let d='—',cl='';
-    if(a&&a.menor!=null&&l.menor!=null){
-      const dv=l.menor-a.menor;
-      if(Math.abs(dv)>=1){cl=dv>0?'pior':'melhor';d=(dv>0?'+':'−')+BRL.format(Math.abs(dv))}
-      else d='igual';
-    } else if(a&&a.menor==null&&l.menor!=null){cl='melhor';d='abriu'}
-    else if(a&&a.menor!=null&&l.menor==null){cl='pior';d='fechou'}
-    const marco=marcos.some(m=>m===l.r);
-    h+='<tr'+(marco?' class="lim"':'')+'><td class="num">'+BR(l.r)+'</td><td>'+(l.fx<0?'fora':'F'+(l.fx+1))+'</td>'+
-      '<td class="num">'+(l.ok+l.at)+' de '+esc0.length+'</td>'+
-      '<td class="num">'+BR(l.menor)+'</td><td class="num">'+(l.pMenor==null?'—':fm(l.pMenor))+'</td>'+
-      '<td>'+(l.chq?BR(l.chq):'—')+'</td>'+
-      '<td class="'+cl+'">'+d+'</td></tr>';
+  g('pv-cBtn').addEventListener('click', function(){
+    var renda=parseFloat(g('pv-cRenda').value), valor=parseFloat(g('pv-cValor').value), alvo=parseFloat(g('pv-cCap').value);
+    var out=g('pv-cOut'); out.className='cout';
+    if(!(renda>0 && valor>0 && alvo>0)){ out.textContent='Preencha renda, valor da unidade e a capacidade que o simulador devolveu.'; return; }
+    var res=acharTaxa(renda, valor, alvo);
+    if(res.erro==='cota'){ out.textContent='Nessa leitura quem trava é a cota de '+Math.round(P.ltv*100)+'% ('+BRL0.format(res.cota)+'), não a renda — então ela não revela a taxa. Rode no simulador um caso de renda mais baixa, onde a capacidade fique abaixo da cota.'; return; }
+    if(res.erro){ out.className='cout bad'; out.textContent='Esses números não fecham com a fórmula: a capacidade informada está '+(res.erro==='baixa'?'baixa':'alta')+' demais para essa renda e esse valor.'; return; }
+    g('pv-taxa').value=res.taxa.toFixed(2);
+    out.className='cout ok';
+    out.textContent='Taxa encontrada: '+PCT.format(res.taxa)+'% a.a. ('+FN[res.faixa]+', renda de '+BRL0.format(renda)+'). Aplicada na página toda — apague o campo "Taxa da faixa do cliente" pra voltar ao padrão.';
+    render();
   });
-  h+='</tbody></table></div>';
-  h+='<p class="sm-fxn">Linhas destacadas são os limites do programa: '+marcos.map(m=>BRL.format(m)).join(', ')+
-     '. <b>Menor entrada</b> é a melhor unidade do escopo naquela renda, com a parcela dela ao lado. '+
-     'Quando a coluna Variação aparece em vermelho, ganhar mais piorou a proposta — é onde o cheque paulista cai ou a faixa troca de taxa.</p>';
-  return h;
-}
-(function(){const d=$('#sm-fx'); if(!d) return;
-  d.addEventListener('toggle',()=>{if(d.open)simFxPinta()});})();
-let simFxT=null;
-function simFxPinta(){
-  const d=$('#sm-fx'); if(!d||!d.open) return;
-  if(simCli.renda<=0){$('#sm-fxc').innerHTML='<div class="sm-fxv">Digite a renda do cliente para eu varrer as faixas deste escopo.</div>';return}
-  if(simFxT)clearTimeout(simFxT);
-  $('#sm-fxc').innerHTML='<div class="sm-fxv">Calculando…</div>';
-  simFxT=setTimeout(()=>{simFxT=null;
-    try{$('#sm-fxc').innerHTML=simFaixas()}
-    catch(e){$('#sm-fxc').innerHTML='<div class="sm-fxv">Não consegui calcular: '+esc(e.message)+'</div>'}},400);
-}
-
-/* campo de renda no mesmo padrão dos outros campos de dinheiro */
-(function simMny(){
-  const m=document.querySelector('.mny[data-k="renda"]'); if(!m) return;
-  const mi=m.querySelector('.mi'), mc=m.querySelector('.mc');
-  mi._c=0; mi.value='0'; mc.value='00';
-  const MAX=9999999;
-  const grp=x=>String(x).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-  const draw=()=>{mi.value=grp(Math.floor(mi._c/100));mc.value=String(mi._c%100).padStart(2,'0');
-    simCli.renda=mi._c/100;const e=mi.value.length;try{mi.setSelectionRange(e,e)}catch(x){}simAberta=null;simRender()};
-  const all=()=>mi.selectionStart===0&&mi.selectionEnd===mi.value.length&&mi.value.length>0;
-  /* o "selecionar tudo" ao focar é adiado um tick; se a pessoa já começou a
-     digitar, cancelamos — senão ele zerava o valor no meio da digitação */
-  let sel=null; const noSel=()=>{if(sel){clearTimeout(sel);sel=null}};
-  m.addEventListener('mousedown',e=>{if(e.target===m||e.target===mc){e.preventDefault();mi.focus()}});
-  mi.addEventListener('focus',()=>{noSel();sel=setTimeout(()=>{sel=null;mi.select()},0)});
-  mi.addEventListener('blur',noSel);
-  mi.addEventListener('keydown',e=>{
-    if(e.ctrlKey||e.metaKey||e.altKey)return;
-    noSel();
-    if(/^\d$/.test(e.key)){e.preventDefault();if(all())mi._c=0;const n=mi._c*10+(+e.key);if(n<=MAX*100)mi._c=n;draw()}
-    else if(e.key==='Backspace'){e.preventDefault();mi._c=all()?0:Math.floor(mi._c/10);draw()}
-    else if(e.key==='Delete'){e.preventDefault();mi._c=0;draw()}
-    else if(e.key.length===1){e.preventDefault()}
-  });
-  mi.addEventListener('input',()=>{noSel();const d=(mi.value.match(/\d/g)||[]).join('');mi._c=Math.min(+d||0,MAX*100);draw()});
+  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12'].forEach(function(id){ g(id).addEventListener('input',render); });
+  g('pv-cidade').addEventListener('change',function(){ st.pick={}; render(); });
+  ['pv-escolha','pv-ordem'].forEach(function(id){ g(id).addEventListener('change',function(){ st.pick={}; render(); }); });
+  addEventListener('hashchange',function(){ st.pick={}; render(); });
+  /* planilha nova -> estoque e simulacao recalculam juntos */
+  var _sd=setData; setData=function(){ _sd.apply(this,arguments); pvCidades(); st.pick={}; render(); };
+  pvCidades(); render();
 })();
-
-document.querySelectorAll('.sm-tg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{
-  simCli[g.dataset.k]=b.dataset.v==='1';
-  g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
-  simAberta=null; simRender();
-}));
-document.querySelectorAll('#sm-bar .fchip').forEach(c=>c.onclick=()=>{
-  simFiltro=c.dataset.f; simAberta=null;
-  document.querySelectorAll('#sm-bar .fchip').forEach(x=>x.classList.toggle('on',x===c));
-  simRender();
-});
-addEventListener('hashchange',()=>{simAberta=null;simRender()});
-(function(){const _sd=setData;setData=function(){_sd.apply(this,arguments);simRender()}})();
-simRender();
-
-
 boot();
 </script>
 </body>
