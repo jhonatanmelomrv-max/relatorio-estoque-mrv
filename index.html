@@ -196,6 +196,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
   <button class="tab" data-t="atu">Atualizar</button>
   <button class="tab" data-t="risco">Risco por produto</button>
   <button class="tab" data-t="sim">Simulador</button>
+  <button class="tab" data-t="taxa">Achar a taxa</button>
 </div>
 
 <section class="panel on" id="p-est"><div id="nav"></div></section>
@@ -285,10 +286,16 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
     </div>
   </div>
 
+
+  <div class="totals" id="pv-totals"></div>
+  <div class="cards" id="pv-cards"></div>
+  <p class="pfoot" id="pv-foot"></p>
+</section>
+<section class="panel" id="p-taxa">
   <div class="calib">
     <div class="ct">
       <b style="font-size:13px">Calibrar pela leitura real</b>
-      <p>Rode um caso no simulador da MRV e cole os três números. Eu inverto a conta e descubro a taxa exata daquela faixa — aí a página inteira passa a bater.</p>
+      <p>Consulta: rode um caso no simulador da MRV e cole os três números. Eu inverto a conta e descubro a taxa daquele caso. A simulação usa a taxa do cadastro do cliente (renda e cotista) e só muda se você clicar em "Usar no cadastro do cliente".</p>
     </div>
     <div class="cf">
       <div class="f"><label for="pv-cRenda">Renda</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cRenda" value="0,00"></div>
@@ -297,11 +304,8 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <button type="button" class="btn2" id="pv-cBtn">Achar a taxa</button>
     </div>
     <p class="cout" id="pv-cOut"></p>
+    <button type="button" class="btn2" id="pv-cUse" style="display:none;margin-top:10px">Usar no cadastro do cliente</button>
   </div>
-
-  <div class="totals" id="pv-totals"></div>
-  <div class="cards" id="pv-cards"></div>
-  <p class="pfoot" id="pv-foot"></p>
 </section>
 </div>
 <div class="toast" id="toast"></div>
@@ -694,11 +698,12 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   function ageYears(b,ref){ if(!b) return null; var d=new Date(b+'T00:00:00'); if(isNaN(d.getTime())) return null;
     var m=(ref.getFullYear()-d.getFullYear())*12+(ref.getMonth()-d.getMonth()); if(ref.getDate()<d.getDate()) m-=1; return m/12; }
 
+  function taxaPorRenda(r,c){ var t=[[2160,4.25],[2850,4.50],[3200,4.75],[3500,5.00],[4000,5.50],[5000,6.50],[9600,7.66]]; for(var i=0;i<t.length;i++){ if(r<=t[i][0]) return t[i][1]+(c?0:0.5); } return 10.00; }
   function simulate(o){
     var fRenda=faixaPorRenda(o.renda), fValor=faixaPorValor(o.valor);
     var faixa=faixaOf(o.renda,o.valor);
     var mandaValor = faixa>=0 && fValor>fRenda;
-    var taxaAA=faixa<0?0:(st.cot?P.rc[faixa]:P.rn[faixa]);
+    var taxaAA=faixa<0?0:(mandaValor?(st.cot?P.rc[faixa]:P.rn[faixa]):taxaPorRenda(o.renda,st.cot));
     var manual=parseFloat(g('pv-taxa').value);
     if(isFinite(manual) && manual>0) taxaAA=manual;
     var i=taxaAA/100/12;
@@ -918,16 +923,17 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   });
   g('pv-cBtn').addEventListener('click', function(){
     var renda=mv('pv-cRenda'), valor=mv('pv-cValor'), alvo=mv('pv-cCap');
-    var out=g('pv-cOut'); out.className='cout';
+    var out=g('pv-cOut'); out.className='cout'; g('pv-cUse').style.display='none';
     if(!(renda>0 && valor>0 && alvo>0)){ out.textContent='Preencha renda, valor da unidade e a capacidade que o simulador devolveu.'; return; }
     var res=acharTaxa(renda, valor, alvo);
     if(res.erro==='cota'){ out.textContent='Nessa leitura quem trava é a cota de '+Math.round(P.ltv*100)+'% ('+BRL0.format(res.cota)+'), não a renda — então ela não revela a taxa. Rode no simulador um caso de renda mais baixa, onde a capacidade fique abaixo da cota.'; return; }
     if(res.erro){ out.className='cout bad'; out.textContent='Esses números não fecham com a fórmula: a capacidade informada está '+(res.erro==='baixa'?'baixa':'alta')+' demais para essa renda e esse valor.'; return; }
-    g('pv-taxa').value=res.taxa.toFixed(2);
+    window.__taxaAchada=res.taxa.toFixed(2);
     out.className='cout ok';
-    out.textContent='Taxa encontrada: '+PCT.format(res.taxa)+'% a.a. ('+FN[res.faixa]+', renda de '+BRL0.format(renda)+'). Aplicada na página toda — apague o campo "Taxa da faixa do cliente" pra voltar ao padrão.';
-    render();
+    out.textContent='Taxa encontrada: '+PCT.format(res.taxa)+'% a.a. ('+FN[res.faixa]+', renda de '+BRL0.format(renda)+'). Só consulta: a simulação continua com a taxa do cadastro do cliente.';
+    g('pv-cUse').style.display='inline-block';
   });
+  g('pv-cUse').addEventListener('click',function(){ g('pv-taxa').value=window.__taxaAchada||''; st.pick={}; render(); g('pv-cOut').textContent='Taxa de '+PCT.format(parseFloat(window.__taxaAchada))+'% a.a. aplicada ao cadastro do cliente (campo "Taxa da faixa do cliente"). Apague o campo para voltar à tabela automática.'; });
   /* mudou o cliente? a unidade escolhida a mao perde a validade, senao o card
      continua preso numa unidade ruim enquanto diz "a que melhor fecha" */
   ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12'].forEach(function(id){
