@@ -182,20 +182,28 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 #p-sim .pempty{padding:26px 16px;text-align:center;color:var(--mut);font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:14px}
 #p-sim .pfoot{margin-top:16px;font-size:12px;color:var(--mut);line-height:1.55}
 
-#p-regras .rg-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
-#p-regras #rg-q{flex:1 1 280px;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-family:inherit;box-sizing:border-box}
-#p-regras .rg-n{font-size:12px;color:var(--mut)}
-#p-regras .rg-g{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:18px 0 8px}
-#p-regras details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;box-shadow:var(--sh)}
-#p-regras summary{cursor:pointer;padding:12px 16px;font-weight:700;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
-#p-regras summary::-webkit-details-marker{display:none}
-#p-regras summary::after{content:"+";font-size:18px;color:var(--mut);font-weight:500}
-#p-regras details[open] summary::after{content:"\2212"}
-#p-regras details[open] summary{border-bottom:1px solid var(--line)}
-#p-regras .rg-b{padding:10px 16px 14px}
-#p-regras .rg-b ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:13.5px;line-height:1.5}
-#p-regras .rg-obs{margin:10px 0 0;padding:9px 12px;border-left:3px solid var(--warn);background:var(--bg);border-radius:6px;font-size:12.5px;color:var(--mut);line-height:1.5}
-#p-regras mark{background:#ffe9a8;color:inherit;border-radius:3px}
+#p-regras .rg-h{font-size:20px;font-weight:780;letter-spacing:-.02em;margin:0 0 4px}
+#p-regras .rg-sub{margin:0 0 14px;font-size:13px;color:var(--mut)}
+#p-regras .rg-d{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);margin-bottom:10px}
+#p-regras .rg-d summary{cursor:pointer;padding:15px 16px;font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#p-regras .rg-d summary::-webkit-details-marker{display:none}
+#p-regras .rg-d summary::after{content:"+";font-size:22px;line-height:1;color:var(--mut);font-weight:500}
+#p-regras .rg-d[open] summary::after{content:"\2212"}
+#p-regras .rg-d[open] summary{border-bottom:1px solid var(--line)}
+#p-regras .rg-b{padding:14px 16px 16px}
+#p-regras .rg-b ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+#p-regras .rg-b>ul>li{position:relative;padding-left:26px;font-size:14px;line-height:1.45}
+#p-regras .rg-b>ul>li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:5px;border:2px solid var(--pri);background:var(--bg)}
+#p-regras .rg-card ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+#p-regras .rg-card li{position:relative;padding-left:26px;font-size:14px;line-height:1.45}
+#p-regras .rg-card li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:5px;border:2px solid var(--pri);background:var(--bg)}
+#p-regras .rg-lk{display:grid;gap:8px;margin-top:12px}
+#p-regras .rg-lk a{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:600;color:var(--pri);text-decoration:none;background:var(--bg)}
+#p-regras #rg-links .rg-lk{margin-top:0}
+#p-regras .rg-st{margin-top:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;font-size:13.5px;line-height:1.5}
+#p-regras .rg-st ol{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+#p-regras .rg-st p{margin:8px 0 0;color:var(--mut);font-size:12.5px}
+#p-regras .rg-obs{margin:12px 0 0;padding:9px 12px;border-left:3px solid var(--warn);background:var(--bg);border-radius:6px;font-size:12.5px;color:var(--mut);line-height:1.5}
 </style>
 </head>
 <body>
@@ -323,11 +331,9 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
   </div>
 </section>
 <section class="panel" id="p-regras">
-  <div class="rg-top">
-    <input type="search" id="rg-q" placeholder="Buscar regra (ex.: autônomo, comprovante, FGTS)">
-    <span class="rg-n" id="rg-n"></span>
-  </div>
-  <div id="rg-list"></div>
+  <h2 class="rg-h">Documentos necessários para análise</h2>
+  <p class="rg-sub">Toque no perfil do cliente para abrir a lista. Toque de novo para fechar.</p>
+  <div id="rg-acc"></div>
   <p class="pfoot">Pré-análise baseada nas normas públicas da Caixa para o MCMV. A decisão final, o score e a consulta de crédito são da Caixa, e ela pode pedir documentos adicionais. Confirme sempre a regra vigente.</p>
 </section>
 
@@ -985,23 +991,17 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
 })();
 
 (function(){
-  var RG=[{"g": "Documentos pessoais", "t": "Documento de identidade", "i": ["Aceitos: RG, CNH ou carteira profissional (OAB, CREA, CRM etc.) que valha como identidade.", "Original em bom estado, legível, com foto, nome completo, filiação e número.", "CNH vencida não vale como identidade.", "Cópia cortada, rasurada ou sem foto vira pendência."], "o": "Se o RG ou a CNH já trazem o CPF impresso, o CPF avulso pode ser dispensado."}, {"g": "Documentos pessoais", "t": "CPF", "i": ["O CPF precisa estar regular na Receita Federal.", "CPF suspenso, pendente, cancelado ou de titular falecido trava: o cliente regulariza no site da Receita antes de subir."], "o": ""}, {"g": "Documentos pessoais", "t": "Estado civil", "i": ["Solteiro: certidão de nascimento atualizada.", "Casado: certidão de casamento atualizada. O cônjuge entra sempre, como coproponente (compõe renda) ou anuente (só consente).", "União estável: escritura pública ou declaração com firma reconhecida. O companheiro normalmente entra no contrato.", "Divorciado ou separado judicialmente: certidão de casamento com a averbação do divórcio. Sem a averbação é pendência.", "Viúvo: certidão de casamento e certidão de óbito do cônjuge."], "o": "Subir cliente casado como solteiro trava na hora. A Caixa costuma pedir certidão emitida nos últimos 90 dias."}, {"g": "Documentos pessoais", "t": "Comprovante de endereço", "i": ["Emitido há no máximo 90 dias, com data de emissão visível.", "Precisa ter o nome do titular, endereço completo (rua, número, bairro, cidade/UF) e CEP.", "Aceitos: conta de água, luz, gás, telefone fixo ou internet; fatura de cartão; extrato ou correspondência de banco; boleto de condomínio, IPTU ou carnê; contrato de aluguel; correspondência de órgão público.", "Sem CEP, sem número do imóvel ou com mais de 90 dias, vira pendência.", "O endereço do comprovante tem que bater com o do cadastro.", "Em nome do cônjuge: vale com a certidão de casamento.", "Em nome de pai, mãe ou filho: vale com documento que comprove o parentesco (certidão de nascimento).", "Em nome de terceiro (sogro, amigo, locador): declaração de residência assinada pelo titular, com firma reconhecida, mais cópia do documento dele."], "o": "Se o cliente mora de aluguel, o contrato de locação resolve o vínculo e o endereço de uma vez."}, {"g": "Comprovação de renda", "t": "CLT (carteira assinada)", "i": ["Os 3 últimos contracheques.", "Carteira de trabalho: página da foto, página do contrato e página da última alteração de salário (física ou digital).", "Vínculo ativo e valores coerentes entre holerite e carteira.", "Entra o salário base recorrente. 13º, horas extras e comissões só entram se forem habituais e comprovadas em vários meses.", "Holerite de um mês só ou vínculo muito recente costuma gerar pendência."], "o": ""}, {"g": "Comprovação de renda", "t": "Autônomo / informal", "i": ["Extratos bancários dos últimos 3 a 6 meses, com entradas recorrentes.", "DECORE (declaração de rendimentos feita por contador com CRC), válida por cerca de 90 dias.", "Declaração de Imposto de Renda.", "A renda é a média das entradas recorrentes. Transferências entre contas próprias, empréstimos e estornos não contam.", "DECORE que não bate com o extrato é risco."], "o": "Sem Imposto de Renda declarado, o sistema tende a considerar só o limite de isenção, o que derruba a renda."}, {"g": "Comprovação de renda", "t": "MEI", "i": ["DASN-SIMEI (declaração anual do MEI).", "Notas fiscais emitidas e extratos bancários.", "Imposto de Renda da pessoa física, se houver."], "o": ""}, {"g": "Comprovação de renda", "t": "Empresário / sócio", "i": ["Pró-labore e DECORE.", "Contrato social.", "Se a Caixa pedir: IRPJ e balanço ou DRE."], "o": ""}, {"g": "Comprovação de renda", "t": "Aposentado / pensionista", "i": ["Extrato de pagamento do benefício do INSS ou carta de concessão.", "Margem consignável já comprometida reduz a capacidade de pagamento."], "o": ""}, {"g": "Comprovação de renda", "t": "Renda de aluguel", "i": ["Contrato de locação registrado e comprovantes de recebimento.", "O Imposto de Renda é obrigatório para essa renda ser aceita."], "o": ""}, {"g": "Comprovação de renda", "t": "Composição de renda", "i": ["Pode somar a renda de até 3 pessoas da mesma família.", "Cada pessoa que compõe renda entrega a documentação completa: identidade, estado civil, endereço e renda."], "o": ""}, {"g": "Outros documentos", "t": "FGTS", "i": ["Extrato atualizado das contas vinculadas quando o cliente vai usar o FGTS.", "Mostra o saldo disponível e o tempo de vínculo (a regra dos 36 meses de registro define se ele é cotista)."], "o": ""}, {"g": "Outros documentos", "t": "Autorizações e consultas", "i": ["Autorização de consulta ao SPC e Serasa. Cliente negativado tende a ser reprovado, salvo regularização.", "Em alguns fluxos, declaração de que não possui imóvel residencial.", "A consulta a CADMUT e CADIN é feita pela própria Caixa."], "o": ""}];
-  var q=document.getElementById('rg-q'), L=document.getElementById('rg-list'), N=document.getElementById('rg-n');
+  var D={"com": ["RG e CPF, ou CNH. Foto nítida (frente e verso) ou PDF.", "Comprovante de endereço atual ou de até 60 dias, em conta de consumo. Foto, print ou PDF.", "Certidão de estado civil: nascimento (solteiro) ou casamento (casado, divorciado, viúvo).", "Assinar a MO, a autorização para a Caixa fazer a análise de crédito.", "Se tiver cônjuge ou um segundo proponente: os mesmos documentos dele, e ele também assina a MO.", "O extrato do FGTS só vale em PDF, sem print ou foto. O extrato bancário só é pedido para autônomo (o assalariado entrega só o do FGTS) e também só vale em PDF."], "p": [{"k": "CLT", "t": "Trabalha registrado (CLT)", "i": ["Carteira de trabalho. A digital (app Gov) é mais rápida, mas a física em foto também serve.", "Os 2 últimos holerites: os 2 meses anteriores ao mês do atendimento. Foto, print ou PDF.", "Extrato do FGTS (conta vinculada), em PDF, mostrando o depósito da mesma competência de cada holerite. É obrigatório desde o início do processo (dá para puxar pelo Gov)."], "o": "Regra nova da Caixa (Manual de Crédito, item 4.6.5): a renda do CLT é o maior valor entre o holerite e o depósito do FGTS multiplicado por 12,5. Exemplo: holerite de R$ 2.800 e depósito de R$ 240 dá R$ 3.000, e vale o FGTS. Com holerite de R$ 3.500, vale o holerite. O depósito do FGTS tem que ser do mesmo mês do holerite.", "l": [["Como baixar o extrato do FGTS", "https://drive.google.com/drive/folders/1LSEZPQT4Ofow1MzexXjgB37R2ak7Vs1z?usp=drive_link"]], "s": ["Abra o app FGTS e, em “Resumo do seu FGTS”, toque na conta do empregador.", "Na tela da conta, toque em “Gerar extrato PDF”.", "O PDF abre com o histórico de movimentações. Salve e envie esse arquivo."], "st": "Como tirar o extrato do FGTS (3 telas)", "sn": "Se o cliente tem mais de um empregador, gera o extrato da conta de cada um."}, {"k": "Autônomo", "t": "Autônomo (geral)", "i": ["Carteira de trabalho (Gov ou física em foto).", "Extrato do FGTS, em PDF.", "Extrato bancário completo dos últimos 3 meses, de pessoa física, em PDF exportado pelo app do banco. Vale os 3 meses anteriores ao mês do atendimento. Print não vale."], "o": "O Imposto de Renda não é exigência, mas ajuda a formalizar a renda. Sem ele, a renda informal tem o teto de R$ 2.550.", "l": [["Declaração de renda informal (Caixa)", "https://drive.google.com/drive/folders/11qSues4tKDSE8K1Fvtg4fFyggAGEJ9BY?usp=drive_link"], ["Ficha de análise de renda informal (MRV)", "https://drive.google.com/drive/folders/1QW0rFSAc_x6ExQhjZ2DsRDnkPf7nAt0n?usp=drive_link"]]}, {"k": "Aplicativo", "t": "Motorista de aplicativo / entregador", "i": ["Só vale para quem trabalha direto para o aplicativo (Uber, iFood, 99, Mercado Livre, Shopee). Entrega por conta própria, sem vínculo com app, é autônomo geral.", "Comprovantes de recebimento da própria plataforma, dos últimos 4 meses seguidos.", "Sempre da mesma plataforma. Não pode misturar (ex.: 2 meses de iFood e 2 de Uber).", "Carteira de trabalho e extrato do FGTS, como nos outros perfis."], "o": "A Caixa considera o menor valor entre os 4 meses, não a média. Avise o cliente antes."}, {"k": "MEI", "t": "MEI", "i": ["Imposto de Renda de pessoa física. O MEI compra pelo Imposto de Renda.", "Cartão CNPJ (emitir em gov.br/empresas-e-negocios, Redesim)."], "o": "Se não tiver Imposto de Renda, roda a análise como autônomo: extrato bancário dos últimos 3 meses, de pessoa física. O MEI não tem mais isenção automática de IR.", "l": [["Consultar se é Simples Nacional (Receita)", "https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21"], ["Documentos obrigatórios do MEI", "https://drive.google.com/file/d/1G95EodPQeJcKuo-oD9gYWLMCJiKe5ykp/view?usp=drive_link"]]}, {"k": "ME / sócio", "t": "ME (microempresa) / sócio", "i": ["Pró-labore.", "Documentos da empresa: contrato social e cartão CNPJ.", "Carteira de trabalho e extrato do FGTS."], "o": "", "l": [["Consultar se é Simples Nacional (Receita)", "https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21"]]}, {"k": "Aposentado", "t": "Aposentado / pensionista", "i": ["Extrato de pagamento do benefício do INSS ou carta de concessão.", "Margem consignável já comprometida reduz a capacidade de pagamento."], "o": "", "l": [["Códigos de benefícios do INSS", "https://drive.google.com/drive/folders/1278VoULN4idTPlvkddP-oYWW-Hgu-5vc?usp=drive_link"]]}, {"k": "Aluguel", "t": "Renda de aluguel", "i": ["Contrato de locação registrado.", "Comprovantes de recebimento.", "Imposto de Renda (obrigatório para essa renda ser aceita)."], "o": ""}], "visita": ["RG e CPF ou CNH.", "Carteira de trabalho.", "Comprovante de endereço atualizado (até 60 dias).", "Certidão de estado civil (nascimento ou casamento)."], "links": [["MO: link para assinar", "https://drive.google.com/file/d/19CTeHkQvJnhGTA36QXPzUnlSxndgRjos/view?usp=sharing"], ["Como assinar a MO digitalmente", "https://drive.google.com/file/d/10qn-m0nh6lpYF0mkhhOQqcuPDH7W5z60/view?usp=drive_link"], ["Lista de documentos para análise de crédito", "https://drive.google.com/drive/folders/1at8iudthdtLrFwCC-pUlKWXzZyYVqzzq?usp=drive_link"], ["Como baixar o extrato do FGTS", "https://drive.google.com/drive/folders/1LSEZPQT4Ofow1MzexXjgB37R2ak7Vs1z?usp=drive_link"], ["Certidão de nascimento ou casamento online", "https://drive.google.com/drive/folders/1U2k96yyNrQ4FmcNJ9zstb69y5enGI02N?usp=drive_link"], ["Modelo de declaração de dependente", "https://drive.google.com/drive/folders/1ytgs902CFjy1jb8w8RcEs62TOouvDmPC?usp=drive_link"]]};
+  var acc=document.getElementById('rg-acc');
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
-  function norm(s){ return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
-  function draw(){
-    var t=norm(q.value.trim()), out='', last='', n=0;
-    RG.forEach(function(r){
-      var hay=norm(r.g+' '+r.t+' '+r.i.join(' ')+' '+r.o);
-      if(t && hay.indexOf(t)<0) return;
-      n++;
-      if(r.g!==last){ out+='<div class="rg-g">'+esc(r.g)+'</div>'; last=r.g; }
-      out+='<details'+(t?' open':'')+'><summary>'+esc(r.t)+'</summary><div class="rg-b"><ul>'+r.i.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+(r.o?'<p class="rg-obs">'+esc(r.o)+'</p>':'')+'</div></details>';
-    });
-    L.innerHTML=out||'<p class="pfoot">Nenhuma regra encontrada para essa busca.</p>';
-    N.textContent=n+' de '+RG.length+' regras';
-  }
-  q.addEventListener('input',draw); draw();
+  function links(a){ return a&&a.length?'<div class="rg-lk">'+a.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>';}).join('')+'</div>':''; }
+  function steps(p){ return p&&p.s?'<div class="rg-st"><b>'+esc(p.st)+'</b><ol>'+p.s.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol>'+(p.sn?'<p>'+esc(p.sn)+'</p>':'')+'</div>':''; }
+  function item(t,items,obs,lk,p){ return '<details class="rg-d"><summary>'+esc(t)+'</summary><div class="rg-b"><ul>'+items.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+steps(p)+(obs?'<p class="rg-obs">'+esc(obs)+'</p>':'')+links(lk)+'</div></details>'; }
+  var h=item('Documentos de todo cliente',D.com,'','');
+  h+=item('Visita na loja (Caixa no local)',D.visita,'Só vale quando o cliente confirma a visita. Há um representante da Caixa na loja fazendo análise no dia. Levar esses documentos ajuda, mas não é exigência.','');
+  D.p.forEach(function(p){ h+=item(p.t,p.i,p.o,p.l,p); });
+  h+='<details class="rg-d"><summary>Modelos e tutoriais</summary><div class="rg-b">'+links(D.links).replace('class="rg-lk"','class="rg-lk" style="margin-top:0"')+'</div></details>';
+  acc.innerHTML=h;
 })();
 boot();
 </script>
