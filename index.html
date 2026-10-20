@@ -358,8 +358,8 @@ function fromBase(rows){const m=new Map();rows.forEach(a=>{const o={};COLS.forEa
 function toBase(m){return[...m.values()].map(o=>COLS.map(c=>o[c]))}
 const MIN=new Set(['di','do','dos','da','das','de']);
 const nome=e=>e.replace(/^RESIDENCIAL /,'').toLowerCase().split(' ').map((w,i)=>MIN.has(w)&&i?w:w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
-function apto(o){const p=o.u.split(' - ');const b=(p.find(x=>/^BLOCO/i.test(x))||'').replace(/BLOCO/i,'Bloco');const a=(p.find(x=>/^APTO/i.test(x))||p[p.length-1]).replace(/APTO/i,'Apto');return [b,a].filter(Boolean).join(' · ')}
-const bloco=o=>(o.u.match(/BLOCO\s*(\d+)/i)||[0,0])[1]*1,aptoN=o=>(o.u.match(/APTO\s*(\d+)/i)||[0,0])[1]*1;
+function apto(o){const p=o.u.split(' - ');const b=(p.find(x=>/^(BLOCO|TORRE)/i.test(x))||'').replace(/^BLOCO/i,'Bloco').replace(/^TORRE/i,'Torre');const a=(p.find(x=>/^APTO/i.test(x))||p[p.length-1]).replace(/APTO/i,'Apto');return [b,a].filter(Boolean).join(' · ')}
+const bloco=o=>(o.u.match(/(?:BLOCO|TORRE)\s*(\d+)/i)||[0,0])[1]*1,aptoN=o=>(o.u.match(/APTO\s*(\d+)/i)||[0,0])[1]*1;
 
 /* ---------- Excel ---------- */
 function num(v){if(v===''||v==null)return null;if(typeof v==='number')return isNaN(v)?null:v;let t=String(v).replace(/[^\d,.\-]/g,'');if(t==='')return null;if(t.includes(',')){t=t.replace(/\./g,'').replace(',','.')}else if(/^-?\d{1,3}(\.\d{3})+$/.test(t)){t=t.replace(/\./g,'')}const n=Number(t);return isNaN(n)?null:n}
