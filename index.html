@@ -113,20 +113,20 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 #p-sim .clientbar .hd{padding:11px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 #p-sim .clientbar .hd h2{font-size:15px;font-weight:700;margin:0}
 #p-sim .clientbar .bd{padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:11px}
-#p-sim .f{display:grid;gap:4px;min-width:0}
-#p-sim .f>label,#p-sim .tg>label{font-size:11px;font-weight:600;color:var(--mut)}
-#p-sim input[type=number],#p-sim input[data-mny],#p-sim input[type=date],#p-sim select{font-size:14px;width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums}
+#p-sim .f,#p-taxa .f{display:grid;gap:4px;min-width:0}
+#p-sim .f>label,#p-sim .tg>label,#p-taxa .f>label,#p-taxa .tg>label{font-size:11px;font-weight:600;color:var(--mut)}
+#p-sim input[type=number],#p-sim input[data-mny],#p-sim input[type=date],#p-sim select,#p-taxa input[type=number],#p-taxa input[data-mny],#p-taxa input[type=date],#p-taxa select{font-size:14px;width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums}
 #p-sim .tg{display:grid;gap:4px;min-width:0}
 #p-sim .tg .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 #p-sim .tg .seg button{flex:1;font:inherit;font-size:12.5px;padding:8px 4px;cursor:pointer;background:var(--card);color:var(--mut);border:0}
 #p-sim .tg .seg button[aria-pressed="true"]{background:var(--pri);color:#fff;font-weight:600}
-#p-sim .calib{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:14px;padding:13px 16px;margin-bottom:14px;display:grid;gap:11px}
-#p-sim .calib .ct p{margin:4px 0 0;font-size:12.5px;color:var(--mut);max-width:70ch;line-height:1.5}
-#p-sim .calib .cf{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-#p-sim .calib .cf .f{min-width:130px;flex:0 1 160px}
-#p-sim .calib .cout{margin:0;font-size:12.5px;line-height:1.5;color:var(--mut)}
-#p-sim .calib .cout.ok{color:var(--ok)}#p-sim .calib .cout.bad{color:var(--bad)}
-#p-sim .btn2{font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:9px 15px;background:var(--pri);color:#fff;border:0;border-radius:8px}
+#p-sim .calib,#p-taxa .calib{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:14px;padding:13px 16px;margin-bottom:14px;display:grid;gap:11px}
+#p-sim .calib .ct p,#p-taxa .calib .ct p{margin:4px 0 0;font-size:12.5px;color:var(--mut);max-width:70ch;line-height:1.5}
+#p-sim .calib .cf,#p-taxa .calib .cf{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+#p-sim .calib .cf .f,#p-taxa .calib .cf .f{min-width:130px;flex:0 1 160px}
+#p-sim .calib .cout,#p-taxa .calib .cout{margin:0;font-size:12.5px;line-height:1.5;color:var(--mut)}
+#p-sim .calib .cout.ok,#p-taxa .calib .cout.ok{color:var(--ok)}#p-sim .calib .cout.bad,#p-taxa .calib .cout.bad{color:var(--bad)}
+#p-sim .btn2,#p-taxa .btn2{font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:9px 15px;background:var(--pri);color:#fff;border:0;border-radius:8px}
 #p-sim .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-bottom:16px}
 #p-sim .tt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;display:grid;gap:2px;min-width:0}
 #p-sim .tt .n{font-size:23px;font-weight:780;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
