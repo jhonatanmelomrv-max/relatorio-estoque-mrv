@@ -667,7 +667,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
 (function(){
   "use strict";
   var P={ dfi:0.000078990, mip:0.00016003, adm:25, comp:0.30, ltv:0.80, pag:0.015,
-    f:[3200,5000,9600,13000], rc:[4.50,4.75,7.66,10.00], rn:[4.75,5.25,8.16,10.50],
+    f:[3200,5000,9600,13000], rc:[4.50,4.75,7.66,10.00], rn:[4.75,5.25,8.16,10.00],
     r20:0.20, r24:0.24, r26:0.26, sinalMin:300, sinalX:5, ato:0.016,
     prazo:420, obra:36, idPronto:45, idPlanta:42, chqTeto:4660, emcash:0.50,
     limF12:264000, limF3:400000, limF4:600000 };
@@ -698,6 +698,15 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   function ageYears(b,ref){ if(!b) return null; var d=new Date(b+'T00:00:00'); if(isNaN(d.getTime())) return null;
     var m=(ref.getFullYear()-d.getFullYear())*12+(ref.getMonth()-d.getMonth()); if(ref.getDate()<d.getDate()) m-=1; return m/12; }
 
+  /* subsidio MCMV medido no simulador oficial da MRV (renda de 1.800 a 4.000, de 50 em 50; acima de 4.000 e zero).
+     s = cotista, n = nao cotista, com dependente. Sem dependente vale 30% disso. SJC tem tabela propria; Taubate e Itaquaquecetuba usam a outra. So vale ate a Faixa 2 pelo valor da unidade (ate o teto de Faixa 1 e 2). */
+  var SUBT={sjc:{s:[55000,54384,51317,48356,45500,42748,40099,37551,35395,33034,30771,28603,26530,24550,22663,20867,19161,17543,16013,14569,13209,11933,10861,9739,8697,7734,6849,6041,5308,4708,4116,3598,3150,2773,2465,2282,2105,1995,1952,1941,1930,1924,1924,1924,1924],n:[55000,55000,52012,49033,46157,43385,40714,38144,35938,33555,31269,29079,26984,24982,23072,21253,19524,17884,16332,14866,13485,12189,11085,9944,8885,7905,7004,6181,5434,4814,4212,3683,3226,2841,2527,2334,2154,2042,1999,1988,1978,1968,1958,1947,1937]},out:{s:[55000,55000,53904,50802,47809,44925,42147,39476,37207,34730,32355,30081,27905,25827,23846,21960,20167,18468,16860,15342,13913,12571,11439,10259,9163,8150,7219,6369,5597,4963,4340,3794,3323,2925,2601,2406,2220,2105,2059,2048,2037,2026,2015,2011,2011],n:[55000,55000,54616,51494,48481,45575,42776,40081,37761,35263,32865,30568,28369,26268,24263,22354,20539,18816,17186,15646,14195,12832,11669,10469,9355,8325,7377,6511,5725,5072,4438,3881,3400,2995,2664,2459,2270,2153,2107,2097,2086,2076,2065,2055,2044]}};
+  function subsidio(renda,dep,cot,cid){
+    if(!(renda>0)||renda>4000) return 0;
+    var t=/s[aã]o jos[eé]/i.test(cid||'')?SUBT.sjc:SUBT.out, a=cot?t.s:t.n, v;
+    if(renda<=1800) v=a[0]; else { var x=(renda-1800)/50, i=Math.floor(x); v=(i>=a.length-1)?a[a.length-1]:a[i]+(a[i+1]-a[i])*(x-i); }
+    return Math.round(v*(dep?1:0.3));
+  }
   function taxaPorRenda(r,c){ var t=[[2160,4.25],[2850,4.50],[3200,4.75],[3500,5.00],[4000,5.50],[5000,6.50],[9600,7.66]]; for(var i=0;i<t.length;i++){ if(r<=t[i][0]) return t[i][1]+(c?0:0.5); } return 10.00; }
   function simulate(o){
     var fRenda=faixaPorRenda(o.renda), fValor=faixaPorValor(o.valor);
@@ -711,7 +720,8 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var fator=fatorPrice(i,n);
     var dfiMes=o.valor*P.dfi, adm=(faixa===0)?0:P.adm;
     var cheque=(o.renda<=P.chqTeto)?o.cheque:0;
-    var beneficios=cheque+o.bompag+o.fgts;
+    var sub=(fValor===0&&fRenda>=0&&fRenda<=1)?subsidio(o.renda,st.dep,st.cot,o.cid):0;
+    var beneficios=cheque+o.bompag+o.fgts+sub;
     var capLtv=o.valor*(st.pag?(1-P.pag):1)*P.ltv;
     var capRenda=Math.max(0,(o.renda*P.comp-dfiMes-adm)/(fator+P.mip));
     var necessidade=Math.max(0,o.valor-beneficios);
@@ -731,7 +741,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var atoTotal=Math.max(ato,atoMin);
     var carteira=Math.max(0, rp - sinal - atoTotal);
     return {faixa:faixa,taxaAA:taxaAA,n:n,cap:cap,capRenda:capRenda,capLtv:capLtv,
-      trava:trava,parcela:parcela,rp:rp,risco:risco,cheque:cheque,beneficios:beneficios,
+      trava:trava,parcela:parcela,rp:rp,risco:risco,cheque:cheque,subsidio:sub,beneficios:beneficios,
       sinal:sinal,ato:ato,atoMin:atoMin,atoTotal:atoTotal,carteira:carteira,
       status:status,label:label,folga:Math.max(0,o.renda*P.emcash-parcela),
       fRenda:fRenda,fValor:fValor,mandaValor:mandaValor};
@@ -745,7 +755,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
         t:o.tip||'', pcd:/sim/i.test(String(o.pcd||'')), emp:o.emp, cid:o.cid, ver:o.ver||''}; });
   }
   function cli(){ return {renda:num('pv-renda'), cheque:num('pv-cheque'), fgts:num('pv-fgts'), nasc:g('pv-nasc').value}; }
-  function simUnit(u,c){ return simulate({renda:c.renda, cheque:c.cheque, fgts:c.fgts, valor:u.v, bompag:u.b}); }
+  function simUnit(u,c){ return simulate({renda:c.renda, cheque:c.cheque, fgts:c.fgts, valor:u.v, bompag:u.b, cid:u.cid}); }
 
   /* quantas unidades do bloco fechariam mudando UMA coisa */
   function contaFecha(units,c,over){
@@ -754,7 +764,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     if(over.emc!==undefined) st.emc=over.emc;
     var renda=(over.renda!==undefined)?over.renda:c.renda, n=0;
     units.forEach(function(x){
-      var r=simulate({renda:renda,cheque:c.cheque,fgts:c.fgts,valor:x.u.v,bompag:x.u.b});
+      var r=simulate({renda:renda,cheque:c.cheque,fgts:c.fgts,valor:x.u.v,bompag:x.u.b,cid:x.u.cid});
       if(r.status!=='bad') n++;
     });
     st.planta=sv.planta; st.emc=sv.emc;
@@ -856,6 +866,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
       linhas+='<div class="li"><span class="lb">Valor da unidade</span><span class="vl">'+BRL0.format(u.v)+'</span></div>';
       linhas+='<div class="li"><span class="lb"><i style="background:var(--pri)"></i>Financiamento Caixa</span><span class="vl fin">− '+BRL0.format(r.cap)+'</span></div>';
       if(u.b>0) linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>Desconto Bom Pagador</span><span class="vl neg">− '+BRL0.format(u.b)+'</span></div>';
+      if(r.subsidio>0) linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>Subsídio MCMV'+(st.dep?'':' <span class="sm">(sem dependente)</span>')+'</span><span class="vl neg">− '+BRL0.format(r.subsidio)+'</span></div>';
       linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>Cheque Paulista'+(r.cheque<=0&&num('pv-cheque')>0?' <span class="sm">(renda acima de '+BRL0.format(P.chqTeto)+')</span>':'')+'</span><span class="vl '+(r.cheque>0?'neg':'')+'">'+(r.cheque>0?'− '+BRL0.format(r.cheque):'—')+'</span></div>';
       if(num('pv-fgts')>0) linhas+='<div class="li"><span class="lb"><i style="background:var(--warn)"></i>FGTS do cliente</span><span class="vl neg">− '+BRL0.format(num('pv-fgts'))+'</span></div>';
       linhas+='<div class="li total"><span class="lb">Entrada do cliente</span><span class="vl rp">'+BRL0.format(r.rp)+'</span></div>';
@@ -891,7 +902,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
       '</article>';
     }).join('');
 
-    g('pv-foot').innerHTML='Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (384 na planta) e teto de renda de R$ 4.660 do Cheque Paulista: suas notas de operação. <b>As taxas por faixa são estimativa</b> — use a caixa de calibração acima com uma leitura do simulador real pra fixar a taxa certa. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
+    g('pv-foot').innerHTML='Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (384 na planta) e teto de renda de R$ 4.660 do Cheque Paulista: suas notas de operação. A taxa por renda (cotista ou não) e o subsídio MCMV (renda até R$ 4.000, com ou sem dependente) seguem o que o simulador oficial da MRV devolveu em testes; use a aba <b>Achar a taxa</b> pra conferir um caso. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
 
     document.querySelectorAll('#pv-cards .unitpick select').forEach(function(sel){
       sel.onchange=function(){ st.pick[sel.getAttribute('data-pvemp')]=sel.value; render(); };
