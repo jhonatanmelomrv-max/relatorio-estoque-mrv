@@ -127,15 +127,15 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 #p-sim .calib .cout,#p-taxa .calib .cout{margin:0;font-size:12.5px;line-height:1.5;color:var(--mut)}
 #p-sim .calib .cout.ok,#p-taxa .calib .cout.ok{color:var(--ok)}#p-sim .calib .cout.bad,#p-taxa .calib .cout.bad{color:var(--bad)}
 #p-sim .btn2,#p-taxa .btn2{font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:9px 15px;background:var(--pri);color:#fff;border:0;border-radius:8px}
-#p-sim .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-bottom:16px}
-#p-sim .tt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;display:grid;gap:2px;min-width:0}
-#p-sim .tt .n{font-size:23px;font-weight:780;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
-#p-sim .tt .k{font-size:11.5px;color:var(--mut)}
-#p-sim .tt .s{font-size:11px;color:var(--mut)}
-#p-sim .tt.ok{border-left:3px solid var(--ok)}#p-sim .tt.ok .n{color:var(--ok)}
-#p-sim .tt.warn{border-left:3px solid var(--warn)}#p-sim .tt.warn .n{color:var(--warn)}
-#p-sim .tt.bad{border-left:3px solid var(--bad)}#p-sim .tt.bad .n{color:var(--bad)}
-#p-sim .tt.neutral{border-left:3px solid var(--line)}
+#p-sim .totals,#p-taxa .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-bottom:16px}
+#p-sim .tt,#p-taxa .tt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;display:grid;gap:2px;min-width:0}
+#p-sim .tt .n,#p-taxa .tt .n{font-size:23px;font-weight:780;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+#p-sim .tt .k,#p-taxa .tt .k{font-size:11.5px;color:var(--mut)}
+#p-sim .tt .s,#p-taxa .tt .s{font-size:11px;color:var(--mut)}
+#p-sim .tt.ok,#p-taxa .tt.ok{border-left:3px solid var(--ok)}#p-sim .tt.ok .n{color:var(--ok)}
+#p-sim .tt.warn,#p-taxa .tt.warn{border-left:3px solid var(--warn)}#p-sim .tt.warn .n{color:var(--warn)}
+#p-sim .tt.bad,#p-taxa .tt.bad{border-left:3px solid var(--bad)}#p-sim .tt.bad .n{color:var(--bad)}
+#p-sim .tt.neutral,#p-taxa .tt.neutral{border-left:3px solid var(--line)}
 #p-sim .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(370px,1fr));gap:14px}
 @media(max-width:460px){#p-sim .cards{grid-template-columns:1fr}}
 #p-sim .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;min-width:0}
@@ -294,17 +294,16 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 <section class="panel" id="p-taxa">
   <div class="calib">
     <div class="ct">
-      <b style="font-size:13px">Calibrar pela leitura real</b>
-      <p>Consulta: rode um caso no simulador da MRV e cole os três números. Eu inverto a conta e descubro a taxa daquele caso. A simulação usa a taxa do cadastro do cliente (renda e cotista) e só muda se você clicar em "Usar no cadastro do cliente".</p>
+      <b style="font-size:13px">Achar a taxa</b>
+      <p>Informe só a renda e o valor do imóvel. A taxa, a capacidade de financiamento e o subsídio saem automáticos, com as mesmas regras do Simulador (cotista e dependente seguem o cadastro do cliente). Aqui é só consulta e não altera nada.</p>
     </div>
     <div class="cf">
       <div class="f"><label for="pv-cRenda">Renda</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cRenda" value="0,00"></div>
-      <div class="f"><label for="pv-cValor">Valor da unidade</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cValor" value="0,00"></div>
-      <div class="f"><label for="pv-cCap">Capacidade que ele deu</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cCap" value="0,00"></div>
-      <button type="button" class="btn2" id="pv-cBtn">Achar a taxa</button>
+      <div class="f"><label for="pv-cValor">Valor do imóvel</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cValor" value="264.000,00"></div>
+      <button type="button" class="btn2" id="pv-cBtn">Calcular</button>
     </div>
+    <div class="totals" id="pv-cRes" style="margin:4px 0 0"></div>
     <p class="cout" id="pv-cOut"></p>
-    <button type="button" class="btn2" id="pv-cUse" style="display:none;margin-top:10px">Usar no cadastro do cliente</button>
   </div>
 </section>
 </div>
@@ -678,7 +677,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var N1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   var FN=['Faixa 1','Faixa 2','Faixa 3','Faixa 4'];
   function g(id){ return document.getElementById(id); }
-  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor','pv-cCap']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); })();
+  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); })();
 
   function fatorPrice(i,n){ if(i<=0) return 1/n; var f=Math.pow(1+i,n); return i*f/(f-1); }
   function faixaPorRenda(r){ for(var k=0;k<4;k++){ if(r<=P.f[k]) return k; } return -1; }
@@ -932,19 +931,22 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
       });
     });
   });
-  g('pv-cBtn').addEventListener('click', function(){
-    var renda=mv('pv-cRenda'), valor=mv('pv-cValor'), alvo=mv('pv-cCap');
-    var out=g('pv-cOut'); out.className='cout'; g('pv-cUse').style.display='none';
-    if(!(renda>0 && valor>0 && alvo>0)){ out.textContent='Preencha renda, valor da unidade e a capacidade que o simulador devolveu.'; return; }
-    var res=acharTaxa(renda, valor, alvo);
-    if(res.erro==='cota'){ out.textContent='Nessa leitura quem trava é a cota de '+Math.round(P.ltv*100)+'% ('+BRL0.format(res.cota)+'), não a renda — então ela não revela a taxa. Rode no simulador um caso de renda mais baixa, onde a capacidade fique abaixo da cota.'; return; }
-    if(res.erro){ out.className='cout bad'; out.textContent='Esses números não fecham com a fórmula: a capacidade informada está '+(res.erro==='baixa'?'baixa':'alta')+' demais para essa renda e esse valor.'; return; }
-    window.__taxaAchada=res.taxa.toFixed(2);
-    out.className='cout ok';
-    out.textContent='Taxa encontrada: '+PCT.format(res.taxa)+'% a.a. ('+FN[res.faixa]+', renda de '+BRL0.format(renda)+'). Só consulta: a simulação continua com a taxa do cadastro do cliente.';
-    g('pv-cUse').style.display='inline-block';
-  });
-  g('pv-cUse').addEventListener('click',function(){ g('pv-taxa').value=window.__taxaAchada||''; st.pick={}; render(); g('pv-cOut').textContent='Taxa de '+PCT.format(parseFloat(window.__taxaAchada))+'% a.a. aplicada ao cadastro do cliente (campo "Taxa da faixa do cliente"). Apague o campo para voltar à tabela automática.'; });
+  function taxaCalc(){
+    var renda=mv('pv-cRenda'), valor=mv('pv-cValor');
+    var out=g('pv-cOut'), box=g('pv-cRes'); out.className='cout'; box.innerHTML='';
+    if(!(renda>0 && valor>0)){ out.textContent='Preencha a renda e o valor do imóvel.'; return; }
+    var cid=g('pv-cidade').value||'';
+    var r=simulate({renda:renda,cheque:0,fgts:0,valor:valor,bompag:0,cid:cid});
+    if(r.status==='bad' && r.cap===0){ out.className='cout bad'; out.textContent=r.label+'.'; return; }
+    function t(n,k,s,c){ return '<div class="tt '+(c||'neutral')+'"><div class="n">'+n+'</div><div class="k">'+k+'</div>'+(s?'<div class="s">'+s+'</div>':'')+'</div>'; }
+    box.innerHTML=t(PCT.format(r.taxaAA)+'% a.a.','Taxa de juros','Faixa '+(r.faixa+1)+' · '+(st.cot?'cotista':'não cotista'),'ok')
+      +t(BRL0.format(r.cap),'Capacidade de financiamento','trava pela '+r.trava)
+      +t(BRL0.format(r.parcela),'Parcela estimada',r.n+' meses')
+      +t(BRL0.format(r.subsidio),'Subsídio',st.dep?'com dependente':'sem dependente');
+    out.textContent='Cotista, dependente e planta/pronto seguem o que está marcado no Simulador. Cheque Paulista, FGTS e bom pagador não entram aqui.';
+  }
+  g('pv-cBtn').addEventListener('click',taxaCalc);
+  ['pv-cRenda','pv-cValor'].forEach(function(id){ g(id).addEventListener('input',taxaCalc); });
   /* mudou o cliente? a unidade escolhida a mao perde a validade, senao o card
      continua preso numa unidade ruim enquanto diz "a que melhor fecha" */
   ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12'].forEach(function(id){
