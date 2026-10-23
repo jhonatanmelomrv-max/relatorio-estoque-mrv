@@ -703,7 +703,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var P={ dfi:0.000078990, mip:0.00016003, adm:25, comp:0.30, ltv:0.80, pag:0.015,
     f:[3200,5000,9600,13000], rc:[4.50,4.75,7.66,10.00], rn:[4.75,5.25,8.16,10.00],
     r20:0.20, r24:0.24, r26:0.26, sinalMin:300, sinalX:5, ato:0.016,
-    prazo:420, obra:36, idPronto:45, idPlanta:42, chqTeto:4660, emcash:0.50,
+    prazo:420, obra:36, idPronto:45, idPlanta:42, chqTeto:4863, emcash:0.50,
     limF12:264000, limF3:400000, limF4:600000 };
   var st={planta:0,pag:1,dep:1,cot:1,emc:0,pick:{}};
   var BRLc=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2});
@@ -936,7 +936,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
       '</article>';
     }).join('');
 
-    g('pv-foot').innerHTML='Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (384 na planta) e teto de renda de R$ 4.660 do Cheque Paulista: suas notas de operação. A taxa por renda (cotista ou não) e o subsídio MCMV (renda até R$ 4.000, com ou sem dependente) seguem o que o simulador oficial da MRV devolveu em testes; use a aba <b>Achar a taxa</b> pra conferir um caso. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
+    g('pv-foot').innerHTML='Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (384 na planta) e teto de renda de R$ 4.863 do Cheque Paulista (3 salários mínimos de R$ 1.621): suas notas de operação. A taxa por renda (cotista ou não) e o subsídio MCMV (renda até R$ 4.000, com ou sem dependente) seguem o que o simulador oficial da MRV devolveu em testes; use a aba <b>Achar a taxa</b> pra conferir um caso. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
 
     document.querySelectorAll('#pv-cards .unitpick select').forEach(function(sel){
       sel.onchange=function(){ st.pick[sel.getAttribute('data-pvemp')]=sel.value; render(); };
