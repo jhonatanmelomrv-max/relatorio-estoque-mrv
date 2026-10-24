@@ -1,0 +1,22 @@
+{
+  "extraKnownMarketplaces": {
+    "superpowers-dev": {
+      "source": { "source": "github", "repo": "obra/superpowers" }
+    },
+    "awesome-gpt-image-2": {
+      "source": { "source": "github", "repo": "freestylefly/awesome-gpt-image-2" }
+    },
+    "taskmaster": {
+      "source": { "source": "github", "repo": "eyaltoledano/claude-task-master" }
+    },
+    "i-have-adhd": {
+      "source": { "source": "github", "repo": "ayghri/i-have-adhd" }
+    }
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-dev": true,
+    "gpt-image-2-style-library@awesome-gpt-image-2": true,
+    "taskmaster@taskmaster": true,
+    "i-have-adhd@i-have-adhd": true
+  }
+}
