@@ -204,6 +204,67 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 #p-regras .rg-st ol{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
 #p-regras .rg-st p{margin:8px 0 0;color:var(--mut);font-size:12.5px}
 #p-regras .rg-obs{margin:12px 0 0;padding:9px 12px;border-left:3px solid var(--warn);background:var(--bg);border-radius:6px;font-size:12.5px;color:var(--mut);line-height:1.5}
+
+#p-sim input[data-pct]{font-size:14px;width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums}
+
+#p-regras .rg-g{margin:22px 2px 8px;font-size:11.5px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+#p-regras #rg-acc>.rg-g:first-child{margin-top:4px}
+#p-regras .rg-b>ul.rg-pl>li{padding-left:20px}
+#p-regras .rg-b>ul.rg-pl>li::before{left:5px;top:8px;width:6px;height:6px;border:0;border-radius:50%;background:var(--mut)}
+#p-regras .rg-p{margin:0 0 12px;font-size:13.5px;line-height:1.5}
+#p-regras .rg-n{margin:12px 0 0;font-size:12.5px;line-height:1.5;color:var(--mut)}
+#p-regras .rg-tip{margin:12px 0 0;padding:9px 12px;border-left:3px solid var(--pri);background:var(--bg);border-radius:6px;font-size:12.5px;line-height:1.5}
+#p-regras .rg-b code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;padding:1px 6px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--pri);white-space:nowrap}
+
+/* v12: Enviar ao cliente */
+#p-sim .pexp{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 16px 12px;padding:11px 14px;min-height:44px;box-sizing:border-box;border:1px solid var(--pri);border-radius:10px;background:var(--pri2);color:var(--pri);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+#p-sim .pexp:hover,#p-sim .pexp:focus-visible{background:var(--pri);color:#fff}
+#p-sim .pexp svg{flex:none}
+.pvx{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+.pvx[hidden],.pvx [hidden]{display:none!important}
+.pvx-bg{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(10,16,32,.58)}
+.pvx-sheet{position:relative;width:100%;max-width:660px;max-height:94vh;max-height:94dvh;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border-radius:18px 18px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.28);outline:none;overflow:hidden}
+@media(min-width:700px){.pvx{align-items:center}.pvx-sheet{border-radius:18px;max-height:90vh;max-height:90dvh}}
+.pvx-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px 18px 12px;border-bottom:1px solid var(--line);flex:none}
+.pvx-hd h3{margin:0;font-size:17px;font-weight:780;letter-spacing:-.015em}
+.pvx-hd p{margin:3px 0 0;font-size:12.5px;color:var(--mut);line-height:1.35}
+.pvx-x{flex:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-size:24px;line-height:1;cursor:pointer;padding:0}
+.pvx-x:hover{border-color:var(--pri);color:var(--pri)}
+.pvx-bd{flex:1 1 auto;min-height:0;padding:14px 18px 16px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pvx-bd>*+*{margin-top:12px}
+.pvx-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:340px){.pvx-grid{grid-template-columns:1fr}}
+.pvx-grid label{display:grid;gap:4px;min-width:0;font-size:11.5px;font-weight:650;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.pvx-grid input{font:inherit;font-size:16px;font-weight:500;text-transform:none;letter-spacing:0;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%;min-width:0;box-sizing:border-box}
+.pvx-ass{border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.pvx-ass>summary{display:flex;gap:6px;align-items:center;padding:10px 12px;font-size:13px;font-weight:650;cursor:pointer;list-style:none;min-height:20px}
+.pvx-ass>summary::-webkit-details-marker{display:none}
+.pvx-ass>summary::before{content:"\25B8";color:var(--mut);font-size:12px}
+.pvx-ass[open]>summary::before{content:"\25BE"}
+.pvx-ass>summary span{color:var(--mut);font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pvx-ass>.pvx-grid{padding:0 12px 12px}
+.pvx-seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pvx-seg button{flex:1;font:inherit;font-size:14px;padding:11px 6px;cursor:pointer;background:var(--card);color:var(--mut);border:0}
+.pvx-seg button[aria-selected="true"]{background:var(--pri);color:#fff;font-weight:650}
+#pvx-ta{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:15px;line-height:1.5;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);resize:vertical;min-height:260px}
+.pvx-n{margin:8px 0 0;font-size:12px;color:var(--mut);line-height:1.5}
+.pvx-lk{border:0;background:none;padding:0;margin-left:4px;font:inherit;font-size:12px;font-weight:650;color:var(--pri);text-decoration:underline;cursor:pointer}
+.pvx-prev{border:1px solid var(--line);border-radius:12px;background:#e8eefb;padding:8px}
+.pvx-prev canvas{display:block;width:100%;height:auto;border-radius:8px}
+.pvx-ft{flex:none;padding:8px 18px 12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--card)}
+.pvx-msg{min-height:20px;margin-bottom:4px;font-size:13px;color:var(--ok);font-weight:650;line-height:20px}
+.pvx-act{display:flex;gap:8px;flex-wrap:wrap}
+.pvx-b{flex:1 1 140px;min-height:46px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14.5px;font-weight:650;cursor:pointer}
+.pvx-b:hover{border-color:var(--pri);color:var(--pri)}
+.pvx-b.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+.pvx-b.pri:hover{opacity:.92;color:#fff}
+
+
+/* v13: risco em % = caixa pequena com o numero e o sinal de % ao lado */
+#p-sim .pctw{display:flex;align-items:center;gap:7px;min-width:0}
+#p-sim .pctw input[data-pct]{flex:0 1 88px;width:88px;min-width:0;text-align:center;font-size:16px;font-weight:700;padding:7px 6px}
+#p-sim .pctw input[data-pct]::placeholder{color:var(--mut);opacity:1;font-weight:700}
+#p-sim .pctw .pctsg{flex:none;font-size:15px;font-weight:600;line-height:1;color:var(--mut);cursor:text}
 </style>
 </head>
 <body>
@@ -276,10 +337,10 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <span class="lbl" id="pv-resumo">—</span>
     </div>
     <div class="bd">
-      <div class="f"><label for="pv-renda">Renda bruta (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-renda" value="4.000,00"></div>
-      <div class="f"><label for="pv-nasc">Nascimento</label><input type="date" id="pv-nasc" value="1990-10-25"></div>
-      <div class="f"><label for="pv-cheque">Cheque Paulista</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cheque" value="13.000,00"></div>
-      <div class="f"><label for="pv-fgts">FGTS do cliente</label><input type="text" inputmode="numeric" data-mny="1" id="pv-fgts" value="0,00"></div>
+      <div class="f"><label for="pv-renda">Renda bruta (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-renda" placeholder="0,00" autocomplete="off"></div>
+      <div class="f"><label for="pv-nasc">Nascimento</label><input type="date" id="pv-nasc" autocomplete="off"></div>
+      <div class="f"><label for="pv-cheque">Cheque Paulista</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cheque" placeholder="0,00" autocomplete="off"></div>
+      <div class="f"><label for="pv-fgts">FGTS do cliente</label><input type="text" inputmode="numeric" data-mny="1" id="pv-fgts" placeholder="0,00" autocomplete="off"></div>
       <div class="tg"><label id="pv-l-cot">Cotista FGTS (36 meses de registro)</label><div class="seg" role="group" aria-labelledby="pv-l-cot">
         <button type="button" data-pvcot="1" aria-pressed="true">Sim</button><button type="button" data-pvcot="0" aria-pressed="false">Não</button></div></div>
       <div class="tg"><label id="pv-l-dep">Dependente</label><div class="seg" role="group" aria-labelledby="pv-l-dep">
@@ -298,10 +359,10 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
           <option value="bp">A de maior Bom Pagador</option>
           <option value="area">A maior em área</option>
         </select></div>
-      <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-limF12" value="264.000,00"></div>
-      <div class="f"><label for="pv-rkt">Risco total (%) — máximo da construtora</label><input type="text" inputmode="numeric" data-mny="1" id="pv-rkt" value="26,00"></div>
-      <div class="f"><label for="pv-rkc">Risco carteira (%) — parcela em até 48x</label><input type="text" inputmode="numeric" data-mny="1" id="pv-rkc" value="20,00"></div>
-      <div class="f"><label for="pv-taxa">Taxa da faixa do cliente (% a.a.)</label><input type="number" id="pv-taxa" step="0.05" placeholder="auto"></div>
+      <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-limF12" placeholder="padrão 264.000" autocomplete="off"></div>
+      <div class="f"><label for="pv-rkt">Risco total — máximo da construtora</label><div class="pctw"><input type="text" inputmode="decimal" id="pv-rkt" placeholder="0" maxlength="5" autocomplete="off" data-pct="1"><label class="pctsg" for="pv-rkt">%</label></div></div>
+      <div class="f"><label for="pv-rkc">Risco carteira — parcela em até 48x</label><div class="pctw"><input type="text" inputmode="decimal" id="pv-rkc" placeholder="0" maxlength="5" autocomplete="off" data-pct="1"><label class="pctsg" for="pv-rkc">%</label></div></div>
+      <div class="f"><label for="pv-taxa">Taxa da faixa do cliente (% a.a.)</label><input type="number" id="pv-taxa" step="0.05" placeholder="auto" autocomplete="off"></div>
       <div class="f"><label for="pv-ordem">Ordem dos cards</label>
         <select id="pv-ordem">
           <option value="risco" selected>Menor risco primeiro</option>
@@ -324,8 +385,8 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <p>Informe só a renda e o valor do imóvel. A taxa, a capacidade de financiamento e o subsídio saem automáticos, com as mesmas regras do Simulador (cotista e dependente seguem o cadastro do cliente). Aqui é só consulta e não altera nada.</p>
     </div>
     <div class="cf">
-      <div class="f"><label for="pv-cRenda">Renda</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cRenda" value="0,00"></div>
-      <div class="f"><label for="pv-cValor">Valor do imóvel</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cValor" value="264.000,00"></div>
+      <div class="f"><label for="pv-cRenda">Renda</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cRenda" placeholder="0,00" autocomplete="off"></div>
+      <div class="f"><label for="pv-cValor">Valor do imóvel</label><input type="text" inputmode="numeric" data-mny="1" id="pv-cValor" placeholder="0,00" autocomplete="off"></div>
       <button type="button" class="btn2" id="pv-cBtn">Calcular</button>
     </div>
     <div class="totals" id="pv-cRes" style="margin:4px 0 0"></div>
@@ -333,8 +394,8 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
   </div>
 </section>
 <section class="panel" id="p-regras">
-  <h2 class="rg-h">Documentos necessários para análise</h2>
-  <p class="rg-sub">Toque no perfil do cliente para abrir a lista. Toque de novo para fechar.</p>
+  <h2 class="rg-h">Regras de compra</h2>
+  <p class="rg-sub">Quem pode comprar, o que pedir de cada perfil e o que conferir antes de subir a proposta.</p>
   <div id="rg-acc"></div>
   <p class="pfoot">Pré-análise baseada nas normas públicas da Caixa para o MCMV. A decisão final, o score e a consulta de crédito são da Caixa, e ela pode pedir documentos adicionais. Confirme sempre a regra vigente.</p>
 </section>
@@ -498,7 +559,7 @@ function render(){
   const dt=new Date(meta.data);
 /* carimbo da versão do painel: se este número não mudar depois de subir
    o arquivo, é porque o upload não entrou (nome errado ou cache). */
-const PAINEL_VER='v8 · Panorama';
+const PAINEL_VER='v13 · Panorama';
   $('#meta').textContent=`${meta.arquivo||'Relatório'} · ${dt.toLocaleDateString('pt-BR')} ${dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} · ${PAINEL_VER}`;
   renderNav();renderMud();renderHis();
 }
@@ -705,7 +766,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var P={ dfi:0.000078990, mip:0.00016003, adm:25, comp:0.30, ltv:0.80, pag:0.015,
     f:[3200,5000,9600,13000], rc:[4.50,4.75,7.66,10.00], rn:[4.75,5.25,8.16,10.00],
     r20:0.20, r24:0.24, r26:0.26, sinalMin:300, sinalX:5, ato:0.016,
-    prazo:420, obra:36, idPronto:45, idPlanta:42, chqTeto:4863, emcash:0.50,
+    prazo:420, obra:36, idLim:966, idPronto:45, idPlanta:42, chqTeto:4863, emcash:0.50,
     limF12:264000, limF3:400000, limF4:600000 };
   var st={planta:0,pag:1,dep:1,cot:1,emc:0,pick:{}};
   var BRLc=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2});
@@ -714,7 +775,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var N1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   var FN=['Faixa 1','Faixa 2','Faixa 3','Faixa 4'];
   function g(id){ return document.getElementById(id); }
-  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-rkt','pv-rkc','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); })();
+  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); if(!d){ el.value=''; return; } while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); /* v13: risco em %: numero simples, ate 2 digitos antes da virgula e 2 depois (digita 20 -> 20; 21,5 -> 21,5) */ ['pv-rkt','pv-rkc'].forEach(function(id){ var el=g(id); el.addEventListener('input',function(){ var v=el.value.replace(/[^0-9.,]/g,''); var k=v.search(/[.,]/); var ip=k<0?v:v.slice(0,k), dp=k<0?'':v.slice(k+1).replace(/[.,]/g,''); ip=ip.replace(/^0+(?=\d)/,'').slice(0,2); dp=dp.slice(0,2); if(k>=0){ if(!ip) ip='0'; v=ip+v.charAt(k)+dp; } else v=ip; if(v!==el.value) el.value=v; }); }); })();
 
   function fatorPrice(i,n){ if(i<=0) return 1/n; var f=Math.pow(1+i,n); return i*f/(f-1); }
   function faixaPorRenda(r){ for(var k=0;k<4;k++){ if(r<=P.f[k]) return k; } return -1; }
@@ -733,6 +794,16 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   }
   function ageYears(b,ref){ if(!b) return null; var d=new Date(b+'T00:00:00'); if(isNaN(d.getTime())) return null;
     var m=(ref.getFullYear()-d.getFullYear())*12+(ref.getMonth()-d.getMonth()); if(ref.getDate()<d.getDate()) m-=1; return m/12; }
+  /* v11: prazo pela idade (regra do simulador oficial: idade + prazo ate 80,5 anos; na planta descontam-se os 36 meses de obra). Sem nascimento digitado vale o prazo cheio. */
+  function idadeMeses(){ var el=g('pv-nasc'); var a=el?ageYears(el.value,new Date()):null; return a===null?null:Math.round(a*12); }
+  function prazoPor(idM,planta){ if(idM===null||idM===undefined) return P.prazo; return Math.max(1,Math.min(P.prazo,P.idLim-idM-(planta?P.obra:0))); }
+  /* campo de percentual: aceita 20, 21,5 ou 21.5 (no campo de dinheiro o ponto e' milhar; aqui nao) */
+  function pctNum(id){ var el=g(id); var s=el?String(el.value).trim().replace(',','.'):''; var v=parseFloat(s); return isFinite(v)?v:NaN; }
+  /* v13: risco maximo que o simulador esta usando (campo em branco = padrao); aparece no rodape dos cards */
+  function riscoUsado(){ var t=pctNum('pv-rkt'), c=pctNum('pv-rkc'), dt=!(isFinite(t)&&t>0), dc=!(isFinite(c)&&c>=0);
+    var T=dt?P.r26:Math.min(t,100)/100, C=dc?P.r20:Math.min(c,100)/100; if(C>T) C=T;
+    return '<b>Risco máximo usado:</b> '+PCT.format(T*100)+'% no total'+(dt?' (padrão)':'')+' e '+PCT.format(C*100)+'% na carteira'+(dc?' (padrão)':'')+'. '; }
+
 
   /* subsidio MCMV medido no simulador oficial da MRV (renda de 1.800 a 4.000, de 50 em 50; acima de 4.000 e zero).
      s = cotista, n = nao cotista, com dependente. Sem dependente vale 30% disso. SJC tem tabela propria; Taubate e Itaquaquecetuba usam a outra. So vale ate a Faixa 2 pelo valor da unidade (ate o teto de Faixa 1 e 2). */
@@ -752,7 +823,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var manual=parseFloat(g('pv-taxa').value);
     if(isFinite(manual) && manual>0) taxaAA=manual;
     var i=taxaAA/100/12;
-    var n=st.planta?P.prazo-P.obra:P.prazo;
+    var n=prazoPor(idadeMeses(),st.planta);
     var fator=fatorPrice(i,n);
     var dfiMes=o.valor*P.dfi, adm=(faixa===0)?0:P.adm;
     var cheque=(o.renda<=P.chqTeto)?o.cheque:0;
@@ -766,8 +837,8 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var parcela=cap*(fator+P.mip)+dfiMes+adm;
     var rp=Math.max(0,o.valor-cap-beneficios);
     var risco=o.valor>0?rp/o.valor:0;
-    var rT=mv('pv-rkt'), rC=mv('pv-rkc');
-    rT=(isFinite(rT)&&rT>0)?rT/100:P.r26; rC=(isFinite(rC)&&rC>=0)?rC/100:P.r20;
+    var rT=pctNum('pv-rkt'), rC=pctNum('pv-rkc');
+    rT=(isFinite(rT)&&rT>0)?Math.min(rT,100)/100:P.r26; rC=(isFinite(rC)&&rC>=0)?Math.min(rC,100)/100:P.r20;
     if(rC>rT) rC=rT;
     var r20=rC, r26=rT, r24=Math.min(Math.max(P.r24,r20),r26);
     var sinal=0,ato=0,status='ok',label='Fecha sem sinal';
@@ -822,7 +893,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
 
   function nota(r,u,idade,idMax){
     if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(mv('pv-limF12')||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
-    if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo continua '+r.n+' meses.';
+    if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo fica em '+r.n+' meses (idade + prazo até 80,5 anos).';
     if(r.faixa<0) return 'Renda acima do teto de '+BRL0.format(P.f[3])+' do programa.';
     if(r.status==='bad') return 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(r.rT*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
     if(r.trava==='cota') return 'A cota de '+Math.round(P.ltv*100)+'% trava em '+BRL0.format(r.capLtv)+'; a renda sozinha comportaria '+BRL0.format(r.capRenda)+'. Sobra de renda: '+BRLc.format(Math.max(0,num('pv-renda')*P.comp-r.parcela))+' por mês.';
@@ -844,11 +915,20 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     if(!g('pv-cards')) return;
     var c=cli();
     var rota=route();
+    /* v11: nada digitado ainda -> mostra o convite em vez de 'estoura o teto' em todas as unidades */
+    if(!(c.renda>0)){
+      ULT=null;
+      g('pv-resumo').textContent='preencha a renda';
+      g('pv-totals').innerHTML='';
+      g('pv-cards').innerHTML='<div class="pempty">Digite a renda bruta do cliente (e o nascimento) para ver quais unidades fecham.</div>';
+      g('pv-foot').textContent='';
+      return;
+    }
     var cid=g('pv-cidade').value, escolha=g('pv-escolha').value, ordem=g('pv-ordem').value;
     var idade=ageYears(c.nasc,new Date()), idMax=st.planta?P.idPlanta:P.idPronto;
 
     g('pv-resumo').textContent = BRL0.format(c.renda)+' · '+(idade!==null?N1.format(idade)+' anos':'—')+' · '+
-      (st.planta?'planta · 384 meses':'pronto · 420 meses')+(rota.emp?' · '+nome(rota.emp):'');
+      (st.planta?'planta':'pronto')+' · '+prazoPor(idade===null?null:Math.round(idade*12),st.planta)+' meses'+(rota.emp?' · '+nome(rota.emp):'');
 
     var todas=estoque().filter(function(u){ return cid==='*'||rota.cid||u.cid===cid; });
     var porEmp={};
@@ -897,6 +977,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
       return String(a.k).localeCompare(String(b.k),'pt-BR');
     });
 
+    ULT={blocos:blocos,c:c,idade:idade};
     if(!blocos.length){ g('pv-cards').innerHTML='<div class="pempty">Nenhuma unidade disponível neste recorte.</div>'; g('pv-foot').textContent=''; return; }
 
     g('pv-cards').innerHTML = blocos.map(function(b){
@@ -938,16 +1019,386 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
           '<div class="row"><span class="k">Ato à vista, na assinatura</span><span class="v">'+(r.atoTotal>0?BRLc.format(r.atoTotal):'—')+'</span></div>'+
           '<div class="row strong"><span class="k">Soma = entrada do cliente</span><span class="v">'+BRLc.format(r.carteira+r.sinal+r.atoTotal)+'</span></div>'+
         '</div>'+
+        (r.status!=='bad'?'<button type="button" class="pexp" data-pvexp="'+esc(b.k)+'">'+EXP_ICON+'Enviar ao cliente</button>':'')+
         '<p class="cardnote">'+nota(r,u,idade,idMax)+((b.ok+b.warn)===0?saidas(b,c):'')+'</p>'+
       '</article>';
     }).join('');
 
-    g('pv-foot').innerHTML='Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (384 na planta) e teto de renda de R$ 4.863 do Cheque Paulista (3 salários mínimos de R$ 1.621): suas notas de operação. A taxa por renda (cotista ou não) e o subsídio MCMV (renda até R$ 4.000, com ou sem dependente) seguem o que o simulador oficial da MRV devolveu em testes; use a aba <b>Achar a taxa</b> pra conferir um caso. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
+    g('pv-foot').innerHTML=riscoUsado()+'Fórmula da capacidade, risco/sinal/ato, pagadoria de 1,5%, ato mínimo de 1,6%, prazo de 420 meses (só encurta quando idade + prazo passa de 80,5 anos) e teto de renda de R$ 4.863 do Cheque Paulista (3 salários mínimos de R$ 1.621): suas notas de operação. A taxa por renda (cotista ou não) e o subsídio MCMV (renda até R$ 4.000, com ou sem dependente) seguem o que o simulador oficial da MRV devolveu em testes; use a aba <b>Achar a taxa</b> pra conferir um caso. Estoque: '+(meta&&meta.arquivo?esc(meta.arquivo):'o que está no painel')+'. Não é proposta nem simulação oficial.';
 
     document.querySelectorAll('#pv-cards .unitpick select').forEach(function(sel){
       sel.onchange=function(){ st.pick[sel.getAttribute('data-pvemp')]=sel.value; render(); };
     });
   }
+
+  /* ===================== v12: ENVIAR AO CLIENTE =====================
+     Botao "Enviar ao cliente" em cada card que fecha: mensagem pronta pro WhatsApp, imagem (PNG) e PDF.
+     O cliente so recebe numeros de proposta. Risco em %, pagadoria/comissao, cotista e as notas internas ficam de fora. */
+  var ULT=null, EXPST=null, NMENS=48;
+  var EXP_ICON='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>';
+  function xR0(v){ return BRL0.format(v).replace(/\u00a0/g,' '); }
+  function xRc(v){ return BRLc.format(v).replace(/\u00a0/g,' '); }
+  function xSlug(s){ return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+  function xTip(t){ var m=/^(\d+)\s*Q\b/i.exec(String(t||'')); if(!m) return String(t||'').trim(); return m[1]+(m[1]==='1'?' quarto':' quartos'); }
+  function xPrimeiro(n){ var w=String(n||'').trim().split(/\s+/)[0]||''; return w?w.charAt(0).toUpperCase()+w.slice(1).toLowerCase():''; }
+  function xHoje(){ return new Date().toLocaleDateString('pt-BR'); }
+  function xZap(s){ var d=String(s||'').replace(/\D/g,'').replace(/^0+/,''); if(d.length===10||d.length===11) d='55'+d; return ((d.length===12||d.length===13)&&d.slice(0,2)==='55')?d:''; }
+  function xQ(id){ return document.getElementById('pvx-'+id); }
+
+  /* tudo que a mensagem, a imagem e o PDF mostram sai daqui (mesmos numeros do card na tela) */
+  function xDados(k){
+    if(!ULT) return null;
+    var b=null; ULT.blocos.forEach(function(q){ if(q.k===k) b=q; });
+    if(!b) return null;
+    var u=b.sel.u, r=b.sel.r;
+    var det=[apto(u.o)], tp=xTip(u.t);
+    if(tp) det.push(tp);
+    if(u.i>0) det.push(N1.format(u.i)+' m²'+(u.q>0?' + '+N1.format(u.q)+' m² de quintal':''));
+    if(u.pcd) det.push('PCD');
+    var sin=r.sinal, ato=r.atoTotal, cart=r.carteira;
+    return { emp:nome(b.k), cid:String(u.cid||''), apto:apto(u.o), unid:det.join(' · '),
+      faixa:(r.faixa>=0?'Faixa '+(r.faixa+1):''),
+      valor:u.v, fin:r.cap, sub:r.subsidio, chq:r.cheque, bp:(u.b>0?u.b:0), fgts:num('pv-fgts'),
+      sinal:sin, ato:ato, cart:cart, tot:cart+sin+ato, emc:!!st.emc, nm:NMENS,
+      parcela:r.parcela, n:r.n, taxa:r.taxaAA, hoje:xHoje() };
+  }
+
+  /* ---------- mensagem de WhatsApp ---------- */
+  function xTexto(d,a){
+    var L=[], nm=xPrimeiro(a.cn);
+    L.push((nm?'Olá, '+nm+'! ':'Olá! ')+'Segue a simulação que fizemos.');
+    L.push('');
+    L.push('*'+d.emp+'* · '+d.cid);
+    L.push(d.unid);
+    L.push('Minha Casa Minha Vida'+(d.faixa?' · '+d.faixa:''));
+    L.push('');
+    L.push('*Valor do imóvel:* '+xR0(d.valor));
+    L.push('Financiamento Caixa: '+xR0(d.fin));
+    if(d.sub>0) L.push('Subsídio MCMV: '+xR0(d.sub));
+    if(d.chq>0) L.push('Cheque Paulista: '+xR0(d.chq));
+    if(d.bp>0) L.push('Desconto Bom Pagador: '+xR0(d.bp));
+    if(d.fgts>0) L.push('FGTS: '+xR0(d.fgts));
+    L.push('');
+    L.push('*Entrada: '+xRc(d.tot)+'*');
+    if(d.emc){
+      L.push('Ato (na assinatura): '+xRc(d.ato));
+      if(d.cart>0) L.push('Restante da entrada: '+xRc(d.cart)+' (financiado direto com a Emcash, sujeito à análise de crédito dela)');
+    } else {
+      L.push('Sinal'+(d.sinal>P.sinalMin+0.005?' (pode ser dividido em até '+P.sinalX+'x)':'')+': '+xRc(d.sinal));
+      if(d.ato>0) L.push('Ato (na assinatura): '+xRc(d.ato));
+      if(d.cart>0) L.push('Mensais com a MRV: até '+d.nm+'x de '+xRc(d.cart/d.nm)+' ('+xRc(d.cart)+' no total)');
+    }
+    L.push('');
+    L.push('*Financiamento Caixa*');
+    L.push('Parcela estimada: '+xRc(d.parcela)+' por mês');
+    L.push('Prazo: '+d.n+' meses');
+    L.push('Taxa: '+PCT.format(d.taxa)+'% ao ano');
+    L.push('');
+    L.push('_Simulação estimada, não é proposta. Aprovação, taxa e subsídio dependem da análise da Caixa; valores e disponibilidade da unidade podem mudar. Feita em '+d.hoje+'._');
+    L.push('');
+    if(a.an) L.push(a.an);
+    L.push('Equipe Master MRV');
+    if(a.az) L.push('WhatsApp '+a.az);
+    return L.join('\n');
+  }
+
+  /* ---------- imagem (canvas): sc=1 pra tela/PNG, sc=2 pro PDF ---------- */
+  function xCanvas(d,a,sc){
+    sc=sc||1;
+    var W=1080, PAD=36, IN=52, CX=PAD, CW=W-2*PAD, IX=CX+IN, IW=CW-2*IN, IR=IX+IW;
+    var FONT='system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+    var INK='#14213d', MUT='#6b7691', LINE='#e3e8f1', BLUE='#0b5fff', AMB='#b86e00', TILE='#f3f6fc';
+    var scratch=document.createElement('canvas').getContext('2d');
+    var x=scratch, dry=true, real=null;
+    function F(w,s){ return w+' '+s+'px '+FONT; }
+    function rr(px,py,w,h,r){ x.beginPath(); x.moveTo(px+r,py); x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r); x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath(); }
+    function wrap(t,font,maxW){ x.font=font; var ws=String(t).split(/\s+/), ln=[], cur=''; ws.forEach(function(w){ var tt=cur?cur+' '+w:w; if(!cur||x.measureText(tt).width<=maxW) cur=tt; else { ln.push(cur); cur=w; } }); if(cur) ln.push(cur); return ln; }
+    function fit(t,wt,sz,minSz,maxW){ var s=sz; x.font=F(wt,s); while(s>minSz && x.measureText(t).width>maxW){ s-=2; x.font=F(wt,s); } return s; }
+    function T(s,px,py,font,color,align,sp){ if(dry) return; x.font=font; x.fillStyle=color; x.textAlign=align||'left'; x.textBaseline='middle'; if('letterSpacing' in x) x.letterSpacing=sp||'0px'; x.fillText(s,px,py); if('letterSpacing' in x) x.letterSpacing='0px'; }
+    function B(px,py,w,h,r,fill,stroke){ if(dry) return; rr(px,py,w,h,r); if(fill){ x.fillStyle=fill; x.fill(); } if(stroke){ x.strokeStyle=stroke; x.lineWidth=2; x.stroke(); } }
+    function R(px,py,w,h,color){ if(dry) return; x.fillStyle=color; x.fillRect(px,py,w,h); }
+
+    function corpo(){
+      var Y=PAD;
+      /* cabecalho azul */
+      var nSz=58, nameLines=wrap(d.emp,F('800',nSz),IW);
+      if(nameLines.length>2){ nSz=44; nameLines=wrap(d.emp,F('800',nSz),IW); }
+      nameLines=nameLines.slice(0,2); var nLH=Math.round(nSz*1.17);
+      var uLines=wrap(d.unid,F('500',27),IW).slice(0,2);
+      var yLab=Y+58, yName0=yLab+56, yCity=yName0+(nameLines.length-1)*nLH+60, yDet=yCity+44, hdH=(yDet+(uLines.length-1)*36+48)-Y;
+      if(!dry){
+        x.save(); rr(CX,Y,CW,hdH+4000,36); x.clip();
+        var gr=x.createLinearGradient(CX,Y,CX+CW,Y+hdH); gr.addColorStop(0,'#0b5fff'); gr.addColorStop(1,'#3b86ff');
+        x.fillStyle=gr; x.fillRect(CX,Y,CW,hdH); x.restore();
+      }
+      T('SIMULAÇÃO DE FINANCIAMENTO',IX,yLab,F('700',23),'rgba(255,255,255,.82)','left','3px');
+      T(d.hoje,IR,yLab,F('600',24),'rgba(255,255,255,.82)','right');
+      nameLines.forEach(function(ln,i){ T(ln,IX,yName0+i*nLH,F('800',nSz),'#ffffff','left'); });
+      var cTxt=d.cid+' · Minha Casa Minha Vida'+(d.faixa?' · '+d.faixa:'');
+      T(cTxt,IX,yCity,F('600',fit(cTxt,'600',29,20,IW)),'rgba(255,255,255,.92)','left');
+      uLines.forEach(function(ln,i){ T(ln,IX,yDet+i*36,F('500',27),'rgba(255,255,255,.85)','left'); });
+      Y+=hdH+44;
+
+      /* dois destaques lado a lado */
+      var TW=(IW-24)/2, TH=176;
+      var t1=xRc(d.tot), t2=xRc(d.parcela);
+      var s1=Math.min(fit(t1,'800',60,36,TW-44),fit(t2,'800',60,36,TW-44));
+      B(IX,Y,TW,TH,26,TILE,LINE);
+      B(IX+TW+24,Y,TW,TH,26,TILE,LINE);
+      T('ENTRADA',IX+26,Y+38,F('700',21),MUT,'left','3px');
+      T(t1,IX+26,Y+94,F('800',s1),INK,'left');
+      T(d.emc?'ato + Emcash':'sinal, ato e mensais',IX+26,Y+142,F('500',24),MUT,'left');
+      T('PARCELA ESTIMADA',IX+TW+24+26,Y+38,F('700',21),MUT,'left','3px');
+      T(t2,IX+TW+24+26,Y+94,F('800',s1),BLUE,'left');
+      T(d.n+' meses · '+PCT.format(d.taxa)+'% a.a.',IX+TW+24+26,Y+142,F('500',24),MUT,'left');
+      Y+=TH+46;
+
+      function secao(tt){ T(tt,IX,Y+14,F('700',22),MUT,'left','3px'); Y+=46; }
+      function linha(lb,vl,cor,sub,ultima){
+        var h=sub?96:66, cy=sub?Y+32:Y+h/2;
+        T(lb,IX,cy,F('500',30),'#3a4663','left');
+        T(vl,IR,cy,F('700',30),cor||INK,'right');
+        if(sub) T(sub,IX,Y+68,F('500',24),MUT,'left');
+        if(!ultima) R(IX,Y+h-2,IW,2,LINE);
+        Y+=h;
+      }
+
+      secao('COMO O VALOR SE COMPÕE');
+      var A=[['Valor do imóvel',xR0(d.valor),INK],['Financiamento Caixa','− '+xR0(d.fin),BLUE]];
+      if(d.sub>0) A.push(['Subsídio MCMV','− '+xR0(d.sub),AMB]);
+      if(d.chq>0) A.push(['Cheque Paulista','− '+xR0(d.chq),AMB]);
+      if(d.bp>0) A.push(['Desconto Bom Pagador','− '+xR0(d.bp),AMB]);
+      if(d.fgts>0) A.push(['FGTS','− '+xR0(d.fgts),AMB]);
+      A.forEach(function(r,i){ linha(r[0],r[1],r[2],null,i===A.length-1); });
+      Y+=44;
+
+      secao('COMO PAGAR A ENTRADA');
+      var Bz=[];
+      if(d.emc){
+        Bz.push(['Ato (na assinatura)',xRc(d.ato),null]);
+        if(d.cart>0) Bz.push(['Restante da entrada',xRc(d.cart),'financiado direto com a Emcash, sujeito à análise dela']);
+      } else {
+        Bz.push(['Sinal',xRc(d.sinal),d.sinal>P.sinalMin+0.005?'pode ser dividido em até '+P.sinalX+'x':null]);
+        if(d.ato>0) Bz.push(['Ato (na assinatura)',xRc(d.ato),null]);
+        if(d.cart>0) Bz.push(['Mensais com a MRV',xRc(d.cart),'até '+d.nm+'x de '+xRc(d.cart/d.nm)]);
+      }
+      Bz.forEach(function(r){ linha(r[0],r[1],INK,r[2],false); });
+      /* total da entrada em destaque */
+      B(IX,Y+8,IW,84,18,'#e8f0ff',null);
+      T('Entrada total',IX+26,Y+50,F('700',30),BLUE,'left');
+      T(xRc(d.tot),IR-26,Y+50,F('800',34),BLUE,'right');
+      Y+=92+44;
+
+      /* aviso */
+      var av=wrap('Simulação estimada, não é proposta. Aprovação de crédito, taxa e subsídio dependem da análise da Caixa. Valores e disponibilidade da unidade podem mudar sem aviso.',F('500',23),IW);
+      av.forEach(function(ln,i){ T(ln,IX,Y+i*34,F('500',23),MUT,'left'); });
+      Y+=av.length*34+26;
+
+      /* assinatura */
+      R(IX,Y,IW,2,LINE); Y+=36;
+      var nomeAss=a.an||'Equipe Master MRV';
+      if(a.cn){ var pt='Preparada para '+a.cn.trim(); T(pt,IX,Y+12,F('500',fit(pt,'500',25,16,IW)),MUT,'left'); Y+=44; }
+      T(nomeAss,IX,Y+16,F('800',fit(nomeAss,'800',32,18,IW)),INK,'left');
+      var l2=(a.an?'Equipe Master MRV':'')+(a.az?(a.an?' · ':'')+'WhatsApp '+a.az:'');
+      if(l2){ T(l2,IX,Y+56,F('500',fit(l2,'500',25,16,IW)),MUT,'left'); Y+=94; } else { Y+=54; }
+      Y+=IN-10;
+      return Y;
+    }
+
+    /* 1a passada: so mede; 2a: desenha no tamanho certo */
+    var fim=corpo();
+    var H=fim+PAD;
+    var cv=document.createElement('canvas'); cv.width=Math.round(W*sc); cv.height=Math.round(H*sc);
+    real=cv.getContext('2d'); x=real; dry=false;
+    x.scale(sc,sc);
+    x.fillStyle='#e8eefb'; x.fillRect(0,0,W,H);
+    x.save(); x.shadowColor='rgba(20,33,61,.14)'; x.shadowBlur=30; x.shadowOffsetY=8;
+    rr(CX,PAD,CW,fim-PAD,36); x.fillStyle='#ffffff'; x.fill(); x.restore();
+    corpo();
+    return cv;
+  }
+
+  /* ---------- PDF (uma pagina A4 com a imagem, sem biblioteca) ---------- */
+  function xPdf(cv){
+    var b64=cv.toDataURL('image/jpeg',0.92).split(',')[1], bin=atob(b64), n=bin.length, img=new Uint8Array(n), i;
+    for(i=0;i<n;i++) img[i]=bin.charCodeAt(i);
+    var PW=595.28, PH=841.89, mg=28;
+    var s=Math.min((PW-2*mg)/cv.width,(PH-2*mg)/cv.height), w=cv.width*s, h=cv.height*s, ox=(PW-w)/2, oy=PH-mg-h;
+    var parts=[], off=0, xr=[];
+    function add(u8){ parts.push(u8); off+=u8.length; }
+    function addS(t){ var u=new Uint8Array(t.length); for(var j=0;j<t.length;j++) u[j]=t.charCodeAt(j)&255; add(u); }
+    function obj(id,body){ xr[id]=off; addS(id+' 0 obj\n'+body+'\nendobj\n'); }
+    addS('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+    obj(1,'<< /Type /Catalog /Pages 2 0 R >>');
+    obj(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+    obj(3,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources << /XObject << /Im0 5 0 R >> >> /Contents 4 0 R >>');
+    var cs='0.9098 0.9333 0.9843 rg 0 0 '+PW+' '+PH+' re f q '+w.toFixed(2)+' 0 0 '+h.toFixed(2)+' '+ox.toFixed(2)+' '+oy.toFixed(2)+' cm /Im0 Do Q';
+    obj(4,'<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream');
+    xr[5]=off; addS('5 0 obj\n<< /Type /XObject /Subtype /Image /Width '+cv.width+' /Height '+cv.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+n+' >>\nstream\n'); add(img); addS('\nendstream\nendobj\n');
+    var xo=off, t='xref\n0 6\n0000000000 65535 f \n';
+    for(i=1;i<=5;i++) t+=('0000000000'+xr[i]).slice(-10)+' 00000 n \n';
+    t+='trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xo+'\n%%EOF\n';
+    addS(t);
+    return new Blob(parts,{type:'application/pdf'});
+  }
+
+  /* ---------- janela ---------- */
+  function xMsg(t){ var el=xQ('msg'); if(!el) return; el.textContent=t||''; clearTimeout(xMsg.t); if(t) xMsg.t=setTimeout(function(){ el.textContent=''; },3500); }
+  function xBaixar(bl,nm){ var u=URL.createObjectURL(bl), a=document.createElement('a'); a.href=u; a.download=nm; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(u); },4000); }
+  /* no celular abre a folha de compartilhar (WhatsApp, galeria...); no computador baixa */
+  function xEntrega(bl,nm,tipo,compart,rot){
+    var f=null; try{ f=new File([bl],nm,{type:tipo}); }catch(e){}
+    if(compart && f && navigator.share){
+      navigator.share({files:[f],title:'Simulação '+EXPST.d.emp}).catch(function(e){ if(!e||e.name!=='AbortError'){ xBaixar(bl,nm); xMsg(rot+' baixado.'); } });
+    } else { xBaixar(bl,nm); xMsg(rot+(rot==='PDF'?' baixado.':' baixada.')); }
+  }
+  function xLer(){ return { cn:xQ('cn').value.trim(), cz:xQ('cz').value, an:xQ('an').value.trim(), az:xQ('az').value.trim() }; }
+  function xNomeArq(ext){ return 'simulacao-'+xSlug(EXPST.d.emp)+'-'+xSlug(EXPST.d.apto)+'.'+ext; }
+
+  function xMonta(){
+    if(EXPST) return;
+    var el=document.createElement('div'); el.id='pvx'; el.className='pvx'; el.hidden=true;
+    el.innerHTML=
+      '<div class="pvx-bg" data-pvx-close="1"></div>'+
+      '<div class="pvx-sheet" role="dialog" aria-modal="true" aria-labelledby="pvx-t" tabindex="-1">'+
+        '<div class="pvx-hd"><div><h3 id="pvx-t">Enviar ao cliente</h3><p id="pvx-s"></p></div>'+
+          '<button type="button" class="pvx-x" data-pvx-close="1" aria-label="Fechar">&times;</button></div>'+
+        '<div class="pvx-bd">'+
+          '<div class="pvx-grid">'+
+            '<label>Nome do cliente<input id="pvx-cn" type="text" autocomplete="off" placeholder="opcional"></label>'+
+            '<label>WhatsApp do cliente<input id="pvx-cz" type="tel" inputmode="tel" autocomplete="off" placeholder="(12) 90000-0000"></label>'+
+          '</div>'+
+          '<details class="pvx-ass" id="pvx-ass"><summary>Minha assinatura <span id="pvx-assr"></span></summary>'+
+            '<div class="pvx-grid">'+
+              '<label>Seu nome<input id="pvx-an" type="text" autocomplete="off" placeholder="assinatura"></label>'+
+              '<label>Seu WhatsApp<input id="pvx-az" type="tel" inputmode="tel" autocomplete="off" placeholder="(12) 90000-0000"></label>'+
+            '</div></details>'+
+          '<div class="pvx-seg" role="tablist"><button type="button" role="tab" id="pvx-tab-txt" data-pvx-tab="txt" aria-selected="true">Mensagem</button>'+
+            '<button type="button" role="tab" id="pvx-tab-img" data-pvx-tab="img" aria-selected="false">Imagem e PDF</button></div>'+
+          '<div id="pvx-p-txt">'+
+            '<textarea id="pvx-ta" rows="14" spellcheck="false" aria-label="Mensagem para o cliente"></textarea>'+
+            '<p class="pvx-n">Você pode editar o texto antes de enviar. Risco, pagadoria e notas internas não aparecem. <button type="button" class="pvx-lk" id="pvx-redo" data-pvx-do="redo" hidden>Refazer o texto</button></p>'+
+          '</div>'+
+          '<div id="pvx-p-img" hidden>'+
+            '<div class="pvx-prev"><canvas id="pvx-cv" width="10" height="10"></canvas></div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="pvx-ft">'+
+          '<div id="pvx-msg" class="pvx-msg" role="status" aria-live="polite"></div>'+
+          '<div class="pvx-act" id="pvx-a-txt"><button type="button" class="pvx-b pri" data-pvx-do="copy">Copiar texto</button>'+
+            '<button type="button" class="pvx-b" data-pvx-do="wa">Abrir no WhatsApp</button></div>'+
+          '<div class="pvx-act" id="pvx-a-img" hidden><button type="button" class="pvx-b pri" id="pvx-bpng" data-pvx-do="png">Baixar imagem</button>'+
+            '<button type="button" class="pvx-b" id="pvx-bpdf" data-pvx-do="pdf">Baixar PDF</button>'+
+            '<button type="button" class="pvx-b" id="pvx-bcp" data-pvx-do="cpimg" hidden>Copiar imagem</button></div>'+
+        '</div>'+
+      '</div>';
+    document.body.appendChild(el);
+    EXPST={ el:el, ta:xQ('ta'), d:null, sujo:false, png:null, tab:'txt', foco:null };
+    /* o que muda conforme o aparelho */
+    var toque=false; try{ toque=!!(window.matchMedia && matchMedia('(pointer:coarse)').matches); }catch(e){}
+    EXPST.shImg=false; EXPST.shPdf=false;
+    try{
+      if(toque && navigator.share && navigator.canShare){
+        EXPST.shImg=!!navigator.canShare({files:[new File([new Blob(['x'],{type:'image/png'})],'a.png',{type:'image/png'})]});
+        EXPST.shPdf=!!navigator.canShare({files:[new File([new Blob(['x'],{type:'application/pdf'})],'a.pdf',{type:'application/pdf'})]});
+      }
+    }catch(e){}
+    xQ('bpng').textContent=EXPST.shImg?'Enviar imagem':'Baixar imagem';
+    xQ('bpdf').textContent=EXPST.shPdf?'Enviar PDF':'Baixar PDF';
+    if(!toque && window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) xQ('bcp').hidden=false;
+
+    el.addEventListener('click',function(e){
+      var t=e.target;
+      if(t.closest && t.closest('[data-pvx-close]')){ xFechar(); return; }
+      var ab=t.closest?t.closest('[data-pvx-tab]'):null; if(ab){ xAba(ab.getAttribute('data-pvx-tab')); return; }
+      var ac=t.closest?t.closest('[data-pvx-do]'):null; if(ac) xFaz(ac.getAttribute('data-pvx-do'));
+    });
+    ['cn','cz','an','az'].forEach(function(id){ xQ(id).addEventListener('input',function(){
+      if(id==='an'||id==='az'){ try{ localStorage.setItem('pv_ass',JSON.stringify({an:xQ('an').value,az:xQ('az').value})); }catch(e){} xResumoAss(); }
+      xAtualiza();
+    }); });
+    EXPST.ta.addEventListener('input',function(){ EXPST.sujo=true; xQ('redo').hidden=false; });
+    document.addEventListener('keydown',function(e){
+      if(!EXPST || EXPST.el.hidden) return;
+      if(e.key==='Escape'){ xFechar(); return; }
+      if(e.key!=='Tab') return;
+      var fs=[].filter.call(EXPST.el.querySelectorAll('.pvx-sheet button, .pvx-sheet input, .pvx-sheet textarea'),function(n){ return !n.disabled && n.offsetParent!==null; });
+      if(!fs.length) return;
+      var a=document.activeElement, i=fs.indexOf(a);
+      if(e.shiftKey && (i<=0)){ e.preventDefault(); fs[fs.length-1].focus(); }
+      else if(!e.shiftKey && (i===fs.length-1 || i<0)){ e.preventDefault(); fs[0].focus(); }
+    });
+  }
+
+  function xResumoAss(){ var n=xQ('an').value.trim(); xQ('assr').textContent=n?('· '+n):''; }
+  function xAtualiza(){
+    if(!EXPST||!EXPST.d) return;
+    if(!EXPST.sujo) EXPST.ta.value=xTexto(EXPST.d,xLer());
+    if(EXPST.tab==='img') xDesenha();
+  }
+  /* a previa desenha na hora; o PNG so e codificado quando o usuario para de digitar (ou quando pede) */
+  function xDesenha(){
+    var cv=xCanvas(EXPST.d,xLer(),1), alvo=xQ('cv');
+    alvo.width=cv.width; alvo.height=cv.height;
+    alvo.getContext('2d').drawImage(cv,0,0);
+    EXPST.png=null; EXPST.cvUlt=cv; var tk=(EXPST.tk=(EXPST.tk||0)+1);
+    clearTimeout(EXPST.tm);
+    EXPST.tm=setTimeout(function(){ cv.toBlob(function(bl){ if(tk===EXPST.tk) EXPST.png=bl; },'image/png'); },250);
+  }
+  function xPng(cb){
+    if(EXPST.png){ cb(EXPST.png); return; }
+    var cv=EXPST.cvUlt; if(!cv) return;
+    cv.toBlob(function(bl){ cb(bl); },'image/png');
+  }
+  function xAba(t){
+    EXPST.tab=t;
+    xQ('p-txt').hidden=(t!=='txt'); xQ('p-img').hidden=(t!=='img'); xQ('a-txt').hidden=(t!=='txt'); xQ('a-img').hidden=(t!=='img');
+    xQ('tab-txt').setAttribute('aria-selected',t==='txt'?'true':'false');
+    xQ('tab-img').setAttribute('aria-selected',t==='img'?'true':'false');
+    if(t==='img') xDesenha();
+  }
+  function xAbrir(k){
+    var d=xDados(k); if(!d) return;
+    xMonta();
+    var sv={}; try{ sv=JSON.parse(localStorage.getItem('pv_ass')||'{}')||{}; }catch(e){}
+    EXPST.d=d; EXPST.sujo=false; EXPST.png=null; EXPST.foco=document.activeElement; xQ('redo').hidden=true;
+    xQ('cn').value=''; xQ('cz').value=''; xQ('an').value=sv.an||''; xQ('az').value=sv.az||''; xMsg('');
+    xResumoAss(); xQ('ass').open=!(sv.an||sv.az);
+    xQ('s').textContent=d.emp+' · '+d.unid;
+    EXPST.ta.value=xTexto(d,xLer());
+    xAba('txt');
+    EXPST.el.hidden=false; document.body.style.overflow='hidden';
+    var sh=EXPST.el.querySelector('.pvx-sheet'); if(sh) sh.focus();
+  }
+  function xFechar(){
+    if(!EXPST) return;
+    EXPST.el.hidden=true; document.body.style.overflow=''; clearTimeout(EXPST.tm); EXPST.cvUlt=null; EXPST.png=null;
+    try{ if(EXPST.foco && document.body.contains(EXPST.foco)) EXPST.foco.focus(); }catch(e){}
+  }
+  function xFaz(a){
+    var d=EXPST.d, v=xLer();
+    if(a==='redo'){
+      EXPST.sujo=false; EXPST.ta.value=xTexto(d,v); xQ('redo').hidden=true; xMsg('Texto refeito com os dados atuais.');
+    } else if(a==='copy'){
+      var tx=EXPST.ta.value, ok=function(){ xMsg('Texto copiado. É só colar na conversa.'); }, falha=function(){
+        EXPST.ta.focus(); EXPST.ta.select(); var r=false; try{ r=document.execCommand('copy'); }catch(e){} if(r) ok(); else xMsg('Não consegui copiar. Segure no texto e escolha copiar.'); };
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tx).then(ok,falha); else falha();
+    } else if(a==='wa'){
+      var zap=xZap(v.cz);
+      if(v.cz.replace(/\D/g,'') && !zap) xMsg('Número do cliente incompleto: abri o WhatsApp sem destinatário.');
+      window.open('https://wa.me/'+zap+'?text='+encodeURIComponent(EXPST.ta.value),'_blank','noopener');
+    } else if(a==='png'){
+      xPng(function(bl){ if(bl) xEntrega(bl,xNomeArq('png'),'image/png',EXPST.shImg,'Imagem'); else xMsg('Não consegui gerar a imagem. Tente o PDF.'); });
+    } else if(a==='pdf'){
+      var pb=null; try{ pb=xPdf(xCanvas(d,v,2)); }catch(e){}
+      if(!pb){ xMsg('Não consegui gerar o PDF neste aparelho. Use a imagem.'); return; }
+      xEntrega(pb,xNomeArq('pdf'),'application/pdf',EXPST.shPdf,'PDF');
+    } else if(a==='cpimg'){
+      /* o ClipboardItem recebe uma promessa: o Safari exige isso pra manter o toque valido */
+      try{ navigator.clipboard.write([new ClipboardItem({'image/png':new Promise(function(res,rej){ xPng(function(b2){ if(b2) res(b2); else rej(new Error('sem imagem')); }); })})]).then(function(){ xMsg('Imagem copiada. É só colar na conversa.'); },function(){ xMsg('Não consegui copiar a imagem. Use Baixar imagem.'); }); }catch(e){ xMsg('Não consegui copiar a imagem. Use Baixar imagem.'); }
+    }
+  }
+  if(g('pv-cards')) g('pv-cards').addEventListener('click',function(e){ var b=e.target.closest?e.target.closest('[data-pvexp]'):null; if(b) xAbrir(b.getAttribute('data-pvexp')); });
 
   function acharTaxa(renda, valor, alvo){
     var faixa=faixaOf(renda,valor);
@@ -984,7 +1435,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
       +t(BRL0.format(r.cap),'Capacidade de financiamento','trava pela '+r.trava)
       +t(BRL0.format(r.parcela),'Parcela estimada',r.n+' meses')
       +t(BRL0.format(r.subsidio),'Subsídio',st.dep?'com dependente':'sem dependente');
-    out.textContent='Cotista, dependente e planta/pronto seguem o que está marcado no Simulador. Cheque Paulista, FGTS e bom pagador não entram aqui.';
+    out.textContent='Cotista, dependente, nascimento e planta/pronto seguem o que está marcado no Simulador. Cheque Paulista, FGTS e bom pagador não entram aqui.';
   }
   g('pv-cBtn').addEventListener('click',taxaCalc);
   ['pv-cRenda','pv-cValor'].forEach(function(id){ g(id).addEventListener('input',taxaCalc); });
@@ -1001,16 +1452,186 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
 })();
 
 (function(){
-  var D={"com": ["RG e CPF, ou CNH. Foto nítida (frente e verso) ou PDF.", "Comprovante de endereço atual ou de até 60 dias, em conta de consumo. Foto, print ou PDF.", "Certidão de estado civil: nascimento (solteiro) ou casamento (casado, divorciado, viúvo).", "Assinar a MO, a autorização para a Caixa fazer a análise de crédito.", "Se tiver cônjuge ou um segundo proponente: os mesmos documentos dele, e ele também assina a MO.", "O extrato do FGTS só vale em PDF, sem print ou foto. O extrato bancário só é pedido para autônomo (o assalariado entrega só o do FGTS) e também só vale em PDF."], "p": [{"k": "CLT", "t": "Trabalha registrado (CLT)", "i": ["Carteira de trabalho. A digital (app Gov) é mais rápida, mas a física em foto também serve.", "Os 2 últimos holerites: os 2 meses anteriores ao mês do atendimento. Foto, print ou PDF.", "Extrato do FGTS (conta vinculada), em PDF, mostrando o depósito da mesma competência de cada holerite. É obrigatório desde o início do processo (dá para puxar pelo Gov)."], "o": "Regra nova da Caixa (Manual de Crédito, item 4.6.5): a renda do CLT é o maior valor entre o holerite e o depósito do FGTS multiplicado por 12,5. Exemplo: holerite de R$ 2.800 e depósito de R$ 240 dá R$ 3.000, e vale o FGTS. Com holerite de R$ 3.500, vale o holerite. O depósito do FGTS tem que ser do mesmo mês do holerite.", "l": [["Como baixar o extrato do FGTS", "https://drive.google.com/drive/folders/1LSEZPQT4Ofow1MzexXjgB37R2ak7Vs1z?usp=drive_link"]], "s": ["Abra o app FGTS e, em “Resumo do seu FGTS”, toque na conta do empregador.", "Na tela da conta, toque em “Gerar extrato PDF”.", "O PDF abre com o histórico de movimentações. Salve e envie esse arquivo."], "st": "Como tirar o extrato do FGTS (3 telas)", "sn": "Se o cliente tem mais de um empregador, gera o extrato da conta de cada um."}, {"k": "Autônomo", "t": "Autônomo (geral)", "i": ["Carteira de trabalho (Gov ou física em foto).", "Extrato do FGTS, em PDF.", "Extrato bancário completo dos últimos 3 meses, de pessoa física, em PDF exportado pelo app do banco. Vale os 3 meses anteriores ao mês do atendimento. Print não vale."], "o": "O Imposto de Renda não é exigência, mas ajuda a formalizar a renda. Sem ele, a renda informal tem o teto de R$ 2.550.", "l": [["Declaração de renda informal (Caixa)", "https://drive.google.com/drive/folders/11qSues4tKDSE8K1Fvtg4fFyggAGEJ9BY?usp=drive_link"], ["Ficha de análise de renda informal (MRV)", "https://drive.google.com/drive/folders/1QW0rFSAc_x6ExQhjZ2DsRDnkPf7nAt0n?usp=drive_link"]]}, {"k": "Aplicativo", "t": "Motorista de aplicativo / entregador", "i": ["Só vale para quem trabalha direto para o aplicativo (Uber, iFood, 99, Mercado Livre, Shopee). Entrega por conta própria, sem vínculo com app, é autônomo geral.", "Comprovantes de recebimento da própria plataforma, dos últimos 4 meses seguidos.", "Sempre da mesma plataforma. Não pode misturar (ex.: 2 meses de iFood e 2 de Uber).", "Carteira de trabalho e extrato do FGTS, como nos outros perfis."], "o": "A Caixa considera o menor valor entre os 4 meses, não a média. Avise o cliente antes."}, {"k": "MEI", "t": "MEI", "i": ["Imposto de Renda de pessoa física. O MEI compra pelo Imposto de Renda.", "Cartão CNPJ (emitir em gov.br/empresas-e-negocios, Redesim)."], "o": "Se não tiver Imposto de Renda, roda a análise como autônomo: extrato bancário dos últimos 3 meses, de pessoa física. O MEI não tem mais isenção automática de IR.", "l": [["Consultar se é Simples Nacional (Receita)", "https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21"], ["Documentos obrigatórios do MEI", "https://drive.google.com/file/d/1G95EodPQeJcKuo-oD9gYWLMCJiKe5ykp/view?usp=drive_link"]]}, {"k": "ME / sócio", "t": "ME (microempresa) / sócio", "i": ["Pró-labore.", "Documentos da empresa: contrato social e cartão CNPJ.", "Carteira de trabalho e extrato do FGTS."], "o": "", "l": [["Consultar se é Simples Nacional (Receita)", "https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21"]]}, {"k": "Aposentado", "t": "Aposentado / pensionista", "i": ["Extrato de pagamento do benefício do INSS ou carta de concessão.", "Margem consignável já comprometida reduz a capacidade de pagamento."], "o": "", "l": [["Códigos de benefícios do INSS", "https://drive.google.com/drive/folders/1278VoULN4idTPlvkddP-oYWW-Hgu-5vc?usp=drive_link"]]}, {"k": "Aluguel", "t": "Renda de aluguel", "i": ["Contrato de locação registrado.", "Comprovantes de recebimento.", "Imposto de Renda (obrigatório para essa renda ser aceita)."], "o": ""}], "visita": ["RG e CPF ou CNH.", "Carteira de trabalho.", "Comprovante de endereço atualizado (até 60 dias).", "Certidão de estado civil (nascimento ou casamento)."], "links": [["MO: link para assinar", "https://drive.google.com/file/d/19CTeHkQvJnhGTA36QXPzUnlSxndgRjos/view?usp=sharing"], ["Como assinar a MO digitalmente", "https://drive.google.com/file/d/10qn-m0nh6lpYF0mkhhOQqcuPDH7W5z60/view?usp=drive_link"], ["Lista de documentos para análise de crédito", "https://drive.google.com/drive/folders/1at8iudthdtLrFwCC-pUlKWXzZyYVqzzq?usp=drive_link"], ["Como baixar o extrato do FGTS", "https://drive.google.com/drive/folders/1LSEZPQT4Ofow1MzexXjgB37R2ak7Vs1z?usp=drive_link"], ["Certidão de nascimento ou casamento online", "https://drive.google.com/drive/folders/1U2k96yyNrQ4FmcNJ9zstb69y5enGI02N?usp=drive_link"], ["Modelo de declaração de dependente", "https://drive.google.com/drive/folders/1ytgs902CFjy1jb8w8RcEs62TOouvDmPC?usp=drive_link"]]};
   var acc=document.getElementById('rg-acc');
+  if(!acc) return;
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
-  function links(a){ return a&&a.length?'<div class="rg-lk">'+a.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>';}).join('')+'</div>':''; }
-  function steps(p){ return p&&p.s?'<div class="rg-st"><b>'+esc(p.st)+'</b><ol>'+p.s.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol>'+(p.sn?'<p>'+esc(p.sn)+'</p>':'')+'</div>':''; }
-  function item(t,items,obs,lk,p){ return '<details class="rg-d"><summary>'+esc(t)+'</summary><div class="rg-b"><ul>'+items.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+steps(p)+(obs?'<p class="rg-obs">'+esc(obs)+'</p>':'')+links(lk)+'</div></details>'; }
-  var h=item('Documentos de todo cliente',D.com,'','');
-  h+=item('Visita na loja (Caixa no local)',D.visita,'Só vale quando o cliente confirma a visita. Há um representante da Caixa na loja fazendo análise no dia. Levar esses documentos ajuda, mas não é exigência.','');
-  D.p.forEach(function(p){ h+=item(p.t,p.i,p.o,p.l,p); });
-  h+='<details class="rg-d"><summary>Modelos e tutoriais</summary><div class="rg-b">'+links(D.links).replace('class="rg-lk"','class="rg-lk" style="margin-top:0"')+'</div></details>';
+  /* [[texto]] vira comando do Sol (codigo) e **texto** vira negrito */
+  function tx(s){ return esc(s).replace(/R\$ (?=\d)/g,'R$$ ').replace(/\[\[([^\]]+)\]\]/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>'); }
+  function ul(rows,cls){ return '<ul'+(cls?' class="'+cls+'"':'')+'>'+rows.map(function(x){return '<li>'+tx(x)+'</li>';}).join('')+'</ul>'; }
+  function ck(rows){ return ul(rows,''); }
+  function pl(rows){ return ul(rows,'rg-pl'); }
+  function pp(s){ return '<p class="rg-p">'+tx(s)+'</p>'; }
+  function obs(s){ return '<p class="rg-obs">'+tx(s)+'</p>'; }
+  function tip(s){ return '<p class="rg-tip">'+tx(s)+'</p>'; }
+  function nt(s){ return '<p class="rg-n">'+tx(s)+'</p>'; }
+  function lk(a){ return '<div class="rg-lk">'+a.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>';}).join('')+'</div>'; }
+  function item(t,parts){ return '<details class="rg-d"><summary>'+esc(t)+'</summary><div class="rg-b">'+parts.join('')+'</div></details>'; }
+  function grp(t){ return '<h3 class="rg-g">'+esc(t)+'</h3>'; }
+  var DR='https://drive.google.com/drive/folders/', DF='https://drive.google.com/file/d/';
+  var L={
+    lim:['Cidades limítrofes',DR+'1Bu47AtgJQqm44gn3fR6KTpghcrVTSRJu?usp=drive_link'],
+    incc:['Tabela do INCC','https://debit.com.br/tabelas/tabela-completa.php?indice=incc'],
+    renda:['Declaração de renda informal (Caixa)',DR+'11qSues4tKDSE8K1Fvtg4fFyggAGEJ9BY?usp=drive_link'],
+    ficha:['Ficha de análise de renda informal (MRV)',DR+'1QW0rFSAc_x6ExQhjZ2DsRDnkPf7nAt0n?usp=drive_link'],
+    simples:['Consultar se é Simples Nacional (Receita)','https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21'],
+    mei:['Documentos obrigatórios do MEI',DF+'1G95EodPQeJcKuo-oD9gYWLMCJiKe5ykp/view?usp=drive_link'],
+    inss:['Códigos de benefícios do INSS',DR+'1278VoULN4idTPlvkddP-oYWW-Hgu-5vc?usp=drive_link'],
+    cadin:['Consultar CADIN (PGFN)','https://cadin.pgfn.gov.br'],
+    protesto:['Consultar protesto em cartório','https://www.pesquisaprotesto.com.br'],
+    mo:['MO: link para assinar',DF+'19CTeHkQvJnhGTA36QXPzUnlSxndgRjos/view?usp=sharing'],
+    moDig:['Como assinar a MO digitalmente',DF+'10qn-m0nh6lpYF0mkhhOQqcuPDH7W5z60/view?usp=drive_link'],
+    gov:['Como assinar pelo GOV',DR+'1KYCzNZQBHHR2oj6UPRW4PHU_3JpGo8cH?usp=drive_link'],
+    ctr:['Como assinar contrato digital',DR+'1Y-Gqn-8uC1WpZI_06nt6Oz02UB7GWGaO?usp=drive_link'],
+    lista:['Lista de documentos para análise de crédito',DR+'1at8iudthdtLrFwCC-pUlKWXzZyYVqzzq?usp=drive_link'],
+    fgts:['Como baixar o extrato do FGTS',DR+'1LSEZPQT4Ofow1MzexXjgB37R2ak7Vs1z?usp=drive_link'],
+    regis:['Como tirar o Registrato (BACEN)',DR+'1O95fyputBYS6PUUfeDlBbwFIUo4yXkdS?usp=drive_link'],
+    cert:['Certidão de nascimento ou casamento online',DR+'1U2k96yyNrQ4FmcNJ9zstb69y5enGI02N?usp=drive_link'],
+    dep:['Modelo de declaração de dependente',DR+'1ytgs902CFjy1jb8w8RcEs62TOouvDmPC?usp=drive_link']
+  };
+  var h='';
+
+  h+=grp('Regras do programa');
+  h+=item('Quem pode comprar',[
+    pl([
+      'Sem imóvel residencial no nome e sem terreno com construção.',
+      'Sem financiamento ativo pelo SFH.',
+      'Morar ou trabalhar na cidade do empreendimento ou em cidade limítrofe.',
+      'Renda familiar bruta de até R$ 13.000. Benefícios sociais não contam como renda.',
+      'Imóvel dentro do teto da região.'
+    ]),
+    obs('Quem decide é a Caixa. Nunca garanta aprovação, taxa ou subsídio ao cliente.'),
+    lk([L.lim])
+  ]);
+  h+=item('Cliente já tem imóvel no nome',[
+    pp('Em geral não entra no MCMV, que exige não ter imóvel residencial. Mas pode comprar pelo financiamento tradicional da Caixa (SBPE): sem subsídio, com juros e entrada maiores.'),
+    pp('Antes de descartar, confirme:'),
+    ck([
+      'O imóvel está mesmo no nome dele?',
+      'É residencial, ou é só um terreno?',
+      'Veio de herança, ou está regularizado?'
+    ]),
+    tip('Às vezes o cliente acha que tem imóvel e ainda se enquadra no programa.')
+  ]);
+  h+=item('Teto, subsídio, prazo e FGTS',[
+    pl([
+      '**Teto:** renda até R$ 5.000, imóvel de até R$ 264.000, com financiamento de no máximo 80% (R$ 211.200).',
+      '**Subsídio:** só para renda até R$ 5.000. Varia com a renda, a região e o fator social (mais de um proponente, ou um proponente com dependente legal).',
+      '**Prazo:** até 420 meses, sem redução até 45 anos (pronto) ou 42 anos (planta). Depois disso, idade + prazo não passam de 80,5 anos. O Simulador já calcula.',
+      '**FGTS:** cotista é quem tem 36 meses de FGTS, somando todos os empregos. Só o cotista usa o FGTS na proposta e paga 0,5% a menos de juros.',
+      '**INCC:** a MRV normalmente usa o índice do mês anterior já divulgado, ou o de dois meses atrás. Não estime: consulte a tabela.'
+    ]),
+    obs('Taxa e subsídio são estimativas. Mostre dois cenários (cotista e não cotista) e peça ao cliente para conferir o saldo do FGTS no app oficial.'),
+    lk([L.incc])
+  ]);
+
+  h+=grp('Documentos');
+  h+=item('Documentos de todo cliente',[
+    ck([
+      'RG e CPF, ou CNH. Foto nítida (frente e verso) ou PDF.',
+      'Comprovante de endereço de até 60 dias, em conta de consumo.',
+      'Certidão de estado civil: nascimento (solteiro) ou casamento (casado, divorciado, viúvo).',
+      'Assinar a MO, a autorização para a Caixa analisar o crédito.',
+      'Cônjuge ou segundo proponente: os mesmos documentos e a assinatura na MO.'
+    ]),
+    obs('Extrato do FGTS e extrato bancário só valem em PDF, nunca print ou foto.'),
+    tip('Peça em 2 etapas: RG, CPF e comprovante de renda primeiro, o resto depois.'),
+    nt('Visita na loja com a Caixa no local: levar RG e CPF, carteira de trabalho, comprovante de endereço e certidão ajuda, mas não é exigência.')
+  ]);
+  h+=item('Trabalha registrado (CLT)',[
+    ck([
+      'Carteira de trabalho (a digital, do app Gov, é mais rápida).',
+      'Os 2 últimos holerites: os 2 meses anteriores ao mês do atendimento.',
+      'Extrato do FGTS em PDF, com o depósito do mesmo mês de cada holerite. Obrigatório desde o início (dá para puxar pelo Gov).'
+    ]),
+    obs('Renda do CLT (Manual de Crédito da Caixa, item 4.6.5): vale o maior entre o holerite e o depósito do FGTS × 12,5. Ex.: holerite de R$ 2.800 e depósito de R$ 240 (× 12,5 = R$ 3.000): vale o FGTS.'),
+    nt('Extrato: app FGTS → Resumo do seu FGTS → conta do empregador → Gerar extrato PDF (um por empregador).')
+  ]);
+  h+=item('Autônomo (geral)',[
+    ck([
+      'Carteira de trabalho (Gov ou foto da física).',
+      'Extrato do FGTS em PDF.',
+      'Extrato bancário completo de pessoa física dos 3 meses anteriores ao mês do atendimento, em PDF do app do banco (print não vale).'
+    ]),
+    obs('Sem Imposto de Renda, a renda informal vale no máximo R$ 2.550. O IR não é exigido, mas ajuda a formalizar a renda.'),
+    lk([L.renda,L.ficha])
+  ]);
+  h+=item('Motorista de aplicativo / entregador',[
+    ck([
+      'Só vale para quem trabalha direto para a plataforma (Uber, iFood, 99, Mercado Livre, Shopee). Entrega por conta própria, sem vínculo com app, é autônomo geral.',
+      'Comprovantes de recebimento da própria plataforma, dos 4 últimos meses seguidos e sempre da mesma (não mistura iFood com Uber).',
+      'Carteira de trabalho e extrato do FGTS.'
+    ]),
+    obs('A Caixa considera o menor valor dos 4 meses, não a média. Avise o cliente antes.')
+  ]);
+  h+=item('MEI',[
+    ck([
+      'Imposto de Renda de pessoa física (o MEI compra pelo IR).',
+      'Cartão CNPJ (gov.br/empresas-e-negocios, Redesim).'
+    ]),
+    obs('Sem IR, a análise roda como autônomo (extrato bancário de pessoa física dos 3 últimos meses). O MEI não tem mais isenção automática de IR.'),
+    lk([L.simples,L.mei])
+  ]);
+  h+=item('ME (microempresa) / sócio',[
+    ck([
+      'Pró-labore.',
+      'Contrato social e cartão CNPJ.',
+      'Carteira de trabalho e extrato do FGTS.'
+    ])
+  ]);
+  h+=item('Aposentado / pensionista',[
+    ck([
+      'Extrato de pagamento do benefício do INSS, ou carta de concessão.'
+    ]),
+    obs('Margem consignável já comprometida reduz a capacidade de pagamento.'),
+    lk([L.inss])
+  ]);
+  h+=item('Renda de aluguel',[
+    ck([
+      'Contrato de locação registrado.',
+      'Comprovantes de recebimento.',
+      'Imposto de Renda (sem ele, essa renda não é aceita).'
+    ])
+  ]);
+  h+=item('Declaração de Imposto de Renda do cliente',[
+    pp('Envie tudo por escrito. Só o informe de rendimentos e o cartão CNPJ vão em arquivo.'),
+    ck([
+      'Informe de rendimentos, em arquivo (CLT).',
+      'Endereço completo, com número, CEP e complemento.',
+      'Número do PIS.',
+      'RG e CPF.',
+      'Celular e e-mail.',
+      'Renda mista: valor do holerite e da renda informal que será usada.',
+      'Com cônjuge: nome completo e CPF.',
+      'MEI: cartão CNPJ, em arquivo.'
+    ]),
+    tip('O cliente autoriza por escrito a entrega dos documentos. No Sol: [[#sol declaração IRPF]] (autorização) e [[#sol documentos irpf]] (lista pronta).')
+  ]);
+
+  h+=grp('Análise de crédito');
+  h+=item('Antes de subir a proposta',[
+    pp('CADIN e protesto ativo podem travar a análise na Caixa. Consulte os dois antes de subir.'),
+    pl([
+      '**Protesto:** consulta gratuita pelo CPF, vale para o Brasil todo (na dúvida, o estado onde mora e onde já morou). Se constar, o cliente quita e depois pede o cancelamento no cartório, com custo à parte. Pagar só o credor não tira o protesto.',
+      '**Simples Nacional** (MEI): confira o status e a data de enquadramento.',
+      '**SICOW:** cadastro interno e sigiloso da Caixa que bloqueia o financiamento sem aviso (suspeita de fraude ou pendência jurídica) e não aparece no SPC nem no Serasa. O cliente liga na Caixa: 4004 0104 (capitais) ou 0800 104 0104 (demais cidades).'
+    ]),
+    lk([L.cadin,L.protesto,L.simples]),
+    nt('No Sol: [[#sol cadin]], [[#sol protesto]], [[#sol simples nacional]] e [[#sol sicow]].')
+  ]);
+  h+=item('Exceção de validação de renda',[
+    pp('Quando o SICAQ já está aprovado mas a validação de renda ficou pendente, peça ao CCA, em exceção, que devolva a jornada aprovada para montar o fluxo.'),
+    pl([
+      'Você assume segurar o boleto até a validação terminar. Alinhe isso com o cliente antes de enviar.',
+      'Mande já com data e horário da entrevista: volta bem mais rápido.'
+    ]),
+    nt('No Sol: [[#sol exceção]] (e-mail pronto) e [[#sol validação]] (endereços dos CCAs).')
+  ]);
+
+  h+=grp('Materiais');
+  h+=item('Modelos e tutoriais',[
+    lk([L.mo,L.moDig,L.gov,L.ctr,L.lista,L.fgts,L.regis,L.cert,L.dep]).replace('class="rg-lk"','class="rg-lk" style="margin-top:0"')
+  ]);
+
   acc.innerHTML=h;
 })();
 boot();
