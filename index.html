@@ -265,6 +265,11 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
 #p-sim .pctw input[data-pct]{flex:0 1 88px;width:88px;min-width:0;text-align:center;font-size:16px;font-weight:700;padding:7px 6px}
 #p-sim .pctw input[data-pct]::placeholder{color:var(--mut);opacity:1;font-weight:700}
 #p-sim .pctw .pctsg{flex:none;font-size:15px;font-weight:600;line-height:1;color:var(--mut);cursor:text}
+
+/* v14: campo de risco desativado (Emcash ligado: so vale o Risco Emcash; sem Emcash o Risco Emcash fica desativado) */
+#p-sim .f.off{opacity:.45}
+#p-sim .f.off input{cursor:not-allowed}
+#p-sim .f.off .pctsg{cursor:default}
 </style>
 </head>
 <body>
@@ -362,6 +367,7 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
       <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-limF12" placeholder="padrão 264.000" autocomplete="off"></div>
       <div class="f"><label for="pv-rkt">Risco total — máximo da construtora</label><div class="pctw"><input type="text" inputmode="decimal" id="pv-rkt" placeholder="0" maxlength="5" autocomplete="off" data-pct="1"><label class="pctsg" for="pv-rkt">%</label></div></div>
       <div class="f"><label for="pv-rkc">Risco carteira — parcela em até 48x</label><div class="pctw"><input type="text" inputmode="decimal" id="pv-rkc" placeholder="0" maxlength="5" autocomplete="off" data-pct="1"><label class="pctsg" for="pv-rkc">%</label></div></div>
+      <div class="f off"><label for="pv-rke">Risco Emcash — máximo com Emcash</label><div class="pctw"><input type="text" inputmode="decimal" id="pv-rke" placeholder="0" maxlength="5" autocomplete="off" data-pct="1" disabled><label class="pctsg" for="pv-rke">%</label></div></div>
       <div class="f"><label for="pv-taxa">Taxa da faixa do cliente (% a.a.)</label><input type="number" id="pv-taxa" step="0.05" placeholder="auto" autocomplete="off"></div>
       <div class="f"><label for="pv-ordem">Ordem dos cards</label>
         <select id="pv-ordem">
@@ -559,7 +565,7 @@ function render(){
   const dt=new Date(meta.data);
 /* carimbo da versão do painel: se este número não mudar depois de subir
    o arquivo, é porque o upload não entrou (nome errado ou cache). */
-const PAINEL_VER='v13 · Panorama';
+const PAINEL_VER='v14 · Panorama';
   $('#meta').textContent=`${meta.arquivo||'Relatório'} · ${dt.toLocaleDateString('pt-BR')} ${dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} · ${PAINEL_VER}`;
   renderNav();renderMud();renderHis();
 }
@@ -765,7 +771,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   "use strict";
   var P={ dfi:0.000078990, mip:0.00016003, adm:25, comp:0.30, ltv:0.80, pag:0.015,
     f:[3200,5000,9600,13000], rc:[4.50,4.75,7.66,10.00], rn:[4.75,5.25,8.16,10.00],
-    r20:0.20, r24:0.24, r26:0.26, sinalMin:300, sinalX:5, ato:0.016,
+    r20:0.20, r24:0.24, r26:0.26, rEmc:0.26, sinalMin:300, sinalX:5, ato:0.016,
     prazo:420, obra:36, idLim:966, idPronto:45, idPlanta:42, chqTeto:4863, emcash:0.50,
     limF12:264000, limF3:400000, limF4:600000 };
   var st={planta:0,pag:1,dep:1,cot:1,emc:0,pick:{}};
@@ -775,7 +781,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var N1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   var FN=['Faixa 1','Faixa 2','Faixa 3','Faixa 4'];
   function g(id){ return document.getElementById(id); }
-  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); if(!d){ el.value=''; return; } while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); /* v13: risco em %: numero simples, ate 2 digitos antes da virgula e 2 depois (digita 20 -> 20; 21,5 -> 21,5) */ ['pv-rkt','pv-rkc'].forEach(function(id){ var el=g(id); el.addEventListener('input',function(){ var v=el.value.replace(/[^0-9.,]/g,''); var k=v.search(/[.,]/); var ip=k<0?v:v.slice(0,k), dp=k<0?'':v.slice(k+1).replace(/[.,]/g,''); ip=ip.replace(/^0+(?=\d)/,'').slice(0,2); dp=dp.slice(0,2); if(k>=0){ if(!ip) ip='0'; v=ip+v.charAt(k)+dp; } else v=ip; if(v!==el.value) el.value=v; }); }); })();
+  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); if(!d){ el.value=''; return; } while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); /* v13: risco em %: numero simples, ate 2 digitos antes da virgula e 2 depois (digita 20 -> 20; 21,5 -> 21,5) */ ['pv-rkt','pv-rkc','pv-rke'].forEach(function(id){ var el=g(id); el.addEventListener('input',function(){ var v=el.value.replace(/[^0-9.,]/g,''); var k=v.search(/[.,]/); var ip=k<0?v:v.slice(0,k), dp=k<0?'':v.slice(k+1).replace(/[.,]/g,''); ip=ip.replace(/^0+(?=\d)/,'').slice(0,2); dp=dp.slice(0,2); if(k>=0){ if(!ip) ip='0'; v=ip+v.charAt(k)+dp; } else v=ip; if(v!==el.value) el.value=v; }); }); })();
 
   function fatorPrice(i,n){ if(i<=0) return 1/n; var f=Math.pow(1+i,n); return i*f/(f-1); }
   function faixaPorRenda(r){ for(var k=0;k<4;k++){ if(r<=P.f[k]) return k; } return -1; }
@@ -800,7 +806,9 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   /* campo de percentual: aceita 20, 21,5 ou 21.5 (no campo de dinheiro o ponto e' milhar; aqui nao) */
   function pctNum(id){ var el=g(id); var s=el?String(el.value).trim().replace(',','.'):''; var v=parseFloat(s); return isFinite(v)?v:NaN; }
   /* v13: risco maximo que o simulador esta usando (campo em branco = padrao); aparece no rodape dos cards */
-  function riscoUsado(){ var t=pctNum('pv-rkt'), c=pctNum('pv-rkc'), dt=!(isFinite(t)&&t>0), dc=!(isFinite(c)&&c>=0);
+  function riscoUsado(){ if(st.emc){ var e=pctNum('pv-rke'), de=!(isFinite(e)&&e>0), E=de?P.rEmc:Math.min(e,100)/100;
+      return '<b>Risco máximo usado:</b> '+PCT.format(E*100)+'% com Emcash'+(de?' (padrão)':'')+'. Risco total e risco carteira não valem com Emcash: não há sinal em 5x nem carteira da MRV. '; }
+    var t=pctNum('pv-rkt'), c=pctNum('pv-rkc'), dt=!(isFinite(t)&&t>0), dc=!(isFinite(c)&&c>=0);
     var T=dt?P.r26:Math.min(t,100)/100, C=dc?P.r20:Math.min(c,100)/100; if(C>T) C=T;
     return '<b>Risco máximo usado:</b> '+PCT.format(T*100)+'% no total'+(dt?' (padrão)':'')+' e '+PCT.format(C*100)+'% na carteira'+(dc?' (padrão)':'')+'. '; }
 
@@ -840,6 +848,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var rT=pctNum('pv-rkt'), rC=pctNum('pv-rkc');
     rT=(isFinite(rT)&&rT>0)?Math.min(rT,100)/100:P.r26; rC=(isFinite(rC)&&rC>=0)?Math.min(rC,100)/100:P.r20;
     if(rC>rT) rC=rT;
+    var rE=pctNum('pv-rke'); rE=(isFinite(rE)&&rE>0)?Math.min(rE,100)/100:P.rEmc;
     var r20=rC, r26=rT, r24=Math.min(Math.max(P.r24,r20),r26);
     var sinal=0,ato=0,status='ok',label='Fecha sem sinal';
     if(faixa<0){ status='bad'; label=(fValor>3?'Unidade fora do programa':'Renda fora do programa'); }
@@ -848,12 +857,16 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     else if(risco<=r26){ sinal=(r24-r20)*o.valor; ato=(risco-r24)*o.valor; status='warn'; label='Sinal + ato'; }
     else { sinal=(r24-r20)*o.valor; ato=(risco-r24)*o.valor; status='bad'; label='Estoura o teto'; }
     var atoMin=(st.pag||st.emc)?o.valor*P.ato:0;
-    if(st.emc){ sinal=0; ato=Math.max(ato,atoMin); if(risco<=r26) label='Emcash cobre a entrada'; }
+    if(st.emc){
+      /* v14: com Emcash so vale o Risco Emcash: sem sinal em 5x, sem carteira da MRV e sem os cortes de 20% e 24%; ato fixo de 1,6% e o resto da entrada vai pra Emcash */
+      sinal=0; ato=atoMin;
+      if(faixa>=0){ if(risco<=rE){ status='ok'; label='Emcash cobre a entrada'; } else { status='bad'; label='Estoura o teto'; } }
+    }
     var atoTotal=Math.max(ato,atoMin);
     var carteira=Math.max(0, rp - sinal - atoTotal);
     return {faixa:faixa,taxaAA:taxaAA,n:n,cap:cap,capRenda:capRenda,capLtv:capLtv,
       trava:trava,parcela:parcela,rp:rp,risco:risco,cheque:cheque,subsidio:sub,beneficios:beneficios,
-      rT:rT,rC:rC,sinal:sinal,ato:ato,atoMin:atoMin,atoTotal:atoTotal,carteira:carteira,
+      rT:rT,rC:rC,rE:rE,sinal:sinal,ato:ato,atoMin:atoMin,atoTotal:atoTotal,carteira:carteira,
       status:status,label:label,folga:Math.max(0,o.renda*P.emcash-parcela),
       fRenda:fRenda,fValor:fValor,mandaValor:mandaValor};
   }
@@ -887,15 +900,21 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     if(st.planta){ var n1=contaFecha(b.sims,c,{planta:0}); if(n1>0) op.push('no <b>pronto</b> em vez da planta, '+n1+(n1>1?' unidades fecham':' unidade fecha')); }
     if(c.renda>P.chqTeto && c.cheque>0){ var n2=contaFecha(b.sims,c,{renda:P.chqTeto}); if(n2>0) op.push('com renda de até '+BRL0.format(P.chqTeto)+' o cheque paulista volta e '+n2+(n2>1?' fecham':' fecha')); }
     if(!st.emc){ var n3=contaFecha(b.sims,c,{emc:1}); if(n3>0) op.push('ligando a <b>Emcash</b>, '+n3+(n3>1?' fecham':' fecha')); }
-    if(!op.length) return ' Nenhum ajuste simples resolve aqui: nem no pronto, nem com Emcash, nem segurando a renda no teto do cheque. Essa renda não alcança este produto.';
+    if(!op.length) return st.emc ? ' Nenhum ajuste simples resolve aqui: nem no pronto, nem segurando a renda no teto do cheque. Essa renda não alcança este produto.' : ' Nenhum ajuste simples resolve aqui: nem no pronto, nem com Emcash, nem segurando a renda no teto do cheque. Essa renda não alcança este produto.';
     return ' <b>Saída:</b> '+op.join('; ')+'.';
   }
 
+  /* v14: com Emcash a unidade que fecha ganha uma frase explicando a entrada (risco do Emcash, ato de 1,6% e o resto com a Emcash) */
   function nota(r,u,idade,idMax){
+    var t=nota0(r,u,idade,idMax);
+    if(st.emc && r.status==='ok') t='<b>Emcash:</b> entrada de '+PCT.format(r.risco*100)+'% do valor, dentro do risco do Emcash de '+PCT.format(r.rE*100)+'%. Ato de '+String(P.ato*100).replace('.',',')+'% na assinatura e o restante da entrada vai direto para a Emcash. '+t;
+    return t;
+  }
+  function nota0(r,u,idade,idMax){
     if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(mv('pv-limF12')||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
     if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo fica em '+r.n+' meses (idade + prazo até 80,5 anos).';
     if(r.faixa<0) return 'Renda acima do teto de '+BRL0.format(P.f[3])+' do programa.';
-    if(r.status==='bad') return 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(r.rT*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
+    if(r.status==='bad') return st.emc ? ('A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do risco do Emcash de '+PCT.format(r.rE*100)+'%. Nem com Emcash a proposta cabe nesta unidade.') : 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(r.rT*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
     if(r.trava==='cota') return 'A cota de '+Math.round(P.ltv*100)+'% trava em '+BRL0.format(r.capLtv)+'; a renda sozinha comportaria '+BRL0.format(r.capRenda)+'. Sobra de renda: '+BRLc.format(Math.max(0,num('pv-renda')*P.comp-r.parcela))+' por mês.';
     if(r.trava==='necessidade') return 'O financiamento cobre tudo que faltava — os benefícios já dão conta do resto.';
     return 'Travada pela renda: '+Math.round(P.comp*100)+'% de '+BRL0.format(num('pv-renda'))+' dá parcela de '+BRLc.format(num('pv-renda')*P.comp)+', o que financia '+BRL0.format(r.capRenda)+'. A cota permitiria '+BRL0.format(r.capLtv)+'.';
@@ -960,9 +979,9 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var parcelas=blocos.filter(function(b){return b.sel.r.status!=='bad';}).map(function(b){return b.sel.r.parcela;});
 
     g('pv-totals').innerHTML =
-      '<div class="tt ok"><span class="n">'+totOk+'</span><span class="k">unidades sem sinal</span><span class="s">de '+totUn+' no recorte</span></div>'+
-      '<div class="tt warn"><span class="n">'+totWarn+'</span><span class="k">com sinal ou ato</span><span class="s">risco acima da carteira, até o total</span></div>'+
-      '<div class="tt bad"><span class="n">'+(totUn-totOk-totWarn)+'</span><span class="k">fora do teto</span><span class="s">não fecham</span></div>'+
+      '<div class="tt ok"><span class="n">'+totOk+'</span><span class="k">'+(st.emc?'fecham com Emcash':'unidades sem sinal')+'</span><span class="s">de '+totUn+' no recorte</span></div>'+
+      (st.emc?'':'<div class="tt warn"><span class="n">'+totWarn+'</span><span class="k">com sinal ou ato</span><span class="s">risco acima da carteira, até o total</span></div>')+
+      '<div class="tt bad"><span class="n">'+(totUn-totOk-totWarn)+'</span><span class="k">fora do teto</span><span class="s">'+(st.emc?'nem com Emcash':'não fecham')+'</span></div>'+
       '<div class="tt neutral"><span class="n">'+empsOk+'<span style="font-size:14px;color:var(--mut)">/'+blocos.length+'</span></span><span class="k">empreendimentos com opção</span><span class="s">'+
         (melhores.length?'melhor: '+esc(nome(melhores[0].k)):'nenhum fecha')+'</span></div>'+
       '<div class="tt neutral"><span class="n">'+(parcelas.length?BRL0.format(Math.min.apply(null,parcelas)):'—')+'</span><span class="k">menor parcela que fecha</span><span class="s">'+
@@ -994,7 +1013,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
 
       return '<article class="pcard '+r.status+'">'+
         '<div class="hd"><div class="titlerow"><h3>'+esc(nome(b.k))+'</h3><span class="ppill '+r.status+'">'+esc(r.label)+'</span></div>'+
-          '<span class="sub">'+esc(u.cid)+(u.ver?' · tabela '+esc(u.ver):'')+' · '+b.sims.length+' disponíveis · '+(b.ok+b.warn)+' fecham'+(b.ok?' ('+b.ok+' sem sinal)':'')+'</span></div>'+
+          '<span class="sub">'+esc(u.cid)+(u.ver?' · tabela '+esc(u.ver):'')+' · '+b.sims.length+' disponíveis · '+(b.ok+b.warn)+' fecham'+(b.ok&&!st.emc?' ('+b.ok+' sem sinal)':'')+'</span></div>'+
         '<div class="unitpick">'+
           '<select data-pvemp="'+esc(b.k)+'" aria-label="Unidade de '+esc(nome(b.k))+'">'+
             b.sims.slice(0,300).map(function(x){
@@ -1014,8 +1033,8 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
         '</div>'+
         '<div class="closing">'+
           '<div class="row head"><span>Como a entrada se divide</span><span>risco '+PCT.format(r.risco*100)+'%</span></div>'+
-          '<div class="row"><span class="k">Fica na carteira MRV</span><span class="v">'+(r.carteira>0?BRLc.format(r.carteira):'—')+'</span></div>'+
-          '<div class="row"><span class="k">Sinal'+(r.sinal>P.sinalMin?' (até '+P.sinalX+'x)':'')+'</span><span class="v">'+(r.sinal>0?BRLc.format(r.sinal):'—')+'</span></div>'+
+          '<div class="row"><span class="k">'+(st.emc?'Financiado pela Emcash':'Fica na carteira MRV')+'</span><span class="v">'+(r.carteira>0?BRLc.format(r.carteira):'—')+'</span></div>'+
+          (st.emc?'':'<div class="row"><span class="k">Sinal'+(r.sinal>P.sinalMin?' (até '+P.sinalX+'x)':'')+'</span><span class="v">'+(r.sinal>0?BRLc.format(r.sinal):'—')+'</span></div>')+
           '<div class="row"><span class="k">Ato à vista, na assinatura</span><span class="v">'+(r.atoTotal>0?BRLc.format(r.atoTotal):'—')+'</span></div>'+
           '<div class="row strong"><span class="k">Soma = entrada do cliente</span><span class="v">'+BRLc.format(r.carteira+r.sinal+r.atoTotal)+'</span></div>'+
         '</div>'+
@@ -1417,12 +1436,23 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   [['data-pvplanta','planta'],['data-pvpag','pag'],['data-pvdep','dep'],['data-pvcot','cot'],['data-pvemc','emc']].forEach(function(pr){
     document.querySelectorAll('['+pr[0]+']').forEach(function(b){
       b.addEventListener('click',function(){
-        st[pr[1]]=parseInt(b.getAttribute(pr[0]),10); st.pick={};
+        st[pr[1]]=parseInt(b.getAttribute(pr[0]),10); st.pick={}; if(pr[1]==='emc') emcUI();
         document.querySelectorAll('['+pr[0]+']').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
         render();
       });
     });
   });
+  /* v14: com Emcash so vale o Risco Emcash; Risco total e Risco carteira ficam desativados (e o Risco Emcash fica desativado sem Emcash). O que foi digitado nao se perde. */
+  function emcUI(){
+    var on=!!st.emc;
+    [['pv-rkt',on],['pv-rkc',on],['pv-rke',!on]].forEach(function(p){
+      var el=g(p[0]); if(!el) return;
+      el.disabled=p[1];
+      var f=el.closest?el.closest('.f'):null; if(f) f.classList.toggle('off',p[1]);
+      el.title=p[1]?(on?'Não vale com Emcash: só o Risco Emcash conta.':'Só vale com o Emcash ligado.'):'';
+    });
+  }
+  emcUI();
   function taxaCalc(){
     var renda=mv('pv-cRenda'), valor=mv('pv-cValor');
     var out=g('pv-cOut'), box=g('pv-cRes'); out.className='cout'; box.innerHTML='';
@@ -1441,7 +1471,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   ['pv-cRenda','pv-cValor'].forEach(function(id){ g(id).addEventListener('input',taxaCalc); });
   /* mudou o cliente? a unidade escolhida a mao perde a validade, senao o card
      continua preso numa unidade ruim enquanto diz "a que melhor fecha" */
-  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12','pv-rkt','pv-rkc'].forEach(function(id){
+  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12','pv-rkt','pv-rkc','pv-rke'].forEach(function(id){
     g(id).addEventListener('input',function(){ st.pick={}; render(); }); });
   g('pv-cidade').addEventListener('change',function(){ st.pick={}; render(); });
   ['pv-escolha','pv-ordem'].forEach(function(id){ g(id).addEventListener('change',function(){ st.pick={}; render(); }); });
