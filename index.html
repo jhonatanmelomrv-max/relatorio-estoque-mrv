@@ -299,6 +299,8 @@ td{padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
           <option value="area">A maior em área</option>
         </select></div>
       <div class="f"><label for="pv-limF12">Teto de Faixa 1 e 2 (R$)</label><input type="text" inputmode="numeric" data-mny="1" id="pv-limF12" value="264.000,00"></div>
+      <div class="f"><label for="pv-rkt">Risco total (%) — máximo da construtora</label><input type="text" inputmode="numeric" data-mny="1" id="pv-rkt" value="26,00"></div>
+      <div class="f"><label for="pv-rkc">Risco carteira (%) — parcela em até 48x</label><input type="text" inputmode="numeric" data-mny="1" id="pv-rkc" value="20,00"></div>
       <div class="f"><label for="pv-taxa">Taxa da faixa do cliente (% a.a.)</label><input type="number" id="pv-taxa" step="0.05" placeholder="auto"></div>
       <div class="f"><label for="pv-ordem">Ordem dos cards</label>
         <select id="pv-ordem">
@@ -712,7 +714,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   var N1=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
   var FN=['Faixa 1','Faixa 2','Faixa 3','Faixa 4'];
   function g(id){ return document.getElementById(id); }
-  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); })();
+  function mv(id){ var s=String(g(id).value).replace(/\./g,'').replace(',','.'); var v=parseFloat(s); return isFinite(v)?v:NaN; }  function num(id){ var v=mv(id); return isFinite(v)?v:0; }  (function(){ var ids=['pv-renda','pv-cheque','pv-fgts','pv-limF12','pv-rkt','pv-rkc','pv-cRenda','pv-cValor']; function fim(el){ try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} } function fmt(el){ var d=el.value.replace(/\D/g,'').replace(/^0+/,'').slice(0,12); while(d.length<3) d='0'+d; el.value=d.slice(0,-2).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+d.slice(-2); fim(el); } ids.forEach(function(id){ var el=g(id); fmt(el); el.addEventListener('input',function(){ fmt(el); }); el.addEventListener('focus',function(){ setTimeout(function(){ fim(el); },0); }); }); })();
 
   function fatorPrice(i,n){ if(i<=0) return 1/n; var f=Math.pow(1+i,n); return i*f/(f-1); }
   function faixaPorRenda(r){ for(var k=0;k<4;k++){ if(r<=P.f[k]) return k; } return -1; }
@@ -764,19 +766,23 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     var parcela=cap*(fator+P.mip)+dfiMes+adm;
     var rp=Math.max(0,o.valor-cap-beneficios);
     var risco=o.valor>0?rp/o.valor:0;
+    var rT=mv('pv-rkt'), rC=mv('pv-rkc');
+    rT=(isFinite(rT)&&rT>0)?rT/100:P.r26; rC=(isFinite(rC)&&rC>=0)?rC/100:P.r20;
+    if(rC>rT) rC=rT;
+    var r20=rC, r26=rT, r24=Math.min(Math.max(P.r24,r20),r26);
     var sinal=0,ato=0,status='ok',label='Fecha sem sinal';
     if(faixa<0){ status='bad'; label=(fValor>3?'Unidade fora do programa':'Renda fora do programa'); }
-    else if(risco<=P.r20){ sinal=P.sinalMin; }
-    else if(risco<=P.r24){ sinal=(risco-P.r20)*o.valor; status='warn'; label='Sinal em até '+P.sinalX+'x'; }
-    else if(risco<=P.r26){ sinal=(P.r24-P.r20)*o.valor; ato=(risco-P.r24)*o.valor; status='warn'; label='Sinal + ato'; }
-    else { sinal=(P.r24-P.r20)*o.valor; ato=(risco-P.r24)*o.valor; status='bad'; label='Estoura o teto'; }
+    else if(risco<=r20){ sinal=P.sinalMin; }
+    else if(risco<=r24){ sinal=(risco-r20)*o.valor; status='warn'; label='Sinal em até '+P.sinalX+'x'; }
+    else if(risco<=r26){ sinal=(r24-r20)*o.valor; ato=(risco-r24)*o.valor; status='warn'; label='Sinal + ato'; }
+    else { sinal=(r24-r20)*o.valor; ato=(risco-r24)*o.valor; status='bad'; label='Estoura o teto'; }
     var atoMin=(st.pag||st.emc)?o.valor*P.ato:0;
-    if(st.emc){ sinal=0; ato=Math.max(ato,atoMin); if(risco<=P.r26) label='Emcash cobre a entrada'; }
+    if(st.emc){ sinal=0; ato=Math.max(ato,atoMin); if(risco<=r26) label='Emcash cobre a entrada'; }
     var atoTotal=Math.max(ato,atoMin);
     var carteira=Math.max(0, rp - sinal - atoTotal);
     return {faixa:faixa,taxaAA:taxaAA,n:n,cap:cap,capRenda:capRenda,capLtv:capLtv,
       trava:trava,parcela:parcela,rp:rp,risco:risco,cheque:cheque,subsidio:sub,beneficios:beneficios,
-      sinal:sinal,ato:ato,atoMin:atoMin,atoTotal:atoTotal,carteira:carteira,
+      rT:rT,rC:rC,sinal:sinal,ato:ato,atoMin:atoMin,atoTotal:atoTotal,carteira:carteira,
       status:status,label:label,folga:Math.max(0,o.renda*P.emcash-parcela),
       fRenda:fRenda,fValor:fValor,mandaValor:mandaValor};
   }
@@ -818,7 +824,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
     if(r.mandaValor) return 'Esta unidade custa '+BRL0.format(u.v)+', acima do teto de '+BRL0.format(mv('pv-limF12')||P.limF12)+' das Faixas 1 e 2 — então ela entra como '+FN[r.faixa]+' e paga '+PCT.format(r.taxaAA)+'% a.a., mesmo com a renda de '+BRL0.format(num('pv-renda'))+' sendo de '+FN[r.fRenda]+'. É o valor do imóvel que manda, não a renda.';
     if(idade!==null && idade>idMax) return 'Cliente com '+N1.format(idade)+' anos passa do limite de '+idMax+' para imóvel '+(st.planta?'na planta':'pronto')+' — tem que compor renda com alguém mais novo. O prazo continua '+r.n+' meses.';
     if(r.faixa<0) return 'Renda acima do teto de '+BRL0.format(P.f[3])+' do programa.';
-    if(r.status==='bad') return 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(P.r26*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
+    if(r.status==='bad') return 'A entrada de '+BRL0.format(r.rp)+' dá '+PCT.format(r.risco*100)+'% de risco, acima do teto de '+PCT.format(r.rT*100)+'%. Com Emcash a entrada sai da carteira e a proposta volta a caber — sobram '+BRLc.format(r.folga)+' por mês de folga.';
     if(r.trava==='cota') return 'A cota de '+Math.round(P.ltv*100)+'% trava em '+BRL0.format(r.capLtv)+'; a renda sozinha comportaria '+BRL0.format(r.capRenda)+'. Sobra de renda: '+BRLc.format(Math.max(0,num('pv-renda')*P.comp-r.parcela))+' por mês.';
     if(r.trava==='necessidade') return 'O financiamento cobre tudo que faltava — os benefícios já dão conta do resto.';
     return 'Travada pela renda: '+Math.round(P.comp*100)+'% de '+BRL0.format(num('pv-renda'))+' dá parcela de '+BRLc.format(num('pv-renda')*P.comp)+', o que financia '+BRL0.format(r.capRenda)+'. A cota permitiria '+BRL0.format(r.capLtv)+'.';
@@ -875,7 +881,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
 
     g('pv-totals').innerHTML =
       '<div class="tt ok"><span class="n">'+totOk+'</span><span class="k">unidades sem sinal</span><span class="s">de '+totUn+' no recorte</span></div>'+
-      '<div class="tt warn"><span class="n">'+totWarn+'</span><span class="k">com sinal ou ato</span><span class="s">risco entre 20% e 26%</span></div>'+
+      '<div class="tt warn"><span class="n">'+totWarn+'</span><span class="k">com sinal ou ato</span><span class="s">risco acima da carteira, até o total</span></div>'+
       '<div class="tt bad"><span class="n">'+(totUn-totOk-totWarn)+'</span><span class="k">fora do teto</span><span class="s">não fecham</span></div>'+
       '<div class="tt neutral"><span class="n">'+empsOk+'<span style="font-size:14px;color:var(--mut)">/'+blocos.length+'</span></span><span class="k">empreendimentos com opção</span><span class="s">'+
         (melhores.length?'melhor: '+esc(nome(melhores[0].k)):'nenhum fecha')+'</span></div>'+
@@ -984,7 +990,7 @@ $('#theme').onclick=()=>{const r=document.documentElement;const d=getComputedSty
   ['pv-cRenda','pv-cValor'].forEach(function(id){ g(id).addEventListener('input',taxaCalc); });
   /* mudou o cliente? a unidade escolhida a mao perde a validade, senao o card
      continua preso numa unidade ruim enquanto diz "a que melhor fecha" */
-  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12'].forEach(function(id){
+  ['pv-renda','pv-nasc','pv-cheque','pv-fgts','pv-taxa','pv-limF12','pv-rkt','pv-rkc'].forEach(function(id){
     g(id).addEventListener('input',function(){ st.pick={}; render(); }); });
   g('pv-cidade').addEventListener('change',function(){ st.pick={}; render(); });
   ['pv-escolha','pv-ordem'].forEach(function(id){ g(id).addEventListener('change',function(){ st.pick={}; render(); }); });
